@@ -1,0 +1,33 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+import CountUp from 'react-countup';
+
+
+function StatCard() {
+    const [stat, setStat] = useState([]);
+
+    useEffect(() => {
+        //Stat
+        axios.get(`http://127.0.0.1:8000/stat`)
+            .then(res => {
+                setStat(res.data)
+            })
+    }, []);
+
+    return (
+        <section className="w-100">
+            <section className="container-fluid bg-primary text-secondary py-5 text-center" style={{ borderRadius: '2rem' }}>
+                <section className="row">
+                    {stat.map(item =>
+                        <section className="col-sm-4" key={item.id}>
+                            <h1 className="text-secondary"><CountUp end={item.stat_figure} duration={5} suffix=" +" /></h1>
+                            <p className="fs-5 fw-light">{item.stat_title}</p>
+                        </section>
+                    )}
+                </section>
+            </section>
+        </section>
+    );
+}
+
+export default StatCard;
