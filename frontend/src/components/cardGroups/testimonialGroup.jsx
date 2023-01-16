@@ -52,7 +52,7 @@ function TestimonialGroup() {
                 ?
                 null
                 :
-                <section className="container py-10">
+                <section className="container py-10 testimonials">
                     <header className="text-center">
                         <h2 className="mb-8">Testimonials</h2>
                     </header>

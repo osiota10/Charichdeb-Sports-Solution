@@ -1,4 +1,4 @@
-
+import parse from 'html-react-parser';
 
 
 function CoreValueCard({ key, title, body, image }) {
@@ -13,7 +13,7 @@ function CoreValueCard({ key, title, body, image }) {
             </header>
 
             <section>
-                <p>{body}</p>
+                <p>{parse(`${body}`)}</p>
             </section>
         </section>
     );

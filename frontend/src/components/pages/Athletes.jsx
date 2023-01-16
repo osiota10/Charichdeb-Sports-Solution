@@ -48,27 +48,34 @@ function PaginatedItems({ itemsPerPage }) {
         <>
             <section className='container'>
                 <Items currentItems={currentItems} />
-                <ReactPaginate
-                    previousLabel={`Prev`}
-                    nextLabel={'Next'}
-                    breakLabel="..."
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={3}
-                    pageCount={pageCount}
-                    renderOnZeroPageCount={null}
-                    marginPagesDisplayed={3}
-                    // CSS Classes
-                    containerClassName={'pagination justify-content-center py-8'}
-                    pageClassName={'page-item me-1'}
-                    pageLinkClassName={'page-link rounded'}
-                    previousClassName={'page-item me-5'}
-                    previousLinkClassName={'page-link rounded'}
-                    nextClassName={'page-item ms-4'}
-                    nextLinkClassName={'page-link rounded'}
-                    breakClassName={'page-item me-1'}
-                    breakLinkClassName={'page-link rounded'}
-                    activeClassName={'active'}
-                />
+
+                {Object.keys(items).length > itemsPerPage
+                    ?
+                    <ReactPaginate
+                        previousLabel={`Prev`}
+                        nextLabel={'Next'}
+                        breakLabel="..."
+                        onPageChange={handlePageClick}
+                        pageRangeDisplayed={3}
+                        pageCount={pageCount}
+                        renderOnZeroPageCount={null}
+                        marginPagesDisplayed={3}
+                        // CSS Classes
+                        containerClassName={'pagination justify-content-center py-8'}
+                        pageClassName={'page-item me-1'}
+                        pageLinkClassName={'page-link rounded'}
+                        previousClassName={'page-item me-5'}
+                        previousLinkClassName={'page-link rounded'}
+                        nextClassName={'page-item ms-4'}
+                        nextLinkClassName={'page-link rounded'}
+                        breakClassName={'page-item me-1'}
+                        breakLinkClassName={'page-link rounded'}
+                        activeClassName={'active'}
+                    />
+                    :
+                    null
+                }
+
             </section>
         </>
     );

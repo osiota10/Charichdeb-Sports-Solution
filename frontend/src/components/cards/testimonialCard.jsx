@@ -14,7 +14,7 @@ function TestimonialCard({ key, name, title, pic, message }) {
                 </section>
             </section>
 
-            <section>
+            <section className='px-1'>
                 <i class="fa-solid fa-quote-left text-primary fs-4"></i>
                 <p>{parse(`${message}`)}
                 </p>

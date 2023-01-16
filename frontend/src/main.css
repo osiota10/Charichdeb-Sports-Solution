@@ -167,6 +167,13 @@ select {
   right: 1rem !important;
 }
 
+.testimonials .slick-prev {
+  left: -1.5rem !important;
+}
+.testimonials .slick-next {
+  right: 0.4rem !important;
+}
+
 .fa-square-facebook:hover {
   color: #1877F2 !important;
   transition: 0.5s;
@@ -212,9 +219,6 @@ select {
 @media (max-width: 991.98px) {
   .service-template .ms-lg-n6 {
     margin-top: -3.5rem;
-  }
-  .service-template .ratio-3x4 {
-    --bs-aspect-ratio: calc(9 / 16 * 100%);
   }
 }
 @media (max-width: 767.98px) {

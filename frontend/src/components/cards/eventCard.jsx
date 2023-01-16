@@ -1,15 +1,12 @@
 import React from 'react'
 import TextTruncate from 'react-text-truncate';
-import parse from 'html-react-parser';
 
 
 function EventCard({ key, title, body, image, date }) {
-    let newBody = parse(`${body}`)
-    // const bodyString = newBody.replace(/<[^>]+>/g, '');
-    // console.log(bodyString)
+
     return (
         <section className='col'>
-            <section className="card" style={{ maxWidth: '379px' }} key={key}>
+            <section className="card mx-auto" style={{ maxWidth: '379px' }} key={key}>
                 <div className='ratio ratio-16x9 overflow-hidden'>
                     <img src={image} className="card-img-top mb-4" alt="..." />
                 </div>
@@ -29,7 +26,7 @@ function EventCard({ key, title, body, image, date }) {
                         text={body}
                         className='card-text'
                     />
-                    {/* <p>{newBody}</p> */}
+
                 </section>
                 <div class="card-footer text-primary fw-bold text-center">
                     <small>Event Date: {date}</small>

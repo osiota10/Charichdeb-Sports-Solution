@@ -363,6 +363,16 @@ select {
     right: 1rem !important;
   }
 }
+
+.testimonials {
+  .slick-prev{
+    left: -1.5rem !important;
+  }
+  
+  .slick-next{
+    right: .4rem !important;
+  }
+}
 // .slick-dots li button::marker  {
 //   border-radius: 0px !important;
 // }
@@ -436,9 +446,9 @@ select {
         margin-top: -3.5rem;
       }
 
-      .ratio-3x4{
-        --bs-aspect-ratio: calc(9 / 16 * 100%);
-        }
+      // .ratio-3x4{
+      //   --bs-aspect-ratio: calc(9 / 16 * 100%);
+      //   }
     }
   }
   @include media-breakpoint-down(md) { 

@@ -6,6 +6,7 @@ import PageTitle from "../cards/pageTitle";
 import ServicesListTemplate from "../cards/servicesTemplate";
 
 
+
 function AboutPage() {
     const [partners, setPartners] = useState([]);
     const [stories, setStories] = useState([]);
@@ -22,6 +23,10 @@ function AboutPage() {
             .then(res => {
                 setStories(res.data)
             })
+
+        // Initialize tooltip
+        // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        // const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     }, []);
     return (
         <>
@@ -29,15 +34,21 @@ function AboutPage() {
 
             <CoreValues />
 
-            <section>
-                {stories.map(item => <ServicesListTemplate key={item.id} title={item.title} body={item.body} image={item.get_image_url} />)}
-            </section>
-
+            {Object.keys(stories).length === 0
+                ?
+                null
+                :
+                <section className="container">
+                    {stories.map(item => <ServicesListTemplate key={item.id} title={item.title} body={item.body} image={item.get_image_url} />)}
+                </section>
+            }
 
             <WorkProcess />
 
-            {partners === 0
+            {Object.keys(partners).length === 0
                 ?
+                null
+                :
                 <section className="py-10">
                     <section className="container">
                         <header className="text-center mb-8">
@@ -47,19 +58,13 @@ function AboutPage() {
                             {partners.slice(0, 8).map(item =>
                                 <section className="col" key={item.id}>
                                     <section className="card">
-                                        <img src={item.get_image_url} className='card-img' alt={`logo of ${item.name}`} />
+                                        <img src={item.get_image_url} className='card-img' alt={`logo of ${item.name}`} data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top" />
                                     </section>
                                 </section>
                             )}
-
                         </section>
                     </section>
-                </section>
-                :
-                null
-            }
-
-
+                </section>}
         </>
     );
 }
