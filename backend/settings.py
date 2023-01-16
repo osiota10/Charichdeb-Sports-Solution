@@ -212,3 +212,5 @@ cloudinary.config(
 )
 
 AUTH_USER_MODEL = 'api.UserAccount'
+
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS')
