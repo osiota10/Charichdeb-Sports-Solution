@@ -1,4 +1,4 @@
-
+import parse from 'html-react-parser';
 
 function WorkProcessCard({ id, key, title, body }) {
     return (
@@ -12,7 +12,7 @@ function WorkProcessCard({ id, key, title, body }) {
             </header>
 
             <section>
-                <p>{body}</p>
+                <p>{parse(`${body}`)}</p>
             </section>
         </section>
     );

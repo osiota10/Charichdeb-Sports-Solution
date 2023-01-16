@@ -12,7 +12,7 @@ function Items({ currentItems }) {
             <section className='row row-cols-1 row-cols-lg-3 g-6 justify-content-center'>
                 {currentItems &&
                     currentItems.map((item) => (
-                        <section><Link className='text-decoration-none' to={'/events/' + item.slug}><EventCard key={item.id} title={item.title} body={item.body} image={item.get_image_url} date={item.event_date} /></Link></section>
+                        <section><Link className='text-decoration-none' to={'/events/' + item.slug}><EventCard key={item.id} title={item.title} body={item.safe_body_html} image={item.get_image_url} date={item.event_date} /></Link></section>
                     ))}
             </section>
         </section>

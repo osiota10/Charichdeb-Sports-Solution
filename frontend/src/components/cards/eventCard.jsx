@@ -29,7 +29,7 @@ function EventCard({ key, title, body, image, date }) {
                         text={body}
                         className='card-text'
                     />
-
+                    {/* <p>{newBody}</p> */}
                 </section>
                 <div class="card-footer text-primary fw-bold text-center">
                     <small>Event Date: {date}</small>

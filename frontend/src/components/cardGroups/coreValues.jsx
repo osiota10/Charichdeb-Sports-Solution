@@ -15,17 +15,25 @@ function CoreValues() {
     }, []);
 
     return (
-        <section className="py-10">
-            <section className="container">
-                <header className="text-center mb-8">
-                    <h2>Our Core Values</h2>
-                </header>
+        <>
+            {Object.keys(coreValue).length === 0
+                ?
+                null
+                :
+                <section className="py-10">
+                    <section className="container">
+                        <header className="text-center mb-8">
+                            <h2>Our Core Values</h2>
+                        </header>
 
-                <section className="row">
-                    {coreValue.map(item => <CoreValueCard key={item.id} title={item.title} body={item.body} image={item.get_image_url} />)}
+                        <section className="row">
+                            {coreValue.map(item => <CoreValueCard key={item.id} title={item.title} body={item.body} image={item.get_image_url} />)}
+                        </section>
+                    </section>
                 </section>
-            </section>
-        </section>
+            }
+        </>
+
     );
 }
 

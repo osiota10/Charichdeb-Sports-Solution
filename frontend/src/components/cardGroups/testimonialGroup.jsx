@@ -3,6 +3,8 @@ import { TestimoninailContext } from "../../App";
 import { useContext } from "react";
 import Slider from "react-slick";
 
+
+
 function TestimonialGroup() {
     const settings = {
         dots: false,
@@ -16,11 +18,11 @@ function TestimonialGroup() {
         autoplay: true,
         autoplaySpeed: 10000,
         cssEase: "linear",
-        afterChange: function (index) {
-            console.log(
-                `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-            );
-        },
+        // afterChange: function (index) {
+        //     console.log(
+        //         `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
+        //     );
+        // },
         responsive: [
             {
                 breakpoint: 1024,
@@ -45,21 +47,29 @@ function TestimonialGroup() {
     const TestimonialList = useContext(TestimoninailContext)
 
     return (
-        <section className="container py-10">
-            <header className="text-center">
-                <h2 className="mb-8">Testimonials</h2>
-            </header>
+        <>
+            {Object.keys(TestimonialList).length === 0
+                ?
+                null
+                :
+                <section className="container py-10">
+                    <header className="text-center">
+                        <h2 className="mb-8">Testimonials</h2>
+                    </header>
 
-            <section>
-                <section className="row">
-                    <section className="col-lg-8 mx-auto">
-                        <Slider {...settings}>
-                            {TestimonialList.map(item => <TestimonialCard key={item.id} name={item.name} title={item.designation} pic={item.get_image_url} message={item.body} />)}
-                        </Slider>
+                    <section>
+                        <section className="row">
+                            <section className="col-lg-8 mx-auto">
+                                <Slider {...settings}>
+                                    {TestimonialList.map(item => <TestimonialCard key={item.id} name={item.name} title={item.designation} pic={item.get_image_url} message={item.body} />)}
+                                </Slider>
+                            </section>
+                        </section>
                     </section>
                 </section>
-            </section>
-        </section>
+            }
+        </>
+
     );
 }
 

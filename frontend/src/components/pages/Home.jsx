@@ -8,14 +8,53 @@ import { useContext, useState, useEffect } from "react";
 import { CompanyInformationContext } from "../../App";
 import parse from 'html-react-parser';
 import axios from "axios";
+import Slider from "react-slick";
 
 
 
 const pic = {
-    url: 'https://img.freepik.com/free-photo/athlete-ready-run-with-are-you-ready-message_23-2149074274.jpg?size=626&ext=jpg&ga=GA1.2.1699289041.1668069491'
+    url: 'https://joy1.videvo.net/videvo_files/video/free/2016-07/large_watermarked/160721_1_StartingStopwatch1_1080p_preview.mp4'
 }
 
 function HomePage() {
+    const settings = {
+        dots: false,
+        arrows: false,
+        className: "center",
+        infinite: true,
+        centerPadding: "160px",
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        swipeToSlide: true,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        cssEase: "linear",
+        // afterChange: function (index) {
+        //     console.log(
+        //         `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
+        //     );
+        // },
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    initialSlide: 1
+                }
+            },
+        ]
+    };
+
     const companyInfo = useContext(CompanyInformationContext)
     const [hero, setHero] = useState([]);
 
@@ -28,42 +67,47 @@ function HomePage() {
     }, []);
 
     return (
+
         <section>
-
-
             <section className="card hero">
                 <div className="text-bg-dark">
-                    <section className="ratio ratio-16x9">
-                        <img src={pic.url} className="card-img img-fluid" alt="..." />
+                    <section className="ratio ratio-21x9">
+                        <video src={pic.url} muted loop autoPlay></video>
                     </section>
 
                     <div className="card-img-overlay img-dark-overlay">
-                        <div className="py-5 my-5 text-center position-absolute top-50 start-50 translate-middle w-75">
-                            <h1 className="display-5 text-white">Centered hero</h1>
-                            <div className="col-lg-8 mx-auto">
-                                <p className="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
-                                <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                                    <button type="button" className="btn btn-secondary">Contact Us</button>
-                                </div>
-                            </div>
+                        <div className="py-5 text-center position-absolute top-50 start-50 translate-middle w-75">
+                            <h4 className="text-secondary">The future of</h4>
+                            <Slider {...settings}>
+                                <h1 className="text-white">Sports Development</h1>
+                                <h1 className="text-white">Entertainment Development</h1>
+                                <h1 className="text-white">Sports Recruitment</h1>
+                            </Slider>
+
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section className=' w-75 mx-auto mt-n6 stat'>
+            <section className=' w-75 mx-auto mt-n8 stat'>
                 <StatCard />
             </section>
 
-
-            <section className="container py-10">
-                <section className="row">
-                    <section className="col-lg-8 mx-auto">
-                        <h2 className="text-center">{companyInfo.company_name}</h2>
-                        {parse(`${companyInfo.about_company}`)}
+            {companyInfo.about_company
+                ?
+                <section className="container py-10">
+                    <section className="row">
+                        <section className="col-lg-8 mx-auto">
+                            <h2 className="text-center">About Us</h2>
+                            {parse(`${companyInfo.about_company}`)}
+                        </section>
                     </section>
                 </section>
-            </section>
+                :
+                null
+            }
+
+
             <ServiceGroup />
             <WorkProcess />
             <AthleteGroup />

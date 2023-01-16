@@ -5,7 +5,7 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
 }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
@@ -64,6 +64,13 @@ input::placeholder, textarea::placeholder {
   --bs-card-inner-border-radius: 0px;
   z-index: -1;
 }
+.card.hero video {
+  -o-object-fit: cover !important;
+     object-fit: cover !important;
+}
+.card.hero .athlete-bg {
+  z-index: -3 !important;
+}
 .card.hero .card-img-overlay {
   padding: 0px;
 }
@@ -110,6 +117,25 @@ a.nav-link.active {
   padding: 1rem;
 }
 
+select {
+  color: #fff;
+}
+
+.slick-prev:before, .slick-next:before {
+  color: #003D2B !important;
+  font-size: 3.0625rem !important;
+}
+
+.slick-prev {
+  left: 0.1rem !important;
+  z-index: 1028;
+}
+
+.slick-next {
+  right: 2rem !important;
+  z-index: 1028;
+}
+
 .slick-dots li button:before {
   font-size: 1.5rem !important;
   color: #003D2B !important;
@@ -121,6 +147,24 @@ a.nav-link.active {
 
 .what-we-do .slick-dots li button:before {
   color: #FFFDD0 !important;
+}
+.what-we-do .slick-prev {
+  left: -0.7rem !important;
+  z-index: 1028;
+}
+.what-we-do .slick-next {
+  right: 1rem !important;
+  z-index: 1028;
+}
+.what-we-do .slick-prev:before, .what-we-do .slick-next:before {
+  color: #FFFDD0 !important;
+}
+
+.upcoming-events .slick-prev {
+  left: -0.7rem !important;
+}
+.upcoming-events .slick-next {
+  right: 1rem !important;
 }
 
 .fa-square-facebook:hover {
@@ -174,8 +218,13 @@ a.nav-link.active {
   }
 }
 @media (max-width: 767.98px) {
-  .card.hero .ratio-16x9 {
+  .card.hero .ratio-21x9 {
     --bs-aspect-ratio: calc(3 / 4 * 100%);
+  }
+}
+@media (max-width: 575.98px) {
+  .card.hero .ratio-21x9 {
+    --bs-aspect-ratio: calc(4 / 3 * 100%);
   }
 }
 /*!

@@ -43,23 +43,31 @@ function EventGroup() {
     const EventList = useContext(EventContext)
 
     return (
-        <section className="p-10 bg-light">
-            <section className='container'>
-                <header className="text-center">
-                    <h2 className="mb-8">Upcoming Events</h2>
-                </header>
+        <>
+            {Object.keys(EventList).length === 0
+                ?
+                null
+                :
+                <section className="py-10 bg-light upcoming-events">
+                    <section className='container'>
+                        <header className="text-center">
+                            <h2 className="mb-8">Upcoming Events</h2>
+                        </header>
 
-                <section>
-                    <Slider {...settings}>
-                        {EventList.slice(0, 9).map(item => <Link className='text-decoration-none' to={'/events/' + item.slug}><EventCard key={item.id} title={item.title} body={item.body} image={item.get_image_url} date={item.event_date} /></Link>)}
-                    </Slider>
+                        <section>
+                            <Slider {...settings}>
+                                {EventList.slice(0, 9).map(item => <Link className='text-decoration-none' to={'/events/' + item.slug}><EventCard key={item.id} title={item.title} body={item.safe_body_html} image={item.get_image_url} date={item.event_date} /></Link>)}
+                            </Slider>
 
-                    <div className='d-flex justify-content-center'>
-                        <Link to="/events" className='btn btn-primary mt-9'>See all</Link>
-                    </div>
+                            <div className='d-flex justify-content-center'>
+                                <Link to="/events" className='btn btn-primary mt-9'>See all</Link>
+                            </div>
+                        </section>
+                    </section>
                 </section>
-            </section>
-        </section>
+            }
+        </>
+
     );
 }
 

@@ -20,42 +20,6 @@ function NavBar() {
     return (
         <>
             <nav className={fix ? 'navbar fixed-top navbar-expand-lg scroll-navbar' : 'navbar fixed-top navbar-expand-lg'} >
-                {/* <div className="container-fluid">
-                    <Link to="/" className='navbar-brand d-flex align-items-center'>
-                        <img src="logo.svg" alt="Logo" width="75" height="75" className="d-inline-block align-text-top me-1" />
-                        <h6 className="text-white">Charichdeb <br />Sports Solution</h6>
-                    </Link>
-
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <NavLink to="/" className='nav-link' aria-current="page">Home</NavLink>
-                            </li>
-
-                            <li className="nav-item">
-                                <NavLink to="/about" className='nav-link' aria-current="page">About</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="/services" className='nav-link'>Services</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="/events" className='nav-link'>Events</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="/contact" className='nav-link'>Contact</NavLink>
-                            </li>
-                        </ul>
-                    </div>
-                    <span className="d-none d-lg-block">
-                        <button className='btn btn-outline-secondary me-1'>Log In</button>
-                        <button className='btn btn-secondary'>Sign Up</button>
-                    </span>
-
-                </div> */}
                 <div class="container-fluid">
 
                     <Link to="/" className='navbar-brand d-flex align-items-center'>
@@ -95,19 +59,18 @@ function NavBar() {
                                         <NavLink to="/contact" className='nav-link'>Contact</NavLink>
                                     </li>
                                 </ul>
-                                <span className="vstack d-lg-none .d-xl-block">
-                                    <button className='btn btn-outline-secondary mb-3'>Log In</button>
-                                    <button className='btn btn-secondary'>Sign Up</button>
+                                <span className="vstack d-lg-none .d-xl-block mt-3">
+                                    <Link className='btn btn-outline-secondary text-decoration-none mb-3' to="/login">Log In</Link>
+                                    <Link className='btn btn-secondary text-decoration-none' to="/signup">Sign Up</Link>
                                 </span>
                             </div>
                             <span className="d-none d-lg-block">
-                                <button className='btn btn-outline-secondary me-1'>Log In</button>
-                                <button className='btn btn-secondary'>Sign Up</button>
+                                <Link className='btn btn-outline-secondary text-decoration-none me-1' to="/login">Log In</Link>
+                                <Link className='btn btn-secondary text-decoration-none' to="/signup">Sign Up</Link>
                             </span>
                         </div>
                     </div>
                 </div>
-
             </nav>
             <Outlet />
         </>

@@ -36,23 +36,30 @@ function AboutPage() {
 
             <WorkProcess />
 
-            <section className="py-10">
-                <section className="container">
-                    <header className="text-center mb-8">
-                        <h2>Our Partners</h2>
-                    </header>
-                    <section className="row row-cols-1 row-cols-md-4 g-4 justify-content-center">
-                        {partners.slice(0, 8).map(item =>
-                            <section className="col" key={item.id}>
-                                <section className="card">
-                                    <img src={item.get_image_url} className='card-img' alt={`logo of ${item.name}`} />
+            {partners === 0
+                ?
+                <section className="py-10">
+                    <section className="container">
+                        <header className="text-center mb-8">
+                            <h2>Our Partners</h2>
+                        </header>
+                        <section className="row row-cols-1 row-cols-md-4 g-4 justify-content-center">
+                            {partners.slice(0, 8).map(item =>
+                                <section className="col" key={item.id}>
+                                    <section className="card">
+                                        <img src={item.get_image_url} className='card-img' alt={`logo of ${item.name}`} />
+                                    </section>
                                 </section>
-                            </section>
-                        )}
+                            )}
 
+                        </section>
                     </section>
                 </section>
-            </section>
+                :
+                null
+            }
+
+
         </>
     );
 }

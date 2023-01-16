@@ -11,15 +11,15 @@ function AthleteGroup() {
         dots: true,
         arrows: true,
         className: "center",
-        infinite: true,
+        infinite: false,
         centerPadding: "160px",
         slidesToShow: 3,
         swipeToSlide: true,
-        afterChange: function (index) {
-            console.log(
-                `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-            );
-        },
+        // afterChange: function (index) {
+        //     console.log(
+        //         `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
+        //     );
+        // },
         responsive: [
             {
                 breakpoint: 1024,
@@ -44,21 +44,20 @@ function AthleteGroup() {
     const AthleteList = useContext(AthleteContext)
 
     return (
-        <section className="p-10">
+        <section className="py-10">
             <section className='container'>
                 <header className="text-center mb-8">
                     <h2>Our Athletes</h2>
                 </header>
 
-                <section>
+                <section className="row justify-content-center">
                     <Slider {...settings}>
-                        {AthleteList.slice(0, 9).map(item => <Link className='text-decoration-none' to={'/athletes/' + item.id}><AthleteCard key={item.id} name={item.name} state={item.address.city} sports={item.username} event={item.company.name} age={item.address.zipcode} /></Link>)}
+                        {AthleteList.slice(0, 9).map(item => <Link className='text-decoration-none' ><AthleteCard key={item.id} firstName={item.first_name} lastName={item.last_name} pic={item.get_photo_url} /></Link>)}
                     </Slider>
-
-                    <div className='d-flex justify-content-center'>
-                        <Link to="/athletes" className='btn btn-primary mt-9'>See all</Link>
-                    </div>
                 </section>
+                <div className='d-flex justify-content-center'>
+                    <Link to="/athletes" className='btn btn-primary mt-9'>See all</Link>
+                </div>
             </section>
         </section>
     );

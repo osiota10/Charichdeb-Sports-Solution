@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import axios from "axios";
 import './main.css'
 import HomePage from './components/pages/Home';
@@ -14,6 +14,17 @@ import EventDetail from './components/detailedPages/EventDetail';
 import AthleteDetailModal from './components/detailedPages/athleteDetail';
 import PrivacyPolicy from './components/pages/privacyPolicy';
 import TermsAndConditions from './components/pages/termsAndConditions';
+import Login from './components/auth/login';
+import SignUp from './components/auth/signup';
+import { Provider } from 'react-redux';
+import store from './store';
+import ResetPasswordConfirm from './components/auth/passwordResetConfirm';
+import ResetPassword from './components/auth/resetPassword';
+import DashboardLayout from './components/dashboard/layout';
+import DashboardHome from './components/dashboard';
+import EditProfile from './components/dashboard/editProfile';
+import { load_user } from './actions/auth';
+import { connect } from 'react-redux';
 
 
 export const ServiceContext = createContext(null)
@@ -22,16 +33,56 @@ export const AthleteContext = createContext(null)
 export const TestimoninailContext = createContext(null)
 export const WorkProcessContext = createContext(null)
 export const CompanyInformationContext = createContext(null)
+export const UserInfoContext = createContext(null)
+
+
 
 function App() {
+
   const [service, setService] = useState([]);
   const [event, setEvent] = useState([]);
   const [athlete, setAthlete] = useState([]);
   const [testimonial, setTestimonial] = useState([]);
   const [workprocess, setWorkProcess] = useState([]);
   const [companyInfo, setCompanyInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState([]);
+
+  const dashLink = window.location.href === '/dashboard'
+
+  // declare the data fetching function
+  const fetchData = async () => {
+    if (localStorage.getItem('access')) {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `JWT ${localStorage.getItem('access')}`,
+          'Accept': 'application/json'
+        }
+      };
+
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users/me/`, config);
+        setUserInfo(res.data)
+        console.log(res.data)
+      } catch (err) {
+        console.error("User not authenticated");
+      }
+    } else {
+      console.error("User not authenticated");
+    }
+  }
 
   useEffect(() => {
+
+    // Load user
+    // load_user()
+
+    //User Info
+    fetchData()
+
+      // make sure to catch any error
+      .catch(console.error);
+
     //Service
     axios.get(`http://127.0.0.1:8000/services`)
       .then(res => {
@@ -45,7 +96,7 @@ function App() {
       })
 
     // Athletes
-    axios.get(`https://jsonplaceholder.typicode.com/users`)
+    axios.get(`http://127.0.0.1:8000/featured-athletes`)
       .then(res => {
         setAthlete(res.data)
       })
@@ -67,39 +118,56 @@ function App() {
       .then(res => {
         setCompanyInfo(res.data)
       })
-  }, []);
+  }, [dashLink]);
 
+  // console.log(isAuthenticated)
   return (
     <div>
-      <ServiceContext.Provider value={service}>
-        <EventContext.Provider value={event}>
-          <AthleteContext.Provider value={athlete}>
-            <TestimoninailContext.Provider value={testimonial}>
-              <WorkProcessContext.Provider value={workprocess}>
-                <CompanyInformationContext.Provider value={companyInfo}>
-                  <BrowserRouter>
-                    <Routes>
-                      <Route path="/" element={<Layout />}>
-                        <Route index element={<HomePage />} />
-                        <Route path="about" element={<AboutPage />} />
-                        <Route path="services" element={<ServicesPage />} />
-                        <Route path="events" element={<EventPage />} />
-                        <Route path="events/:slug" element={<EventDetail />} />
-                        <Route path="athletes" element={<AthletesPage />} />
-                        <Route path="athletes/:id" element={<AthleteDetailModal />} />
-                        <Route path="contact" element={<ContactPage />} />
-                        <Route path="privacy-policy" element={<PrivacyPolicy />} />
-                        <Route path="terms-and-conditions" element={<TermsAndConditions />} />
-                        <Route path="*" element={<NoPage />} />
-                      </Route>
-                    </Routes>
-                  </BrowserRouter>
-                </CompanyInformationContext.Provider>
-              </WorkProcessContext.Provider>
-            </TestimoninailContext.Provider>
-          </AthleteContext.Provider>
-        </EventContext.Provider>
-      </ServiceContext.Provider>
+      <Provider store={store}>
+        <ServiceContext.Provider value={service}>
+          <EventContext.Provider value={event}>
+            <AthleteContext.Provider value={athlete}>
+              <TestimoninailContext.Provider value={testimonial}>
+                <WorkProcessContext.Provider value={workprocess}>
+                  <CompanyInformationContext.Provider value={companyInfo}>
+                    <UserInfoContext.Provider value={userInfo}>
+                      <BrowserRouter>
+                        <Routes>
+                          <Route path="/" element={<Layout />}>
+                            <Route index element={<HomePage />} />
+                            <Route path="about" element={<AboutPage />} />
+                            <Route path="services" element={<ServicesPage />} />
+                            <Route path="events" element={<EventPage />} />
+                            <Route path="events/:slug" element={<EventDetail />} />
+                            <Route path="athletes" element={<AthletesPage />} />
+                            <Route path="athletes/:id" element={<AthleteDetailModal />} />
+                            <Route path="contact" element={<ContactPage />} />
+                            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+                            <Route path="terms-and-conditions" element={<TermsAndConditions />} />
+                            <Route path="*" element={<NoPage />} />
+                          </Route>
+
+                          <Route path='/login' element={<Login />} />
+                          <Route path='/signup' element={<SignUp />} />
+                          <Route path='/reset-password' element={<ResetPassword />} />
+                          <Route path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm />} />
+
+
+                          <Route path="/dashboard" element={<DashboardLayout />}>
+                            <Route index element={<DashboardHome />} />
+                            <Route path="/dashboard/edit-profile" element={<EditProfile />} />
+                          </Route>
+
+                        </Routes>
+                      </BrowserRouter>
+                    </UserInfoContext.Provider>
+                  </CompanyInformationContext.Provider>
+                </WorkProcessContext.Provider>
+              </TestimoninailContext.Provider>
+            </AthleteContext.Provider>
+          </EventContext.Provider>
+        </ServiceContext.Provider>
+      </Provider>
     </div>
   );
 }

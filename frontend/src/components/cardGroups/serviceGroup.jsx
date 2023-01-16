@@ -44,23 +44,31 @@ function ServiceGroup() {
 
 
     return (
-        <section className="p-10 bg-primary what-we-do">
-            <section className='container'>
-                <header className="text-center">
-                    <h2 className="text-secondary mb-8">What We Do</h2>
-                </header>
+        <>
+            {Object.keys(ServiceList).length === 0
+                ?
+                null
+                :
+                <section className="py-10 bg-primary what-we-do">
+                    <section className='container'>
+                        <header className="text-center">
+                            <h2 className="text-secondary mb-8">What We Do</h2>
+                        </header>
 
-                <section>
-                    <Slider {...settings}>
-                        {ServiceList.map(item => <ServiceCard key={item.id} title={item.title} image={item.get_image_url} />)}
-                    </Slider>
+                        <section>
+                            <Slider {...settings}>
+                                {ServiceList.map(item => <ServiceCard key={item.id} title={item.title} image={item.get_image_url} />)}
+                            </Slider>
 
-                    <div className='d-flex justify-content-center'>
-                        <Link to="/services" className='btn btn-secondary mt-9'>See all</Link>
-                    </div>
+                            <div className='d-flex justify-content-center'>
+                                <Link to="/services" className='btn btn-secondary mt-9'>See all</Link>
+                            </div>
+                        </section>
+                    </section>
                 </section>
-            </section>
-        </section>
+            }
+        </>
+
     );
 }
 

@@ -28,7 +28,7 @@ function EventDetail() {
                             <img src={detail.get_image_url} className="card-img-top mb-4" alt="..." />
                         </div>
                         <h6>Date: {detail.event_date}</h6>
-                        {parse(`${detail.body}`)}
+                        {parse(`${detail.safe_body_html}`)}
                     </section>
                 </section>
             </section>

@@ -11,7 +11,7 @@ function ServiceCard({ key, title, image }) {
                 </section>
 
                 <div className="card-img-overlay d-flex justify-content-center align-items-center img-card-overlay">
-                    <h4 className="card-title text-secondary text-center">{title}</h4>
+                    <h3 className="card-title text-secondary text-center">{title}</h3>
                 </div>
             </div>
         </section>

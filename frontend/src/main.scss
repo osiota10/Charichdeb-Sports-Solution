@@ -5,7 +5,7 @@
 *{
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
 }
 
 $enable-negative-margins: true;
@@ -211,6 +211,15 @@ $card-group-margin:                 2rem;
   --bs-card-inner-border-radius: 0px;
   z-index: -1;
 
+  video{
+    object-fit: cover !important;
+}
+
+.athlete-bg {
+  z-index: -3 !important;
+}
+
+
   .card-img-overlay {
     padding: 0px;
   }
@@ -285,24 +294,35 @@ a.nav-link.active{
   padding:  1rem;
 }
 
+select {
+  color:#fff;
+}
+
 // .slick-arrow {
 //   height: 2.5rem !important;
 //   width: 2.5rem !important;
 //   background-color: $primary !important;
 // }
 
-// .slick-prev{
-//   left: -2rem !important;
-//   z-index: 1000000;
-// }
+.slick-prev:before, .slick-next:before{
+  color: $primary !important;
+  font-size: $h2-font-size !important;
+}
+
+
+.slick-prev{
+  left: 0.1rem !important;
+  z-index: 1028;
+}
+
+.slick-next{
+  right: 2rem !important;
+  z-index: 1028;
+}
+
 
 // .slick-list {
 //   padding:-27px;
-// }
-
-
-// .slick-dots ul:before{
-//   list-style-type: square;
 // }
 
 .slick-dots li button:before{
@@ -319,6 +339,29 @@ a.nav-link.active{
     color: $secondary !important;
   }
   
+  .slick-prev{
+    left: -.7rem !important;
+    z-index: 1028;
+  }
+  
+  .slick-next{
+    right: 1rem !important;
+    z-index: 1028;
+  }
+
+  .slick-prev:before, .slick-next:before{
+    color: $secondary !important;
+  } 
+}
+
+.upcoming-events{
+  .slick-prev{
+    left: -.7rem !important;
+  }
+  
+  .slick-next{
+    right: 1rem !important;
+  }
 }
 // .slick-dots li button::marker  {
 //   border-radius: 0px !important;
@@ -400,8 +443,15 @@ a.nav-link.active{
   }
   @include media-breakpoint-down(md) { 
     .card.hero { 
-      .ratio-16x9{
+      .ratio-21x9{
         --bs-aspect-ratio: calc(3 / 4 * 100%);
+        }
+    }
+  }
+  @include media-breakpoint-down(sm) { 
+    .card.hero { 
+      .ratio-21x9{
+        --bs-aspect-ratio: calc(4 / 3 * 100%);
         }
     }
   }

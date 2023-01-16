@@ -1,4 +1,4 @@
-
+import parse from 'html-react-parser';
 
 function TestimonialCard({ key, name, title, pic, message }) {
     return (
@@ -16,7 +16,7 @@ function TestimonialCard({ key, name, title, pic, message }) {
 
             <section>
                 <i class="fa-solid fa-quote-left text-primary fs-4"></i>
-                <p>{message}
+                <p>{parse(`${message}`)}
                 </p>
                 <i class="fa-solid fa-quote-right text-primary d-flex justify-content-end fs-4"></i>
             </section>

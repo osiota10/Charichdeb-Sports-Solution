@@ -1,23 +1,24 @@
 
 
-const pic = {
-    url: 'https://picsum.photos/200'
-}
 
-function AthleteCard({ key, name, state, sports, event, age }) {
+function AthleteCard({ key, firstName, lastName, pic }) {
     return (
-        <section className='col'>
-            <section className="card" style={{ maxWidth: '379px' }} key={key}>
-                <div className='ratio ratio-16x9 overflow-hidden'>
-                    <img src={pic.url} className="card-img-top mb-4" alt="..." />
+        <section className='col' key={key}>
+            <section className="card mx-auto" style={{ maxWidth: '379px' }} >
+
+                <div className='bg-primary athlete-bg' style={{ height: '120px' }} >
+
                 </div>
 
                 <section className="card-body fw-bolder text-primary">
-                    <p>Name: {name}</p>
-                    <p>Age: {age} yrs</p>
-                    <p>State: {state}</p>
-                    <p>Sports: {sports}</p>
-                    <p>Event: {event}</p>
+                    <section className="d-flex justify-content-center mt-n12">
+                        <img src={pic} className="mb-4 rounded-circle athlete-pix" width="170" height="170" alt="..." />
+                    </section>
+                    <p>Name: {lastName} {firstName}</p>
+                    <p>Age:  yrs</p>
+                    <p>State: </p>
+                    <p>Sports: </p>
+                    <p>Event: </p>
                 </section>
             </section>
         </section>

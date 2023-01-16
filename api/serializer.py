@@ -1,5 +1,16 @@
 from rest_framework import serializers
 from .models import *
+from djoser.serializers import UserCreateSerializer
+from django.contrib.auth import get_user_model
+
+user = get_user_model()
+
+
+class UserCreateSerializer(UserCreateSerializer):
+    class Meta(UserCreateSerializer.Meta):
+        model = user
+        fields = ('id', 'username', 'first_name',
+                  'last_name', 'phone_number', 'email', 'password')
 
 
 class WorkProcessSerializer(serializers.ModelSerializer):
@@ -17,7 +28,8 @@ class ServiceSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ('id', 'title', 'body', 'get_image_url', 'event_date', 'slug')
+        fields = ('id', 'title', 'safe_body_html',
+                  'get_image_url', 'event_date', 'slug')
 
 
 class TestimonialSerialer(serializers.ModelSerializer):
@@ -61,3 +73,16 @@ class OurPartnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = OurPartner
         fields = ('id', 'name', 'get_image_url')
+
+
+class ContactUsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactUs
+        fields = ('id', 'full_name', 'location',
+                  'email', 'phone_number', 'message')
+
+
+class FeatureAthleteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserAccount
+        fields = ('id', 'first_name', 'last_name', 'get_photo_url')

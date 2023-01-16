@@ -13,4 +13,6 @@ urlpatterns = [
     path('our-story', OurStoryView.as_view()),
     path('socials', SocialMediaView.as_view()),
     path('partners', OurPartnerView.as_view()),
+    path('contact-us', ContactUsView.as_view()),
+    path('featured-athletes', FeatureAthleteView.as_view()),
 ]
