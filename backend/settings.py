@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'rest_framework',
     'djoser',
+    'build'
 ]
 
 REST_FRAMEWORK = {
