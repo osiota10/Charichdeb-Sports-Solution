@@ -11,7 +11,7 @@ function Footer() {
 
     useEffect(() => {
         // Socials
-        axios.get(`http://127.0.0.1:8000/socials`)
+        axios.get(`${process.env.REACT_APP_API_URL}/socials`)
             .then(res => {
                 setSocials(res.data)
             })

@@ -85,37 +85,37 @@ function App() {
       .catch(console.error);
 
     //Service
-    axios.get(`http://127.0.0.1:8000/services`)
+    axios.get(`${process.env.REACT_APP_API_URL}/services`)
       .then(res => {
         setService(res.data)
       })
 
     // Events
-    axios.get(`http://127.0.0.1:8000/events`)
+    axios.get(`${process.env.REACT_APP_API_URL}/events`)
       .then(res => {
         setEvent(res.data)
       })
 
     // Athletes
-    axios.get(`http://127.0.0.1:8000/featured-athletes`)
+    axios.get(`${process.env.REACT_APP_API_URL}/featured-athletes`)
       .then(res => {
         setAthlete(res.data)
       })
 
     // Testimonials
-    axios.get(`http://127.0.0.1:8000/testimonials`)
+    axios.get(`${process.env.REACT_APP_API_URL}/testimonials`)
       .then(res => {
         setTestimonial(res.data)
       })
 
     // Work Process
-    axios.get(`http://127.0.0.1:8000/work-process`)
+    axios.get(`${process.env.REACT_APP_API_URL}/work-process`)
       .then(res => {
         setWorkProcess(res.data)
       })
 
     // Company Information
-    axios.get(`http://127.0.0.1:8000/company-information/1`)
+    axios.get(`${process.env.REACT_APP_API_URL}/company-information/1`)
       .then(res => {
         setCompanyInfo(res.data)
       })

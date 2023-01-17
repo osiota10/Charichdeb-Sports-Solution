@@ -29,7 +29,7 @@ function ContactForm() {
             const body = JSON.stringify({ full_name, location, email, phone_number, message });
 
             try {
-                const res = await axios.post('http://127.0.0.1:8000/contact-us', body, config);
+                const res = await axios.post(`${process.env.REACT_APP_API_URL}/contact-us`, body, config);
 
             } catch (err) {
                 console.error("User not authenticated");

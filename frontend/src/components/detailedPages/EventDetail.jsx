@@ -12,7 +12,7 @@ function EventDetail() {
 
     useEffect(() => {
         console.log('correct')
-        axios.get(`http://127.0.0.1:8000/events/` + slug)
+        axios.get(`${process.env.REACT_APP_API_URL}/` + slug)
             .then(res => {
                 setDetails(res.data)
             })

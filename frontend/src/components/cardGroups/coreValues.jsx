@@ -7,7 +7,7 @@ function CoreValues() {
 
     useEffect(() => {
         //Service
-        axios.get(`http://127.0.0.1:8000/core-values`)
+        axios.get(`${process.env.REACT_APP_API_URL}/core-values`)
             .then(res => {
                 setCoreValue(res.data)
             })
