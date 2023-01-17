@@ -17,13 +17,13 @@ function AboutPage() {
 
     useEffect(() => {
         //Partners
-        axios.get(`http://127.0.0.1:8000/partners`)
+        axios.get(`${process.env.REACT_APP_API_URL}/partners`)
             .then(res => {
                 setPartners(res.data)
             })
 
         // Our Stories
-        axios.get(`http://127.0.0.1:8000/our-story`)
+        axios.get(`${process.env.REACT_APP_API_URL}/our-story`)
             .then(res => {
                 setStories(res.data)
             })
