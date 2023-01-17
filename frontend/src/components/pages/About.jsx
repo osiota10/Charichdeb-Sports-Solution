@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import PageTitle from "../cards/pageTitle";
 import ServicesListTemplate from "../cards/servicesTemplate";
+// import $ from 'jquery';
+// import Popper from 'popper.js';
+// import 'bootstrap/dist/js/bootstrap.bundle.min';
+// import 'bootstrap';
 
 
 
@@ -57,8 +61,8 @@ function AboutPage() {
                         <section className="row row-cols-1 row-cols-md-4 g-4 justify-content-center">
                             {partners.slice(0, 8).map(item =>
                                 <section className="col" key={item.id}>
-                                    <section className="card">
-                                        <img src={item.get_image_url} className='card-img' alt={`logo of ${item.name}`} data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top" />
+                                    <section className="card" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
+                                        <img src={item.get_image_url} className='card-img' alt={`logo of ${item.name}`} />
                                     </section>
                                 </section>
                             )}

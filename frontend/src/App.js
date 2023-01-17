@@ -23,8 +23,9 @@ import ResetPassword from './components/auth/resetPassword';
 import DashboardLayout from './components/dashboard/layout';
 import DashboardHome from './components/dashboard';
 import EditProfile from './components/dashboard/editProfile';
-import { load_user } from './actions/auth';
-import { connect } from 'react-redux';
+// import { load_user } from './actions/auth';
+// import { connect } from 'react-redux';
+
 
 
 export const ServiceContext = createContext(null)

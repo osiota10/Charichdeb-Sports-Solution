@@ -44,22 +44,30 @@ function AthleteGroup() {
     const AthleteList = useContext(AthleteContext)
 
     return (
-        <section className="py-10">
-            <section className='container'>
-                <header className="text-center mb-8">
-                    <h2>Our Athletes</h2>
-                </header>
+        <>
+            {Object.keys(AthleteList).length === 0
+                ?
+                null
+                :
+                <section className="py-10">
+                    <section className='container'>
+                        <header className="text-center mb-8">
+                            <h2>Our Athletes</h2>
+                        </header>
 
-                <section className="row justify-content-center">
-                    <Slider {...settings}>
-                        {AthleteList.slice(0, 9).map(item => <Link className='text-decoration-none' ><AthleteCard key={item.id} firstName={item.first_name} lastName={item.last_name} pic={item.get_photo_url} /></Link>)}
-                    </Slider>
+                        <section className="row justify-content-center">
+                            <Slider {...settings}>
+                                {AthleteList.slice(0, 9).map(item => <Link className='text-decoration-none' ><AthleteCard key={item.id} firstName={item.first_name} lastName={item.last_name} pic={item.get_photo_url} /></Link>)}
+                            </Slider>
+                        </section>
+                        <div className='d-flex justify-content-center'>
+                            <Link to="/athletes" className='btn btn-primary mt-9'>See all</Link>
+                        </div>
+                    </section>
                 </section>
-                <div className='d-flex justify-content-center'>
-                    <Link to="/athletes" className='btn btn-primary mt-9'>See all</Link>
-                </div>
-            </section>
-        </section>
+            }
+        </>
+
     );
 }
 

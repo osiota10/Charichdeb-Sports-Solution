@@ -4,10 +4,9 @@ import WorkProcess from "../cardGroups/workProcessGroup";
 import TestimonialGroup from "../cardGroups/testimonialGroup";
 import StatCard from "../cards/stats";
 import AthleteGroup from "../cardGroups/athleteGroup";
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { CompanyInformationContext } from "../../App";
 import parse from 'html-react-parser';
-import axios from "axios";
 import Slider from "react-slick";
 
 
@@ -56,15 +55,6 @@ function HomePage() {
     };
 
     const companyInfo = useContext(CompanyInformationContext)
-    const [hero, setHero] = useState([]);
-
-    useEffect(() => {
-        // Service
-        axios.get(`http://127.0.0.1:8000/events`)
-            .then(res => {
-                setHero(res.data)
-            })
-    }, []);
 
     return (
 
