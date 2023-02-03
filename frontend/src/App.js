@@ -23,6 +23,7 @@ import ResetPassword from './components/auth/resetPassword';
 import DashboardLayout from './components/dashboard/layout';
 import DashboardHome from './components/dashboard';
 import EditProfile from './components/dashboard/editProfile';
+import Activate from './components/auth/activate';
 // import { load_user } from './actions/auth';
 // import { connect } from 'react-redux';
 
@@ -64,7 +65,7 @@ function App() {
       try {
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users/me/`, config);
         setUserInfo(res.data)
-        console.log(res.data)
+
       } catch (err) {
         console.error("User not authenticated");
       }
@@ -148,10 +149,14 @@ function App() {
                             <Route path="*" element={<NoPage />} />
                           </Route>
 
-                          <Route path='/login' element={<Login />} />
-                          <Route path='/signup' element={<SignUp />} />
-                          <Route path='/reset-password' element={<ResetPassword />} />
-                          <Route path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm />} />
+                          <Route>
+                            <Route path='/login' element={<Login />} />
+                            <Route path='/signup' element={<SignUp />} />
+                            <Route path='/reset-password' element={<ResetPassword />} />
+                            <Route path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm />} />
+                            <Route path='/activate/:uid/:token' element={<Activate />} />
+                          </Route>
+
 
 
                           <Route path="/dashboard" element={<DashboardLayout />}>

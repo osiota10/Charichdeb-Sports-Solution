@@ -57,7 +57,20 @@ function AthleteGroup() {
 
                         <section className="row justify-content-center">
                             <Slider {...settings}>
-                                {AthleteList.slice(0, 9).map(item => <Link className='text-decoration-none' ><AthleteCard key={item.id} firstName={item.first_name} lastName={item.last_name} pic={item.get_photo_url} /></Link>)}
+                                {AthleteList.slice(0, 9).map(item =>
+                                    <Link className='text-decoration-none' >
+                                        <AthleteCard key={item.id}
+                                            firstName={item.first_name}
+                                            lastName={item.last_name}
+                                            pic={item.get_photo_url}
+                                            sport={item.sport}
+                                            state_of_origin={item.state_of_origin}
+                                            nationality={item.nationality}
+                                            weight={item.weight}
+                                            height={item.height}
+                                            sportstats={item.sportstats}
+                                        />
+                                    </Link>)}
                             </Slider>
                         </section>
                         <div className='d-flex justify-content-center'>

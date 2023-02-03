@@ -187,11 +187,14 @@ export const signup = (first_name, last_name, phone_number, email, password, re_
 
     try {
         const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/`, body, config);
-
+        // console.log(res.data)
+        // console.log(res.status)
+        // console.log(res)
         dispatch({
             type: SIGNUP_SUCCESS,
-            payload: res.data
+            payload: res.status
         });
+
     } catch (err) {
         dispatch({
             type: SIGNUP_FAIL,
@@ -210,14 +213,17 @@ export const verify = (uid, token) => async dispatch => {
     const body = JSON.stringify({ uid, token });
 
     try {
-        await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/activation/`, body, config);
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/activation/`, body, config);
 
         dispatch({
             type: ACTIVATION_SUCCESS,
+            payload: res.status
+
         });
     } catch (err) {
         dispatch({
-            type: ACTIVATION_FAIL
+            type: ACTIVATION_FAIL,
+            payload: err.response.data
         })
     }
 };
@@ -232,10 +238,11 @@ export const reset_password = (email) => async dispatch => {
     const body = JSON.stringify({ email });
 
     try {
-        await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/reset_password/`, body, config);
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/reset_password/`, body, config);
 
         dispatch({
-            type: PASSWORD_RESET_SUCCESS
+            type: PASSWORD_RESET_SUCCESS,
+            payload: res.status
         });
     } catch (err) {
         dispatch({
@@ -255,10 +262,11 @@ export const reset_password_confirm = (uid, token, new_password, re_new_password
     const body = JSON.stringify({ uid, token, new_password, re_new_password });
 
     try {
-        await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/reset_password_confirm/`, body, config);
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/reset_password_confirm/`, body, config);
 
         dispatch({
-            type: PASSWORD_RESET_CONFIRM_SUCCESS
+            type: PASSWORD_RESET_CONFIRM_SUCCESS,
+            payload: res.status
         });
     } catch (err) {
         dispatch({

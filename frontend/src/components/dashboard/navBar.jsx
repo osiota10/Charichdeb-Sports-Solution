@@ -18,12 +18,12 @@ function DashboardSideBar({ logout, isAuthenticated }) {
     };
 
     const navigate = useNavigate();
-    setTimeout(() => {
-        if (!isAuthenticated) {
-            logout_user()
-            return navigate('/login')
-        }
-    }, 3600)
+    // setTimeout(() => {
+    //     if (!isAuthenticated) {
+    //         logout_user()
+    //         return navigate('/login')
+    //     }
+    // }, 600000)
 
     const CurrentUserInfo = useContext(UserInfoContext)
     const companyInfo = useContext(CompanyInformationContext)
@@ -76,13 +76,13 @@ function DashboardSideBar({ logout, isAuthenticated }) {
                                 </span>
                             </div>
                         </div>
-                        <div class="btn-group" >
-                            <section class="dropdown-toggle" id="dropdownMenuButton2" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                        <div className="btn-group" >
+                            <section className="dropdown-toggle" id="dropdownMenuButton2" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
                                 <span className="text-white me-1">Welcome {CurrentUserInfo.last_name}!</span>
-                                <a   ><img src={pic.url} class="rounded-circle mx-auto" width="50" height="50" alt="..." /></a>
+                                <a   ><img src={CurrentUserInfo.get_photo_url} className="rounded-circle mx-auto" width="50" height="50" alt="..." /></a>
                             </section>
 
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-start" aria-labelledby="dropdownMenuButton2">
+                            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-start" aria-labelledby="dropdownMenuButton2">
                                 <li><Link class="dropdown-item" to="/dashboard/edit-profile">Edit Profile</Link></li>
                                 <li><a class="dropdown-item" href="#" onClick={logout_user}>Sign Out</a></li>
                             </ul>
@@ -90,7 +90,7 @@ function DashboardSideBar({ logout, isAuthenticated }) {
                     </div>
                 </nav>
             </>
-            <section className="mt-12" >
+            <section className="pt-12 bg-light" >
                 <Outlet />
             </section>
             {redirect ? <Navigate to='/login' /> : null}

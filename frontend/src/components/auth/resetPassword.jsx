@@ -1,10 +1,22 @@
 import { reset_password } from "../../actions/auth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { useContext } from "react";
+import { CompanyInformationContext } from "../../App";
+import { myStyle } from "./login";
 
-function ResetPassword({ reset_password, error }) {
-    const [requestSent, setRequestSent] = useState(false);
+
+function ResetPassword({ reset_password, error, status }) {
+    //Modal
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const companyInfo = useContext(CompanyInformationContext)
+
     const [formData, setFormData] = useState({
         email: ''
     });
@@ -15,70 +27,85 @@ function ResetPassword({ reset_password, error }) {
 
     const onSubmit = e => {
         e.preventDefault();
-
-        if (error !== "User with given email does not exist") {
-            reset_password(email);
-            setRequestSent(true)
-        }
+        reset_password(email);
     };
 
+    useEffect(() => {
+        if (status === 204) {
+            handleShow()
+        }
+    }, [status]);
 
     return (
-        <section className="container py-6 reg-forms">
-            <section className="row">
-                <Link to="/" className="text-decoration-none">
-                    <header className="text-center mb-5">
-                        <img src="..." alt="" width="80" height="80" class="mx-auto" />
-                        <h4>Charichdeb Sports Solution</h4>
-                    </header>
-                </Link>
+        <section style={myStyle}>
+            <section className="container py-6 reg-forms min-vh-100">
+                <section className="row">
+                    <Link to="/" className="text-decoration-none">
+                        <header className="text-center mb-5">
+                            <img src={companyInfo.get_logo_url} alt="" width="80" height="80" className="mx-auto" />
+                            <h4 className="text-white">Charichdeb Sports Solution</h4>
+                        </header>
+                    </Link>
 
-                <section className="col-lg-5 mx-auto">
-                    <div className="card px-6 py-6 mx-auto bg-light">
+                    <section className="col-lg-5 mx-auto">
+                        <div className="card px-4 py-6 mx-auto bg-light">
 
-                        <h4 className="text-center">Reset Password</h4>
-                        {
-                            requestSent
-                                ?
-                                <div className="alert alert-primary mt-2" role="alert">
-                                    Instructions to reset your password has be sent to your <span className="fw-bold"> email</span>
+                            <h4 className="text-center">Reset Password</h4>
+                            <form className="mt-3" onSubmit={e => onSubmit(e)}>
+                                <div className="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                    <input
+                                        type="email"
+                                        className="form-control inputfield"
+                                        id="email"
+                                        aria-describedby="emailHelp"
+                                        name="email"
+                                        placeholder="johnsmith@example.com"
+                                        value={email}
+                                        onChange={e => onChange(e)}
+                                        required
+                                    />
+                                    {error ?
+                                        <small className="text-danger fw-bold">
+                                            {error}
+                                        </small>
+                                        :
+                                        null}
                                 </div>
-                                :
-                                null
-                        }
+                                <button type="submit" class="btn btn-primary form-control">Reset Password</button>
+                                <Link className="d-flex justify-content-center btn btn-outline-primary mt-2" to="/login">Back to Login</Link>
+                            </form>
+                        </div>
+                    </section>
 
-                        <form className="mt-3" onSubmit={e => onSubmit(e)}>
-                            <div className="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                <input
-                                    type="email"
-                                    className="form-control inputfield"
-                                    id="email"
-                                    aria-describedby="emailHelp"
-                                    name="email"
-                                    placeholder="johnsmith@example.com"
-                                    value={email}
-                                    onChange={e => onChange(e)}
-                                    required
-                                />
-                                {error ?
-                                    <small className="text-danger fw-bold">
-                                        {error}
-                                    </small>
-                                    :
-                                    null}
-                            </div>
-                            <button type="submit" class="btn btn-primary form-control">Reset Password</button>
-                        </form>
-                    </div>
+                    <Modal
+                        show={show}
+                        onHide={handleClose}
+                        backdrop="static"
+                        keyboard={false}
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title>Email Sent</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            Instructions to reset your password has be sent to your <span className="fw-bold"> email</span>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="btn btn-outline-primary" onClick={handleClose}>
+                                Close
+                            </Button>
+                            <Link className="btn btn-primary" to="/login">Login</Link>
+                        </Modal.Footer>
+                    </Modal>
                 </section>
-            </section>
+            </section >
         </section>
     );
 }
 
 const mapStateToProps = state => ({
-    error: state.auth.error
+    error: state.auth.error,
+    status: state.auth.status,
 });
 
 export default connect(mapStateToProps, { reset_password })(ResetPassword);

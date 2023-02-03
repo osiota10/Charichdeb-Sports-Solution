@@ -1,7 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import { CompanyInformationContext } from "../../App";
 
 function ContactForm() {
+    const companyInfo = useContext(CompanyInformationContext)
+
+    //Modal
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     const [formData, setFormData] = useState({
         full_name: '',
         location: '',
@@ -16,6 +26,7 @@ function ContactForm() {
 
     const onSubmit = e => {
         e.preventDefault();
+        // e.target.reset();
 
         // declare the data fetching function
         const fetchData = async () => {
@@ -30,17 +41,14 @@ function ContactForm() {
 
             try {
                 const res = await axios.post(`${process.env.REACT_APP_API_URL}/contact-us`, body, config);
-
+                if (res.status === 201) {
+                    handleShow()
+                }
             } catch (err) {
                 console.error("User not authenticated");
             }
         }
-
         fetchData()
-
-        // setTimeout(() => {
-        //     navigate('/dashboard')
-        // }, 2000)
     };
 
     return (
@@ -128,6 +136,26 @@ function ContactForm() {
                     </section>
                 </section>
             </section>
+
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Thank you</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Thank you for contacting us. Our Business Development Representative will get in touch with you shortly.
+                    If you would like to speak to someone immediately, feel free to email us at <span className="fw-bold">{companyInfo.email}</span> or call at <span className="fw-bold">{companyInfo.telephone}</span>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </section>
     );
 }

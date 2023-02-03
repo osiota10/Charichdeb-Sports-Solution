@@ -3,6 +3,7 @@ from django.db import models
 from cloudinary.models import CloudinaryField
 from ckeditor.fields import RichTextField
 from django.utils.html import strip_tags
+from django.conf import settings
 
 # # Create your models here.
 
@@ -43,12 +44,22 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone_number = models.IntegerField()
+    date_of_birth = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     date_joined = models.DateTimeField(null=True, blank=True)
     is_featured = models.BooleanField(default=False)
     image = CloudinaryField('image', null=True, blank=True)
+    height = models.IntegerField(null=True, blank=True)
+    weight = models.IntegerField(null=True, blank=True)
+    phone_number = models.IntegerField()
+    gender = models.CharField(max_length=255, null=True, blank=True)
+    sport = models.CharField(max_length=255, null=True, blank=True)
+    home_address = models.TextField(null=True, blank=True)
+    local_govt = models.CharField(max_length=255, null=True, blank=True)
+    state_of_origin = models.CharField(max_length=255, null=True, blank=True)
+    nationality = models.CharField(max_length=255, null=True, blank=True)
 
     objects = UserAccountManager()
 
@@ -226,3 +237,13 @@ class ContactUs(models.Model):
 
     class Meta:
         verbose_name_plural = "Contact Us"
+
+
+class SportStat(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='sportstats',
+                             on_delete=models.CASCADE)
+    event = models.CharField(max_length=50)
+    pb = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.event}- {self.pb}"

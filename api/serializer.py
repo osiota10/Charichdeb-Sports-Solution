@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import *
-from djoser.serializers import UserCreateSerializer
+from djoser.serializers import UserCreateSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 
 user = get_user_model()
@@ -11,6 +11,13 @@ class UserCreateSerializer(UserCreateSerializer):
         model = user
         fields = ('id', 'username', 'first_name',
                   'last_name', 'phone_number', 'email', 'password')
+
+
+class UserInfoSerializer(UserSerializer):
+    class Meta(UserSerializer.Meta):
+        model = user
+        fields = ('id', 'first_name', 'last_name',
+                  'phone_number', 'email', 'get_photo_url', 'date_of_birth', 'height', 'weight', 'gender', 'sport', 'home_address', 'local_govt', 'state_of_origin', 'nationality', 'image',)
 
 
 class WorkProcessSerializer(serializers.ModelSerializer):
@@ -83,6 +90,15 @@ class ContactUsSerializer(serializers.ModelSerializer):
 
 
 class FeatureAthleteSerializer(serializers.ModelSerializer):
+    sportstats = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = UserAccount
-        fields = ('id', 'first_name', 'last_name', 'get_photo_url')
+        fields = ('id', 'first_name', 'last_name', 'get_photo_url',
+                  'sport', 'state_of_origin', 'nationality', 'weight', 'height', 'sportstats')
+
+
+class SportStatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SportStat
+        fields = ('id', 'event', 'pb')

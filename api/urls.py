@@ -15,4 +15,6 @@ urlpatterns = [
     path('partners', OurPartnerView.as_view()),
     path('contact-us', ContactUsView.as_view()),
     path('featured-athletes', FeatureAthleteView.as_view()),
+    path('sport-stat', SportStatListCreateView.as_view()),
+    path('sport-stat/<int:id>', SportStatRetrieveUpdateDestroyView.as_view()),
 ]

@@ -17,9 +17,11 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('image', 'password',)}),
         ('Personal info', {
-            'fields': ('first_name', 'last_name', 'email', 'phone_number',)}),
+            'fields': ('first_name', 'last_name', 'email', 'gender', 'phone_number', 'date_of_birth', 'sport', 'height', 'weight',)}),
         ('Featured Athlete', {
             'fields': ('is_featured',)}),
+        ('Contact Address', {
+         'fields': ('home_address', 'local_govt', 'state_of_origin', 'nationality',)}),
         ('Permissions', {
          'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {
@@ -46,3 +48,4 @@ admin.site.register(OurStory)
 admin.site.register(SocialMediaHandle)
 admin.site.register(OurPartner)
 admin.site.register(ContactUs)
+admin.site.register(SportStat)

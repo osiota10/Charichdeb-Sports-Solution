@@ -5,7 +5,7 @@ from .serializer import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authtoken.serializers import AuthTokenSerializer
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
 # Create your views here.
@@ -89,3 +89,23 @@ class FeatureAthleteView(generics.ListAPIView):
     queryset = UserAccount.objects.filter(is_featured=True)
     serializer_class = FeatureAthleteSerializer
     permission_classes = [AllowAny,]
+
+
+class SportStatListCreateView(generics.ListCreateAPIView):
+    serializer_class = SportStatSerializer
+    permission_classes = [IsAuthenticated,]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        return SportStat.objects.filter(user=self.request.user)
+
+
+class SportStatRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = SportStatSerializer
+    permission_classes = [IsAuthenticated,]
+    lookup_field = "id"
+
+    def get_queryset(self):
+        return SportStat.objects.filter(user=self.request.user)

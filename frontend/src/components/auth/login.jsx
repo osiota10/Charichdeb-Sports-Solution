@@ -2,10 +2,28 @@ import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../../actions/auth";
 import { connect } from 'react-redux';
+import { useContext } from "react";
+import { CompanyInformationContext } from "../../App";
 
+const pic = {
+    url: 'http://www.highreshdwallpapers.com/wp-content/uploads/2014/01/Athletic-Running-HD-Image.jpg'
+}
 
+export const myStyle = {
+    backgroundImage: `linear-gradient(0deg, rgba(0, 61, 43, 0.5), rgba(0, 61, 43, 0.5)), url(${pic.url})`,
+    height: '100%',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundAttachment: 'fixed'
+
+};
 
 function Login({ login, isAuthenticated, error }) {
+    const companyInfo = useContext(CompanyInformationContext)
+
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -28,22 +46,22 @@ function Login({ login, isAuthenticated, error }) {
     }
     // console.log(error)
     return (
-        <>
+        <section style={myStyle}>
             <section class="container py-10 reg-forms">
                 <div class="row">
                     <Link to="/" className="text-decoration-none">
                         <header className="text-center mb-5">
-                            <img src="..." alt="" width="80" height="80" class="mx-auto" />
-                            <h4>Charichdeb Sports Solution</h4>
+                            <img src={companyInfo.get_logo_url} alt="" width="80" height="80" className="mx-auto" />
+                            <h4 className="text-white">Charichdeb Sports Solution</h4>
                         </header>
                     </Link>
 
                     <section class="col-xl-5 mx-auto">
-                        <section className="card px-6 py-6 mx-auto bg-light" >
+                        <section className="card px-4 py-6 mx-auto bg-light" >
                             <h3 className="text-center">Login</h3>
                             {error ?
                                 <div className="alert alert-danger fw-bold mt-3" role="alert">
-                                    {error.detail}. Invalid email/password
+                                    Invalid email/password
                                 </div>
                                 :
                                 null}
@@ -82,7 +100,7 @@ function Login({ login, isAuthenticated, error }) {
                     </section>
                 </div>
             </section>
-        </>
+        </section>
     );
 }
 

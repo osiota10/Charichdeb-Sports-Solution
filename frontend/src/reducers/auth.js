@@ -25,7 +25,8 @@ const initialState = {
     refresh: localStorage.getItem('refresh'),
     isAuthenticated: null,
     user: null,
-    error: null
+    error: null,
+    status: null,
 };
 
 export default function (state = initialState, action) {
@@ -51,7 +52,8 @@ export default function (state = initialState, action) {
         case SIGNUP_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: false
+                isAuthenticated: false,
+                status: payload
             }
         case USER_LOADED_SUCCESS:
             return {
@@ -86,11 +88,12 @@ export default function (state = initialState, action) {
         case PASSWORD_RESET_SUCCESS:
         case PASSWORD_RESET_CONFIRM_SUCCESS:
         case ACTIVATION_SUCCESS:
-        case ACTIVATION_FAIL:
             return {
-                ...state
+                ...state,
+                status: payload,
             }
 
+        case ACTIVATION_FAIL:
         case PASSWORD_RESET_CONFIRM_FAIL:
         case PASSWORD_RESET_FAIL:
             return {

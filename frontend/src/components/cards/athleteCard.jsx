@@ -1,7 +1,7 @@
 
 
 
-function AthleteCard({ key, firstName, lastName, pic }) {
+function AthleteCard({ key, firstName, lastName, pic, sport, state_of_origin, nationality, weight, height, sportstats }) {
     return (
         <section className='col' key={key}>
             <section className="card mx-auto" style={{ maxWidth: '379px' }} >
@@ -16,9 +16,12 @@ function AthleteCard({ key, firstName, lastName, pic }) {
                     </section>
                     <p>Name: {lastName} {firstName}</p>
                     <p>Age:  yrs</p>
-                    <p>State: </p>
-                    <p>Sports: </p>
-                    <p>Event: </p>
+                    <p>State: {state_of_origin}</p>
+                    <p>Sports: {sport}</p>
+                    <p>Nationality: {nationality}</p>
+                    <p>Event/P.B: {sportstats}</p>
+                    <p>Height: {height}m</p>
+                    <p>Weight: {weight}kg</p>
                 </section>
             </section>
         </section>
