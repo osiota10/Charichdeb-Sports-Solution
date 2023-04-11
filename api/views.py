@@ -101,7 +101,7 @@ class SportStatListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         return SportStat.objects.filter(user=self.request.user)
 
-
+ 
 class SportStatRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SportStatSerializer
     permission_classes = [IsAuthenticated,]

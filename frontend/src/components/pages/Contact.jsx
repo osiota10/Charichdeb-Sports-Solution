@@ -61,7 +61,6 @@ function ContactPage() {
                         </section>
                     </section>
                 </section>
-
             </section>
         </>
     );

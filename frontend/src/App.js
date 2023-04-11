@@ -157,8 +157,6 @@ function App() {
                             <Route path='/activate/:uid/:token' element={<Activate />} />
                           </Route>
 
-
-
                           <Route path="/dashboard" element={<DashboardLayout />}>
                             <Route index element={<DashboardHome />} />
                             <Route path="/dashboard/edit-profile" element={<EditProfile />} />
