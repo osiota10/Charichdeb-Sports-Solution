@@ -4,6 +4,7 @@ from cloudinary.models import CloudinaryField
 from ckeditor.fields import RichTextField
 from django.utils.html import strip_tags
 from django.conf import settings
+from django.utils.html import strip_tags
 
 # # Create your models here.
 
@@ -106,6 +107,9 @@ class CompanyInformation(models.Model):
 
     def get_site_header_url(self):
         return (f"https://res.cloudinary.com/dkcjpdk1c/image/upload/{self.site_page_header_image}")
+
+    def safe_about_body_html(self):
+        return strip_tags(self.about_company)
 
     class Meta:
         verbose_name_plural = "Company Information"
@@ -247,3 +251,9 @@ class SportStat(models.Model):
 
     def __str__(self):
         return f"{self.event}- {self.pb}"
+
+class SportsCoverage(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.name}"

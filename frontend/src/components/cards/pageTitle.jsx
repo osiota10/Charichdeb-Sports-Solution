@@ -22,11 +22,11 @@ function PageTitle({ title }) {
                 <h1 className='container text-white text-center'>{title}</h1>
             </section>
 
-            <div className=''>
+            <div className='bg-light'>
                 <nav aria-label="breadcrumb" className='container'>
                     <ol class="breadcrumb">
                         <li className="breadcrumb-item">
-                            <Link to="/" className='nav-link active' aria-current="page"><i class="fa-solid fa-house text-primary"></i></Link>
+                            <Link to="/" className='no-border nav-link active' aria-current="page"><i class="fa-solid fa-house text-primary"></i></Link>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page">{title}</li>
                     </ol>

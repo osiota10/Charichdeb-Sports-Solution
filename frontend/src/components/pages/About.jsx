@@ -27,11 +27,8 @@ function AboutPage() {
             .then(res => {
                 setStories(res.data)
             })
-
-        // Initialize tooltip
-        // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        // const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     }, []);
+
     return (
         <>
             <PageTitle title="About" />

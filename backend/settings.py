@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'rest_framework',
     'djoser',
-    'build'
+    'build',
+    'frontend',
 ]
 
 REST_FRAMEWORK = {
@@ -118,6 +119,10 @@ ROOT_URLCONF = 'backend.urls'
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST')
 CORS_ALLOWED_ORIGIN_REGEXES = env.list('CORS_ALLOWED_ORIGIN_REGEXES')
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
 
 TEMPLATES = [
     {

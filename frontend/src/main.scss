@@ -1,6 +1,4 @@
-/* == Google Font Import - Playfair Display and Raleway===== */
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+y
 
 *{
   margin: 0;
@@ -273,7 +271,7 @@ $utilities: (
     ),
 );
 
-.active {
+.active:not(.breadcrumb-item, a.no-border.nav-link ) {
   border-bottom: 4px solid #fff;
     
 }

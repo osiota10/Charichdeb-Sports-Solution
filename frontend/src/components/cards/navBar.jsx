@@ -53,7 +53,7 @@ function NavBar() {
                                         <NavLink to="/athletes" className='nav-link'>Athletes</NavLink>
                                     </li>
                                     <li className="nav-item me-3">
-                                        <NavLink to="/events" className='nav-link'>Events</NavLink>
+                                        <NavLink to="/testimonials" className='nav-link'>Testimonials</NavLink>
                                     </li>
                                     <li className="nav-item me-3">
                                         <NavLink to="/contact" className='nav-link'>Contact</NavLink>

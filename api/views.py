@@ -109,3 +109,8 @@ class SportStatRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return SportStat.objects.filter(user=self.request.user)
+
+class SportsCoverageView(generics.ListAPIView):
+    serializer_class = SportsCoverageSerializer
+    queryset = SportsCoverage.objects.all()
+    permission_classes = [AllowAny,]

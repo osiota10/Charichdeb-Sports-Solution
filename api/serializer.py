@@ -55,7 +55,7 @@ class CompanyInformationSerializer(serializers.ModelSerializer):
     class Meta:
         model = CompanyInformation
         fields = ('id', 'get_logo_url', 'get_site_header_url', 'company_name', 'CAC_number', 'address', 'tag_line',
-                  'email', 'telephone', 'telephone_2', 'about_company', 'terms_and_conditions', 'privacy_policy')
+                  'email', 'telephone', 'telephone_2', 'about_company', 'terms_and_conditions', 'privacy_policy', 'safe_about_body_html')
 
 
 class StatSerializer(serializers.ModelSerializer):
@@ -102,3 +102,9 @@ class SportStatSerializer(serializers.ModelSerializer):
     class Meta:
         model = SportStat
         fields = ('id', 'event', 'pb')
+
+
+class SportsCoverageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SportsCoverage
+        fields = '__all__'

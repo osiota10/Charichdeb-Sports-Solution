@@ -4,13 +4,13 @@ import axios from "axios";
 import './main.css'
 import HomePage from './components/pages/Home';
 import ContactPage from './components/pages/Contact';
-import EventPage from './components/pages/Events';
+// import EventPage from './components/pages/Events';
 import ServicesPage from './components/pages/Services';
 import AboutPage from './components/pages/About';
 import AthletesPage from './components/pages/Athletes';
 import Layout from './components/pages/layout';
 import NoPage from './components/pages/NoPage';
-import EventDetail from './components/detailedPages/EventDetail';
+// import EventDetail from './components/detailedPages/EventDetail';
 import AthleteDetailModal from './components/detailedPages/athleteDetail';
 import PrivacyPolicy from './components/pages/privacyPolicy';
 import TermsAndConditions from './components/pages/termsAndConditions';
@@ -24,6 +24,7 @@ import DashboardLayout from './components/dashboard/layout';
 import DashboardHome from './components/dashboard';
 import EditProfile from './components/dashboard/editProfile';
 import Activate from './components/auth/activate';
+import Testimonials from './components/pages/testimonials';
 // import { load_user } from './actions/auth';
 // import { connect } from 'react-redux';
 
@@ -139,8 +140,9 @@ function App() {
                             <Route index element={<HomePage />} />
                             <Route path="about" element={<AboutPage />} />
                             <Route path="services" element={<ServicesPage />} />
-                            <Route path="events" element={<EventPage />} />
-                            <Route path="events/:slug" element={<EventDetail />} />
+                            <Route path="testimonials" element={<Testimonials />} />
+                            {/* <Route path="events" element={<EventPage />} /> */}
+                            {/* <Route path="events/:slug" element={<EventDetail />} /> */}
                             <Route path="athletes" element={<AthletesPage />} />
                             <Route path="athletes/:id" element={<AthleteDetailModal />} />
                             <Route path="contact" element={<ContactPage />} />

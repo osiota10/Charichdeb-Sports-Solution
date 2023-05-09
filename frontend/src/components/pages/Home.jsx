@@ -1,13 +1,14 @@
 import ServiceGroup from "../cardGroups/serviceGroup";
-import EventGroup from "../cardGroups/eventGroup";
 import WorkProcess from "../cardGroups/workProcessGroup";
 import TestimonialGroup from "../cardGroups/testimonialGroup";
 import StatCard from "../cards/stats";
 import AthleteGroup from "../cardGroups/athleteGroup";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CompanyInformationContext } from "../../App";
-import parse from 'html-react-parser';
 import Slider from "react-slick";
+import TextTruncate from 'react-text-truncate';
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 
 
@@ -16,6 +17,8 @@ const pic = {
 }
 
 function HomePage() {
+    const [sportsCoverage, setSportsCoverage] = useState([]);
+
     const settings = {
         dots: false,
         arrows: false,
@@ -55,7 +58,16 @@ function HomePage() {
     };
 
     const companyInfo = useContext(CompanyInformationContext)
+    console.log(sportsCoverage)
 
+    useEffect(() => {
+        //Sports Coverage
+        axios.get(`${process.env.REACT_APP_API_URL}/sportcoverage`)
+            .then(res => {
+                setSportsCoverage(res.data)
+            })
+
+    }, []);
     return (
 
         <section>
@@ -89,7 +101,15 @@ function HomePage() {
                     <section className="row">
                         <section className="col-lg-8 mx-auto">
                             <h2 className="text-center">About Us</h2>
-                            {parse(`${companyInfo.about_company}`)}
+                            <TextTruncate
+                                line={7}
+                                element="p"
+                                truncateText="…"
+                                text={companyInfo.safe_about_body_html}
+                            />
+                            <div className='d-flex justify-content-center'>
+                                <Link to="/about" className='btn btn-primary mt-3'>Read More</Link>
+                            </div>
                         </section>
                     </section>
                 </section>
@@ -101,7 +121,33 @@ function HomePage() {
             <ServiceGroup />
             <WorkProcess />
             <AthleteGroup />
-            <EventGroup />
+
+            {Object.keys(sportsCoverage).length === 0
+                ?
+                null
+                :
+                <section className="py-10 bg-light">
+                    <section className="container">
+                        <header className="text-center">
+                            <h2 className="mb-8">Our Sports Coverage</h2>
+                        </header>
+                        <section className="row row-cols-1 row-cols-md-4 g-4 justify-content-center text-center">
+                            {sportsCoverage.map((item) =>
+                                <section className="col" key={item.id}>
+                                    <section className="card">
+                                        <section className="card-body">
+                                            <h4>{item.name}</h4>
+                                        </section>
+                                    </section>
+                                </section>
+                            )}
+                        </section>
+                    </section>
+                </section>
+            }
+
+            {/* <EventGroup /> */}
+
             <TestimonialGroup />
         </section>
     );
