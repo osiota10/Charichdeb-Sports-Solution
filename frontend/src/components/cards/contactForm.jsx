@@ -147,7 +147,7 @@ function ContactForm() {
                     <Modal.Title>Thank you</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Thank you for contacting us. Our Business Development Representative will get in touch with you shortly.
+                    Thank you for contacting us. Our Business Development Representative will get in touch with you as soon as possible.
                     If you would like to speak to someone immediately, feel free to email us at <span className="fw-bold">{companyInfo.email}</span> or call at <span className="fw-bold">{companyInfo.telephone}</span>
                 </Modal.Body>
                 <Modal.Footer>
