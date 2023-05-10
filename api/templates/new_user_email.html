@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>New User Registration</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f2f2f2;
+                color: #333;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 30px;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            }
+            h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            p {
+                font-size: 16px;
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+            .details {
+                border-collapse: collapse;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .details td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+                font-size: 14px;
+            }
+            .details th {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+                background-color: #f2f2f2;
+                font-size: 14px;
+                font-weight: normal;
+            }
+            .footer {
+                background-color: #333;
+                color: #fff;
+                padding: 10px;
+                text-align: center;
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>New User Registration</h1>
+            <p>A new user has registered on your website. Below are the details:</p>
+            <table class="details">
+                <tr>
+                    <th>Name</th>
+                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th>Phone Number</th>
+                    <td>{{ user.phone_number }}</td>
+                </tr>
+                <tr>
+                    <th>Registration Date</th>
+                    <td>{{ user.date_joined }}</td>
+                </tr>
+            </table>
+            <p>Please take appropriate action to approve or reject or contact the user.</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2023 Charichdeb Sports Solution. All rights reserved.</p>
+        </div>
+    </body>
+</html>
+
