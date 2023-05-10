@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>New User Registration</title>
+        <title>Contact Inquiry</title>
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -58,27 +58,35 @@
     </head>
     <body>
         <div class="container">
-            <h1>New User Registration</h1>
-            <p>A new user has registered on your website. Below are the details:</p>
+            <h1>Contact Inquiry</h1>
+            <p>A new contact inquiry has been submitted with the following details:</p>
             <table class="details">
                 <tr>
+                    <th>Date</th>
+                    <td>{{ user.date }}</td>
+                </tr>
+                <tr>
                     <th>Name</th>
-                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                    <td>{{ user.full_name }}</td>
                 </tr>
                 <tr>
                     <th>Email</th>
                     <td>{{ user.email }}</td>
                 </tr>
                 <tr>
+                    <th>Location</th>
+                    <td>{{ user.location }}</td>
+                </tr>
+                <tr>
                     <th>Phone Number</th>
                     <td>{{ user.phone_number }}</td>
                 </tr>
                 <tr>
-                    <th>Registration Date</th>
-                    <td>{{ user.date_joined }}</td>
+                    <th>Message</th>
+                    <td>{{ user.message }}</td>
                 </tr>
             </table>
-            <p>Please take appropriate action to approve or reject or contact the user.</p>
+            <p>Please respond to this inquiry as soon as possible.</p>
         </div>
         <div class="footer">
             <p>&copy; 2023 Charichdeb Sports Solution. All rights reserved.</p>
