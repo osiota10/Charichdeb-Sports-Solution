@@ -15,19 +15,13 @@ function ContactPage() {
                     <section className="row g-5 ">
                         <section className="col-lg-6">
                             <h2>Become  a Partner</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Esse aliquid ad, iusto ducimus debitis aliquam nostrum
-                                libero eos impedit eum. Repudiandae quia est quas itaque
-                                eveniet aliquid delectus illo sed?</p>
+                            <p>Join us in promoting sports excellence! Partner with Charichdeb Sports Solution today and help us support aspiring athletes. Contact us now to learn more about sponsorship opportunities.</p>
                             <Link className="btn btn-primary" onClick={() => window.location = 'tel:{companyInfo.telephone}'}>Call Us Today</Link>
                         </section>
 
                         <section className="col-lg-6">
                             <h2>Get In Touch</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Esse aliquid ad, iusto ducimus debitis aliquam nostrum
-                                libero eos impedit eum. Repudiandae quia est quas itaque
-                                eveniet aliquid delectus illo sed?</p>
+                            <p>Take the first step towards achieving your sports goals and partner with Charichdeb Sports Solution today. With our expert guidance and personalized approach, we can help you reach your full potential. Contact us now to get started</p>
 
                             <section className="footer-contact-info">
                                 <section className="mb-2">

@@ -10,6 +10,8 @@ import { myStyle } from "./login";
 
 
 function ResetPassword({ reset_password, error, status }) {
+    const [loading, setLoading] = useState(false);
+
     //Modal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -27,7 +29,21 @@ function ResetPassword({ reset_password, error, status }) {
 
     const onSubmit = e => {
         e.preventDefault();
+        setLoading(true)
+
         reset_password(email);
+        async function resetPasswordHandler() {
+            try {
+                await reset_password(email);
+                // handle successful Password Reset
+            } catch (error) {
+                // handle Password Reset error
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        resetPasswordHandler()
     };
 
     useEffect(() => {
@@ -72,7 +88,23 @@ function ResetPassword({ reset_password, error, status }) {
                                         :
                                         null}
                                 </div>
-                                <button type="submit" class="btn btn-primary form-control">Reset Password</button>
+
+                                <section className="d-grid">
+                                    <button
+                                        type="submit"
+                                        class={loading ? 'btn btn-primary disabled' : 'btn btn-primary'}>
+
+                                        {loading
+                                            ?
+                                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                            :
+                                            null
+                                        }
+
+                                        Reset Password
+                                    </button>
+                                </section>
+
                                 <Link className="d-flex justify-content-center btn btn-outline-primary mt-2" to="/login">Back to Login</Link>
                             </form>
                         </div>

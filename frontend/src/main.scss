@@ -197,13 +197,14 @@ $badge-border-radius:               0px;
 //Card
 $card-border-width:                 0px;
 $card-border-radius:                2rem;
-$card-height:                       100%;
+// $card-height:                       100%;
 $card-spacer-y:                     1.5rem;
 $card-spacer-x:                     1.5rem;
 // $card-bg:                           lighten($dark, 05);
 // $card-box-shadow:                   $box-shadow-lg;
 // $card-color:                        #fff;
 $card-group-margin:                 2rem;
+
 
 .card:not(.card.hero) {
     box-shadow: $box-shadow;
@@ -420,6 +421,9 @@ select {
   transition: .5s;
 }
 
+.card:not(.sport-stat){
+  height: 100% !important;
+}
 
 @media (min-width: 576px) {
   .ms-lg-n8{

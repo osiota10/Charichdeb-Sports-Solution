@@ -201,6 +201,10 @@ select {
   transition: 0.5s;
 }
 
+.card:not(.sport-stat) {
+  height: 100% !important;
+}
+
 @media (min-width: 576px) {
   .ms-lg-n8 {
     margin-top: -3.5rem;
@@ -4751,7 +4755,7 @@ textarea.form-control-lg {
   --bs-card-cap-padding-x: 1.5rem;
   --bs-card-cap-bg: rgba(0, 0, 0, 0.03);
   --bs-card-cap-color: ;
-  --bs-card-height: 100%;
+  --bs-card-height: ;
   --bs-card-color: ;
   --bs-card-bg: #fff;
   --bs-card-img-overlay-padding: 1rem;

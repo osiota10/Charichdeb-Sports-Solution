@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
-import { useState, useEffect } from 'react';
 import { signup } from "../../actions/auth";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { CompanyInformationContext } from "../../App";
 import { myStyle } from "./login";
 
 
 function SignUp({ signup, error, status }) {
     const companyInfo = useContext(CompanyInformationContext)
+    const [loading, setLoading] = useState(false);
 
     //Modal
     const [show, setShow] = useState(false);
@@ -28,9 +28,23 @@ function SignUp({ signup, error, status }) {
 
     const { first_name, last_name, phone_number, email, password, re_password } = formData;
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
     const onSubmit = e => {
         e.preventDefault();
-        signup(first_name, last_name, phone_number, email, password, re_password);
+        setLoading(true)
+
+        async function signupHandler() {
+            try {
+                await signup(first_name, last_name, phone_number, email, password, re_password);
+                // handle successful signup
+            } catch (error) {
+                // handle signup error
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        signupHandler()
     };
 
     useEffect(() => {
@@ -177,8 +191,19 @@ function SignUp({ signup, error, status }) {
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-primary form-control">Create Account</button>
+                                <div class="d-grid">
+                                    <button type="submit"
+                                        class={loading ? 'btn btn-primary disabled' : 'btn btn-primary'}>
+
+                                        {loading
+                                            ?
+                                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                            :
+                                            null
+                                        }
+
+                                        Create Account
+                                    </button>
                                 </div>
                             </form>
 

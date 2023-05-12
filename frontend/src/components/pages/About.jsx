@@ -1,19 +1,18 @@
 import WorkProcess from "../cardGroups/workProcessGroup";
 import CoreValues from "../cardGroups/coreValues";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import PageTitle from "../cards/pageTitle";
 import ServicesListTemplate from "../cards/servicesTemplate";
-// import $ from 'jquery';
-// import Popper from 'popper.js';
-// import 'bootstrap/dist/js/bootstrap.bundle.min';
-// import 'bootstrap';
+import { CompanyInformationContext } from "../../App";
+import parse from 'html-react-parser';
 
 
 
 function AboutPage() {
     const [partners, setPartners] = useState([]);
     const [stories, setStories] = useState([]);
+    const companyInfo = useContext(CompanyInformationContext)
 
     useEffect(() => {
         //Partners
@@ -34,6 +33,23 @@ function AboutPage() {
             <PageTitle title="About" />
 
             <CoreValues />
+
+            {companyInfo.about_company
+                ?
+                <section className="bg-light">
+                    <section className="container py-10">
+                        <section className="row">
+                            <section className="col-lg-8 mx-auto">
+                                <h2 className="text-center">About Us</h2>
+                                <p>{parse(`${companyInfo.about_company}`)}</p>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+
+                :
+                null
+            }
 
             {Object.keys(stories).length === 0
                 ?

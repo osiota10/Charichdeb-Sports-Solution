@@ -22,6 +22,7 @@ export const myStyle = {
 };
 
 function Login({ login, isAuthenticated, error }) {
+    const [loading, setLoading] = useState(false);
     const companyInfo = useContext(CompanyInformationContext)
 
     const [formData, setFormData] = useState({
@@ -36,8 +37,20 @@ function Login({ login, isAuthenticated, error }) {
 
     const onSubmit = e => {
         e.preventDefault();
+        setLoading(true)
 
-        login(email, password);
+        async function loginHandler() {
+            try {
+                await login(email, password);
+                // handle successful login
+            } catch (error) {
+                // handle login error
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        loginHandler()
     };
 
 
@@ -90,7 +103,22 @@ function Login({ login, isAuthenticated, error }) {
                                             Password?</small></Link>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary form-control">Login</button>
+
+                                <section className="d-grid">
+                                    <button type="submit"
+                                        className={loading ? 'btn btn-primary disabled' : 'btn btn-primary'}>
+
+                                        {loading
+                                            ?
+                                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                            :
+                                            null
+                                        }
+
+                                        Login
+                                    </button>
+                                </section>
+
                                 <div class="mt-3">
                                     <p class="text-center">Don't have an account? <Link to="/signup" class="fw-bold text-decoration-none">Create
                                         Account</Link></p>

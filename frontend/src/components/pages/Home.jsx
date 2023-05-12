@@ -9,6 +9,7 @@ import Slider from "react-slick";
 import TextTruncate from 'react-text-truncate';
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { ServiceContext } from "../../App";
 
 
 
@@ -58,7 +59,8 @@ function HomePage() {
     };
 
     const companyInfo = useContext(CompanyInformationContext)
-    console.log(sportsCoverage)
+    const services = useContext(ServiceContext)
+
 
     useEffect(() => {
         //Sports Coverage
@@ -81,9 +83,9 @@ function HomePage() {
                         <div className="py-5 text-center position-absolute top-50 start-50 translate-middle w-75">
                             <h4 className="text-secondary">The future of</h4>
                             <Slider {...settings}>
-                                <h1 className="text-white">Sports Development</h1>
-                                <h1 className="text-white">Entertainment Development</h1>
-                                <h1 className="text-white">Sports Recruitment</h1>
+                                {services.map((item) =>
+                                    <h1 className="text-white">{item.title}</h1>
+                                )}
                             </Slider>
 
                         </div>

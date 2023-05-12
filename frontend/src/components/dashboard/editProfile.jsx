@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 function EditProfile() {
     const CurrentUserInfo = useContext(UserInfoContext)
 
+    const [loading, setLoading] = useState(false);
+
     //Modal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -40,6 +42,7 @@ function EditProfile() {
 
     const onSubmit = e => {
         e.preventDefault();
+        setLoading(true)
 
         // declare the data fetching function
         const fetchData = async () => {
@@ -58,12 +61,15 @@ function EditProfile() {
                     const res = await axios.put(`${process.env.REACT_APP_API_URL}/auth/users/me/`, body, config);
                     if (res.status === 200) {
                         handleShow()
+                        setLoading(false)
                     }
                 } catch (err) {
                     console.error("User not authenticated");
+                    setLoading(false)
                 }
             } else {
                 console.error("User not authenticated");
+                setLoading(false)
             }
         }
 
@@ -257,8 +263,18 @@ function EditProfile() {
                             </div>
                         </section>
 
-                        <div class="col-12 mt-5">
-                            <button type="submit" class="btn btn-primary form-control">Update Profile</button>
+                        <div className="d-grid mt-5">
+                            <button type="submit"
+                                className={loading ? 'btn btn-primary disabled' : 'btn btn-primary'}>
+
+                                {loading
+                                    ?
+                                    <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                    :
+                                    null
+                                }
+                                Update Profile
+                            </button>
                         </div>
                     </div>
                 </form>

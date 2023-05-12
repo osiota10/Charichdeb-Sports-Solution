@@ -27,6 +27,10 @@ import Activate from './components/auth/activate';
 import Testimonials from './components/pages/testimonials';
 // import { load_user } from './actions/auth';
 // import { connect } from 'react-redux';
+import { withAuth } from './components/cards/routeAuthCheck';
+
+const DashboardLayoutWithAuth = withAuth(DashboardLayout);
+const EditProfileWithAuth = withAuth(EditProfile);
 
 
 
@@ -41,7 +45,6 @@ export const UserInfoContext = createContext(null)
 
 
 function App() {
-
   const [service, setService] = useState([]);
   const [event, setEvent] = useState([]);
   const [athlete, setAthlete] = useState([]);
@@ -159,7 +162,7 @@ function App() {
                             <Route path='/activate/:uid/:token' element={<Activate />} />
                           </Route>
 
-                          <Route path="/dashboard" element={<DashboardLayout />}>
+                          <Route path="/dashboard" element={<DashboardLayoutWithAuth />}>
                             <Route index element={<DashboardHome />} />
                             <Route path="/dashboard/edit-profile" element={<EditProfile />} />
                           </Route>

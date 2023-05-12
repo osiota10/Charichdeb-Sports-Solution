@@ -10,6 +10,7 @@ import { myStyle } from "./login";
 
 function ResetPasswordConfirm({ match, reset_password_confirm, error, status }) {
     const companyInfo = useContext(CompanyInformationContext)
+    const [loading, setLoading] = useState(false);
 
     //Modal
     const [show, setShow] = useState(false);
@@ -31,8 +32,20 @@ function ResetPasswordConfirm({ match, reset_password_confirm, error, status }) 
 
     const onSubmit = e => {
         e.preventDefault();
+        setLoading(true)
 
-        reset_password_confirm(uid, token, new_password, re_new_password);
+        async function resetPasswordConfirmHandler() {
+            try {
+                await reset_password_confirm(uid, token, new_password, re_new_password);
+                // handle successful reset
+            } catch (error) {
+                // handle reset error
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        resetPasswordConfirmHandler()
     };
 
     useEffect(() => {
@@ -115,7 +128,21 @@ function ResetPasswordConfirm({ match, reset_password_confirm, error, status }) 
                                         :
                                         null}
                                 </div>
-                                <button type="submit" class="btn btn-primary form-control">Create New Password</button>
+
+                                <section className="d-grid">
+                                    <button
+                                        type="submit"
+                                        class={loading ? 'btn btn-primary disabled' : 'btn btn-primary'}>
+
+                                        {loading
+                                            ?
+                                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                            :
+                                            null
+                                        }
+                                        Create New Password
+                                    </button>
+                                </section>
                             </form>
                         </div>
                     </section>

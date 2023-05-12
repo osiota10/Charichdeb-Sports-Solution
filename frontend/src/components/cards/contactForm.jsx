@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { CompanyInformationContext } from "../../App";
 
 function ContactForm() {
+    const [loading, setLoading] = useState(false);
     const companyInfo = useContext(CompanyInformationContext)
 
     //Modal
@@ -26,7 +27,7 @@ function ContactForm() {
 
     const onSubmit = e => {
         e.preventDefault();
-        // e.target.reset();
+        setLoading(true)
 
         // declare the data fetching function
         const fetchData = async () => {
@@ -41,8 +42,16 @@ function ContactForm() {
 
             try {
                 const res = await axios.post(`${process.env.REACT_APP_API_URL}/contact-us`, body, config);
+                setLoading(false)
                 if (res.status === 201) {
                     handleShow()
+                    setFormData({
+                        full_name: '',
+                        location: '',
+                        email: '',
+                        phone_number: '',
+                        message: '',
+                    })
                 }
             } catch (err) {
                 console.error("User not authenticated");
@@ -130,7 +139,18 @@ function ContactForm() {
                             </div>
 
                             <div class="col-12 d-grid">
-                                <button type="submit" class="btn btn-primary ">Submit</button>
+                                <button type="submit"
+                                    class={loading ? 'btn btn-primary disabled' : 'btn btn-primary'}>
+
+                                    {loading
+                                        ?
+                                        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                        :
+                                        null
+                                    }
+
+                                    Send Message
+                                </button>
                             </div>
                         </form>
                     </section>

@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import { CompanyInformationContext } from "../../App";
 
 const Activate = ({ verify, error, status }) => {
+    const [loading, setLoading] = useState(false);
     const companyInfo = useContext(CompanyInformationContext)
     const [verified, setVerified] = useState(false);
 
@@ -21,11 +22,22 @@ const Activate = ({ verify, error, status }) => {
     const navigate = useNavigate()
 
     const verify_account = e => {
+        setLoading(true);
         // const uid = match.params.uid;
         // const token = match.params.token;
+        async function verifyHandler() {
+            try {
+                await verify(uid, token);
+                setVerified(true);
+                // handle successful login
+            } catch (error) {
+                // handle login error
+            } finally {
+                setLoading(false);
+            }
+        }
 
-        verify(uid, token);
-        setVerified(true);
+        verifyHandler()
     };
 
     useEffect(() => {
@@ -65,13 +77,22 @@ const Activate = ({ verify, error, status }) => {
                                     :
                                     null
                             }
-                            <button
-                                onClick={verify_account}
-                                type='button'
-                                className='btn btn-primary mt-2'
-                            >
-                                Click here to Verify
-                            </button>
+
+                            <section className='d-grid'>
+                                <button
+                                    onClick={verify_account}
+                                    type='button'
+                                    className={loading ? 'btn btn-primary mt-2 disabled' : 'btn btn-primary mt-2'}
+                                >
+                                    {loading
+                                        ?
+                                        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                        :
+                                        null
+                                    }
+                                    Click here to Verify
+                                </button>
+                            </section>
                         </div>
                     </section>
 
