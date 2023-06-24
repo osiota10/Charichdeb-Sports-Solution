@@ -31,7 +31,6 @@ function ResetPassword({ reset_password, error, status }) {
         e.preventDefault();
         setLoading(true)
 
-        reset_password(email);
         async function resetPasswordHandler() {
             try {
                 await reset_password(email);
