@@ -24,14 +24,18 @@ def send_new_user_email(sender, instance, created, **kwargs):
         subject = 'New User Registration'
         message = render_to_string('new_user_email.html', {'user': instance})
         from_email = settings.EMAIL_HOST_USER
-        recipient_list = ['osiotaobrozie@gmail.com']
-        send_mail(subject, message, from_email, recipient_list, html_message=message)
+        recipient_list = [settings.ADMIN_ALERT_EMAIL]
+        send_mail(subject, message, from_email,
+                  recipient_list, html_message=message)
+
 
 @receiver(post_save, sender=ContactUs)
 def send_new_contact_inquiry_email(sender, instance, created, **kwargs):
     if created:
         subject = 'Contact Inquiry'
-        message = render_to_string('new_contact_inquiry_email.html', {'user': instance})
+        message = render_to_string(
+            'new_contact_inquiry_email.html', {'user': instance})
         from_email = settings.EMAIL_HOST_USER
-        recipient_list = ['osiotaobrozie@gmail.com']
-        send_mail(subject, message, from_email, recipient_list, html_message=message)
+        recipient_list = [settings.ADMIN_ALERT_EMAIL]
+        send_mail(subject, message, from_email,
+                  recipient_list, html_message=message)
