@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'rest_framework',
     'djoser',
-    'build',
     'frontend',
 ]
 
@@ -127,7 +126,7 @@ CORS_ALLOWED_ORIGIN_REGEXES = env.list('CORS_ALLOWED_ORIGIN_REGEXES')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'build'),],
+        'DIRS': [os.path.join(BASE_DIR, 'frontend', 'build'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -211,7 +210,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'build/static'),
+    os.path.join(BASE_DIR, 'frontend', 'build', 'static'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
