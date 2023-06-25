@@ -50,3 +50,8 @@ admin.site.register(OurPartner)
 admin.site.register(ContactUs)
 admin.site.register(SportStat)
 admin.site.register(SportsCoverage)
+
+
+
+admin.site.site_header = 'Charichdeb Sports Solution Admin'
+admin.site.site_title = 'Charichdeb Sports Solution Admin'
