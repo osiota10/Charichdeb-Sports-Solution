@@ -210,6 +210,11 @@ button.btn-close {
   opacity: 1;
 }
 
+.dropdown-toggle::after {
+  color: #fff;
+  vertical-align: middle !important;
+}
+
 @media (min-width: 576px) {
   .ms-lg-n8 {
     margin-top: -3.5rem;
@@ -3806,13 +3811,13 @@ textarea.form-control-lg {
 }
 .dropdown-toggle::after {
   display: inline-block;
-  margin-left: 0.255em;
-  vertical-align: 0.255em;
+  margin-left: 0.425em;
+  vertical-align: 0.425em;
   content: "";
-  border-top: 0.3em solid;
-  border-right: 0.3em solid transparent;
+  border-top: 0.5em solid;
+  border-right: 0.5em solid transparent;
   border-bottom: 0;
-  border-left: 0.3em solid transparent;
+  border-left: 0.5em solid transparent;
 }
 .dropdown-toggle:empty::after {
   margin-left: 0;
@@ -3970,13 +3975,13 @@ textarea.form-control-lg {
 }
 .dropup .dropdown-toggle::after {
   display: inline-block;
-  margin-left: 0.255em;
-  vertical-align: 0.255em;
+  margin-left: 0.425em;
+  vertical-align: 0.425em;
   content: "";
   border-top: 0;
-  border-right: 0.3em solid transparent;
-  border-bottom: 0.3em solid;
-  border-left: 0.3em solid transparent;
+  border-right: 0.5em solid transparent;
+  border-bottom: 0.5em solid;
+  border-left: 0.5em solid transparent;
 }
 .dropup .dropdown-toggle:empty::after {
   margin-left: 0;
@@ -3991,13 +3996,13 @@ textarea.form-control-lg {
 }
 .dropend .dropdown-toggle::after {
   display: inline-block;
-  margin-left: 0.255em;
-  vertical-align: 0.255em;
+  margin-left: 0.425em;
+  vertical-align: 0.425em;
   content: "";
-  border-top: 0.3em solid transparent;
+  border-top: 0.5em solid transparent;
   border-right: 0;
-  border-bottom: 0.3em solid transparent;
-  border-left: 0.3em solid;
+  border-bottom: 0.5em solid transparent;
+  border-left: 0.5em solid;
 }
 .dropend .dropdown-toggle:empty::after {
   margin-left: 0;
@@ -4015,8 +4020,8 @@ textarea.form-control-lg {
 }
 .dropstart .dropdown-toggle::after {
   display: inline-block;
-  margin-left: 0.255em;
-  vertical-align: 0.255em;
+  margin-left: 0.425em;
+  vertical-align: 0.425em;
   content: "";
 }
 .dropstart .dropdown-toggle::after {
@@ -4024,12 +4029,12 @@ textarea.form-control-lg {
 }
 .dropstart .dropdown-toggle::before {
   display: inline-block;
-  margin-right: 0.255em;
-  vertical-align: 0.255em;
+  margin-right: 0.425em;
+  vertical-align: 0.425em;
   content: "";
-  border-top: 0.3em solid transparent;
-  border-right: 0.3em solid;
-  border-bottom: 0.3em solid transparent;
+  border-top: 0.5em solid transparent;
+  border-right: 0.5em solid;
+  border-bottom: 0.5em solid transparent;
 }
 .dropstart .dropdown-toggle:empty::after {
   margin-left: 0;

@@ -158,6 +158,8 @@ $nav-link-hover-color:              #fff;
 // $navbar-padding-y:                  .5rem;
 // $navbar-padding-x:                  null;
 
+$caret-width:                 .5em;
+
 .navbar{
   transition: 1s ease;
   .navbar-brand{
@@ -428,6 +430,11 @@ select {
 button.btn-close{
   filter: invert(1);
   opacity: 1;
+}
+
+.dropdown-toggle::after{
+  color: #fff;
+  vertical-align: middle !important;
 }
 
 @media (min-width: 576px) {
