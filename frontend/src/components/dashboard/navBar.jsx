@@ -81,11 +81,11 @@ function DashboardSideBar({ logout, isAuthenticated }) {
                                 <div className="navbar-nav flex-grow-1 pe-3" id="navbarNav">
                                     <ul className="navbar-nav">
                                         <li className="nav-item me-3" onClick={handleOffcanvasClose}>
-                                            <NavLink to="/dashboard" end className='nav-link' aria-current="page">Dashboard</NavLink>
+                                            <NavLink to="/dashboard" end className='nav-link' aria-current="page"><i class="fa-solid fa-house-user"></i> Dashboard</NavLink>
                                         </li>
 
                                         <li className="nav-item me-3" onClick={handleOffcanvasClose}>
-                                            <NavLink to="/dashboard/edit-profile" className='nav-link' aria-current="page">Edit Profile</NavLink>
+                                            <NavLink to="/dashboard/edit-profile" className='nav-link' aria-current="page"><i className="fa-solid fa-pen-to-square fs-6"></i> Edit Profile</NavLink>
                                         </li>
                                     </ul>
                                 </div>
