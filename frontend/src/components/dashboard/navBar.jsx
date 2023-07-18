@@ -114,7 +114,7 @@ function DashboardSideBar({ logout, isAuthenticated }) {
                     </div>
                 </nav>
             </>
-            <section className="pt-12 bg-light" >
+            <section className="pt-12 bg-light min-vh-100" >
                 <Outlet />
             </section>
             {redirect ? <Navigate to='/login' /> : null}
