@@ -9,6 +9,22 @@ import ToastMessage from "../cards/toastMsg";
 function DashboardHome() {
     const CurrentUserInfo = useContext(UserInfoContext)
 
+    //Age Calculator
+    const calculateAge = (dateOfBirth) => {
+        const dob = new Date(dateOfBirth);
+        const today = new Date();
+
+        let age = today.getFullYear() - dob.getFullYear();
+
+        // Check if the user's birthday hasn't occurred yet this year
+        if (today.getMonth() < dob.getMonth() ||
+            (today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())) {
+            age--;
+        }
+
+        return age;
+    };
+
     const [sportStat, setSportStat] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -223,7 +239,7 @@ function DashboardHome() {
                                 <tbody>
                                     <tr>
                                         <td>Age:</td>
-                                        <td>26 yrs</td>
+                                        <td>{calculateAge(CurrentUserInfo.date_of_birth)}yrs</td>
                                     </tr>
                                     <tr>
                                         <td>Email:</td>
