@@ -42,6 +42,13 @@ function EditProfile() {
     // Update Profile Pic input
     const onProfilePicChange = e => setProfilePicFile(e.target.files[0]);
 
+    // Select Input
+    const [selectedOption, setSelectedOption] = useState('');
+
+    const handleOptionChange = (event) => {
+        setSelectedOption(event.target.value);
+    };
+
     const onSubmit = e => {
         e.preventDefault();
         setLoading(true)
@@ -154,17 +161,16 @@ function EditProfile() {
                                     required
                                 />
                             </div>
-                            <div class="col-md-6">
-                                <label for="gender" class="form-label">Gender</label>
-                                <input
-                                    type="text"
-                                    class="form-control inputfield"
-                                    id="gender"
-                                    name="gender"
-                                    value={gender}
-                                    onChange={e => onChange(e)}
-                                    required />
+
+                            <div className="col-md-6">
+                                <label for="gender-select" className="form-label">Gender</label>
+                                <select id="gender-select" className="form-select inputfield" aria-label="Default select example" value={selectedOption === '' ? formData.gender : selectedOption} onChange={handleOptionChange}>
+                                    <option selected>-- Select --</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
                             </div>
+
                             <div class="col-md-6">
                                 <label for="date_of_birth" class="form-label">Date of Birth <small className="text-primary fw-bold">(YYYY-MM-DD)</small></label>
                                 <input
