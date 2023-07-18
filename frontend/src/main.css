@@ -205,6 +205,11 @@ select {
   height: 100% !important;
 }
 
+button.btn-close {
+  filter: invert(1);
+  opacity: 1;
+}
+
 @media (min-width: 576px) {
   .ms-lg-n8 {
     margin-top: -3.5rem;
