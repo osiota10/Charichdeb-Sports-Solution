@@ -32,7 +32,7 @@ function EditProfile() {
         get_photo_url: CurrentUserInfo.get_photo_url
     });
 
-    const { first_name, last_name, phone_number, date_of_birth, height, weight, gender, sport, home_address, local_govt, state_of_origin, nationality } = formData;
+    const { first_name, last_name, phone_number, date_of_birth, height, weight, sport, home_address, local_govt, state_of_origin, nationality } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -71,7 +71,7 @@ function EditProfile() {
                 formData.append('date_of_birth', date_of_birth);
                 formData.append('height', height);
                 formData.append('weight', weight);
-                formData.append('gender', gender);
+                formData.append('gender', selectedOption);
                 formData.append('sport', sport);
                 formData.append('home_address', home_address);
                 formData.append('local_govt', local_govt);
