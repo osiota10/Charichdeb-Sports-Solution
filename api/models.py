@@ -40,6 +40,10 @@ class UserAccountManager(BaseUserManager):
 
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
+    GENDER = [
+        ('Male', 'Male'),
+        ('Female', 'Female')
+    ]
 
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
@@ -55,7 +59,8 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     height = models.IntegerField(null=True, blank=True)
     weight = models.IntegerField(null=True, blank=True)
     phone_number = models.IntegerField()
-    gender = models.CharField(max_length=255, null=True, blank=True)
+    gender = models.CharField(
+        max_length=255, null=True, blank=True, choices=GENDER)
     sport = models.CharField(max_length=255, null=True, blank=True)
     home_address = models.TextField(null=True, blank=True)
     local_govt = models.CharField(max_length=255, null=True, blank=True)
@@ -251,6 +256,7 @@ class SportStat(models.Model):
 
     def __str__(self):
         return f"{self.event}- {self.pb}"
+
 
 class SportsCoverage(models.Model):
     name = models.CharField(max_length=50)
