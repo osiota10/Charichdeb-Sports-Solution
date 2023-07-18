@@ -5,6 +5,7 @@ from ckeditor.fields import RichTextField
 from django.utils.html import strip_tags
 from django.conf import settings
 from django.utils.html import strip_tags
+from django.core.validators import RegexValidator
 
 # # Create your models here.
 
@@ -48,7 +49,8 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    phone_number = models.IntegerField()
+    phone_number = models.CharField(null=True, blank=True, max_length=11, validators=[
+                                    RegexValidator(r'^\d{11}$', 'Enter a valid phone number.')])
     date_of_birth = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
