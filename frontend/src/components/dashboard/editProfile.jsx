@@ -18,7 +18,6 @@ function EditProfile() {
     const [formData, setFormData] = useState({
         first_name: CurrentUserInfo.first_name,
         last_name: CurrentUserInfo.last_name,
-        email: CurrentUserInfo.email,
         phone_number: CurrentUserInfo.phone_number,
         date_of_birth: CurrentUserInfo.date_of_birth,
         height: CurrentUserInfo.height,
@@ -33,7 +32,7 @@ function EditProfile() {
         get_photo_url: CurrentUserInfo.get_photo_url
     });
 
-    const { first_name, last_name, email, phone_number, date_of_birth, height, weight, gender, sport, home_address, local_govt, state_of_origin, nationality } = formData;
+    const { first_name, last_name, phone_number, date_of_birth, height, weight, gender, sport, home_address, local_govt, state_of_origin, nationality } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -61,7 +60,6 @@ function EditProfile() {
                 const formData = new FormData();
                 formData.append('first_name', first_name);
                 formData.append('last_name', last_name);
-                formData.append('email', email);
                 formData.append('phone_number', phone_number);
                 formData.append('date_of_birth', date_of_birth);
                 formData.append('height', height);
@@ -140,19 +138,6 @@ function EditProfile() {
                                     name="last_name"
                                     value={last_name}
                                     onChange={e => onChange(e)}
-                                    required
-                                />
-                            </div>
-                            <div class="col-md-6">
-                                <label for="email" class="form-label">Email</label>
-                                <input
-                                    type="email"
-                                    class="form-control inputfield"
-                                    id="email"
-                                    aria-describedby="emailHelp"
-                                    name="email"
-                                    value={email}
-                                    disabled
                                     required
                                 />
                             </div>
