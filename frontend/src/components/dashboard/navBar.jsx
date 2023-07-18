@@ -1,5 +1,5 @@
 import { Outlet, NavLink, Link, Navigate, useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { CompanyInformationContext, UserInfoContext } from "../../App";
 import { logout } from "../../actions/auth";
 import { connect } from "react-redux";
@@ -13,6 +13,20 @@ function DashboardSideBar({ logout, isAuthenticated }) {
         logout();
         setRedirect(true);
     };
+
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setScreenWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const navigate = useNavigate();
     // setTimeout(() => {
@@ -51,7 +65,14 @@ function DashboardSideBar({ logout, isAuthenticated }) {
                             </button>
                         </section>
 
-                        <Offcanvas id="offcanvasNavbar" show={showOffcanvas} onHide={handleOffcanvasClose} backdrop="static" responsive="lg" tabIndex="-1" className="text-bg-dark">
+                        <Offcanvas
+                            id="offcanvasNavbar"
+                            show={showOffcanvas}
+                            onHide={handleOffcanvasClose}
+                            backdrop="static"
+                            responsive="lg"
+                            tabIndex="-1"
+                            className={screenWidth < 991 ? "text-bg-dark" : null}>
                             <Offcanvas.Header closeButton>
                                 <Offcanvas.Title className="text-secondary">Charichdeb Sports Solution</Offcanvas.Title>
                             </Offcanvas.Header>
