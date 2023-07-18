@@ -74,11 +74,11 @@ function DashboardSideBar({ logout, isAuthenticated }) {
                             tabIndex="-1"
                             className={screenWidth < 991 ? "text-bg-dark" : null}>
                             <Offcanvas.Header closeButton>
-                                <Offcanvas.Title className="text-secondary">Charichdeb Sports Solution</Offcanvas.Title>
+                                <Offcanvas.Title className="text-secondary">{companyInfo.company_name}</Offcanvas.Title>
                             </Offcanvas.Header>
 
-                            <Offcanvas.Body className=" ">
-                                <div className="navbar-nav justify-content-center flex-grow-1 pe-3" id="navbarNav">
+                            <Offcanvas.Body className="d-flex flex-column align-items-around">
+                                <div className="navbar-nav flex-grow-1 pe-3" id="navbarNav">
                                     <ul className="navbar-nav">
                                         <li className="nav-item me-3" onClick={handleOffcanvasClose}>
                                             <NavLink to="/dashboard" end className='nav-link' aria-current="page">Dashboard</NavLink>
@@ -90,9 +90,9 @@ function DashboardSideBar({ logout, isAuthenticated }) {
                                     </ul>
                                 </div>
 
-                                <span className="d-lg-none .d-xl-block">
+                                <section className="d-lg-none .d-xl-block">
                                     <Link className='btn btn-outline-secondary text-decoration-none me-1' to="#" onClick={logout_user}>Logout</Link>
-                                </span>
+                                </section>
                             </Offcanvas.Body>
                         </Offcanvas>
 
