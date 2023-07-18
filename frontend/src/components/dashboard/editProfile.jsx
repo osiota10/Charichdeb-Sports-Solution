@@ -102,7 +102,6 @@ function EditProfile() {
                                     name="image"
                                     value={image}
                                     onChange={e => onChange(e)}
-                                    required
                                 />
                                 <label class="input-group-text" for="inputGroupFile02">Upload</label>
                             </div>
@@ -170,7 +169,7 @@ function EditProfile() {
                                     required />
                             </div>
                             <div class="col-md-6">
-                                <label for="date_of_birth" class="form-label">Date of Birth</label>
+                                <label for="date_of_birth" class="form-label">Date of Birth <small className="text-primary fw-bold">(YYYY-MM-DD)</small></label>
                                 <input
                                     type="text"
                                     class="form-control inputfield"
