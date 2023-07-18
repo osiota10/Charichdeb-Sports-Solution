@@ -93,7 +93,7 @@ function EditProfile() {
 
     return (
         <div class="container mt-3 pb-5">
-            {/* <h2 class="text-center">Edit my Profile</h2> */}
+            <h2 class="text-center">Edit Profile</h2>
             <div>
                 <form class="row" onSubmit={e => onSubmit(e)}>
                     <div class="col-lg-9 mx-auto">
