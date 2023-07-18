@@ -6,9 +6,21 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from djoser.views import UserViewSet
 
 
 # Create your views here.
+
+class UserUpdateView(UserViewSet):
+    # Use your custom serializer for updating user information
+    serializer_class = UserInfoSerializer
+
+    def update(self, request, *args, **kwargs):
+        response = super().update(request, *args, **kwargs)
+
+        # Perform additional actions after updating user information if needed
+
+        return response
 
 
 class WorkProcessView(generics.ListAPIView):
@@ -101,7 +113,7 @@ class SportStatListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         return SportStat.objects.filter(user=self.request.user)
 
- 
+
 class SportStatRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SportStatSerializer
     permission_classes = [IsAuthenticated,]
@@ -109,6 +121,7 @@ class SportStatRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return SportStat.objects.filter(user=self.request.user)
+
 
 class SportsCoverageView(generics.ListAPIView):
     serializer_class = SportsCoverageSerializer

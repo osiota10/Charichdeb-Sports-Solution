@@ -19,6 +19,41 @@ class UserInfoSerializer(UserSerializer):
         fields = ('id', 'first_name', 'last_name',
                   'phone_number', 'email', 'get_photo_url', 'date_of_birth', 'height', 'weight', 'gender', 'sport', 'home_address', 'local_govt', 'state_of_origin', 'nationality', 'image',)
 
+        def update(self, instance, validated_data):
+            instance = super().update(instance, validated_data)
+
+            # Perform custom update logic here
+            instance.first_name = validated_data.get(
+                'first_name', instance.first_name)
+            instance.last_name = validated_data.get(
+                'last_name', instance.last_name)
+            instance.phone_number = validated_data.get(
+                'phone_number', instance.phone_number)
+            instance.date_of_birth = validated_data.get(
+                'date_of_birth', instance.date_of_birth)
+            instance.gender = validated_data.get('gender', instance.gender)
+            instance.height = validated_data.get(
+                'height', instance.height)
+            instance.weight = validated_data.get(
+                'weight', instance.weight)
+            instance.sport = validated_data.get(
+                'sport', instance.sport)
+            instance.nationality = validated_data.get(
+                'nationality', instance.nationality)
+            instance.state_of_origin = validated_data.get(
+                'state_of_origin', instance.state_of_origin)
+            instance.local_govt = validated_data.get(
+                'local_govt', instance.local_govt)
+            instance.home_address = validated_data.get(
+                'home_address', instance.home_address)
+
+            # Update image field
+            if 'image' in validated_data:
+                instance.image = validated_data['image']
+
+            instance.save()
+            return instance
+
 
 class WorkProcessSerializer(serializers.ModelSerializer):
     class Meta:
