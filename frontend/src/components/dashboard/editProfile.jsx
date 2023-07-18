@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { UserInfoContext } from "../../App";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
@@ -34,18 +33,22 @@ function EditProfile() {
         get_photo_url: CurrentUserInfo.get_photo_url
     });
 
-    const { first_name, last_name, email, phone_number, date_of_birth, height, weight, gender, sport, home_address, local_govt, state_of_origin, nationality, image, get_photo_url } = formData;
+    const { first_name, last_name, email, phone_number, date_of_birth, height, weight, gender, sport, home_address, local_govt, state_of_origin, nationality } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const navigate = useNavigate();
+    // Update Profile Pic
+    const [profilePicFile, setProfilePicFile] = useState([]);
+
+    // Update Profile Pic input
+    const onProfilePicChange = e => setProfilePicFile(e.target.files[0]);
 
     const onSubmit = e => {
         e.preventDefault();
         setLoading(true)
 
-        // declare the data fetching function
-        const fetchData = async () => {
+        // declare the data Submit function
+        const submitData = async () => {
             if (localStorage.getItem('access')) {
                 const config = {
                     headers: {
@@ -55,10 +58,24 @@ function EditProfile() {
                     }
                 };
 
-                const body = JSON.stringify({ first_name, last_name, email, phone_number });
+                const formData = new FormData();
+                formData.append('first_name', first_name);
+                formData.append('last_name', last_name);
+                formData.append('email', email);
+                formData.append('phone_number', phone_number);
+                formData.append('date_of_birth', date_of_birth);
+                formData.append('height', height);
+                formData.append('weight', weight);
+                formData.append('gender', gender);
+                formData.append('sport', sport);
+                formData.append('home_address', home_address);
+                formData.append('local_govt', local_govt);
+                formData.append('state_of_origin', state_of_origin);
+                formData.append('nationality', nationality);
+                formData.append('image', profilePicFile);
 
                 try {
-                    const res = await axios.put(`${process.env.REACT_APP_API_URL}/auth/users/me/`, body, config);
+                    const res = await axios.put(`${process.env.REACT_APP_API_URL}/auth/users/me/`, formData, config);
                     if (res.status === 200) {
                         handleShow()
                         setLoading(false)
@@ -73,13 +90,9 @@ function EditProfile() {
             }
         }
 
-        fetchData()
-
-        // setTimeout(() => {
-        //     navigate('/dashboard')
-        // }, 2000)
+        submitData()
     };
-    console.log(image)
+
     return (
         <div class="container mt-3 pb-5">
             {/* <h2 class="text-center">Edit my Profile</h2> */}
@@ -100,8 +113,7 @@ function EditProfile() {
                                     class="form-control"
                                     id="inputGroupFile02"
                                     name="image"
-                                    value={image}
-                                    onChange={e => onChange(e)}
+                                    onChange={e => onProfilePicChange(e)}
                                 />
                                 <label class="input-group-text" for="inputGroupFile02">Upload</label>
                             </div>
