@@ -52,7 +52,7 @@ function EditProfile() {
             if (localStorage.getItem('access')) {
                 const config = {
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'multipart/form-data',
                         'Authorization': `JWT ${localStorage.getItem('access')}`,
                         'Accept': 'application/json'
                     }
