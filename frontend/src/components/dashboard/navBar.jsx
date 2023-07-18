@@ -3,11 +3,8 @@ import { useState, useContext } from "react";
 import { CompanyInformationContext, UserInfoContext } from "../../App";
 import { logout } from "../../actions/auth";
 import { connect } from "react-redux";
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
-
-const pic = {
-    url: "https://cdn.pixabay.com/photo/2021/05/20/11/58/beauty-6268460_1280.jpg",
-}
 
 function DashboardSideBar({ logout, isAuthenticated }) {
     const [redirect, setRedirect] = useState(false);
@@ -38,34 +35,35 @@ function DashboardSideBar({ logout, isAuthenticated }) {
     }
 
     window.addEventListener('scroll', handleFixNavBar)
+
+    // Offcanvas
+    const [showOffcanvas, setOffcanvasShow] = useState(false);
+    const handleOffcanvasClose = () => setOffcanvasShow(false);
+    const handleOffcanvasShow = () => setOffcanvasShow(true);
     return (
         <section>
             <>
                 <nav className={'navbar fixed-top navbar-expand-lg bg-primary'} >
                     <div class="container-fluid">
                         <section className="hstack">
-                            <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                            <button className="navbar-toggler" type="button" aria-controls="offcanvasNavbar" onClick={handleOffcanvasShow}>
                                 <i className="fa-solid fa-bars text-white fs-3"></i>
-                                {/* <span className="navbar-toggler-icon"></span> */}
                             </button>
-
                         </section>
 
+                        <Offcanvas id="offcanvasNavbar" show={showOffcanvas} onHide={handleOffcanvasClose} backdrop="static" responsive="lg" tabIndex="-1" className="text-bg-dark">
+                            <Offcanvas.Header closeButton>
+                                <Offcanvas.Title className="text-secondary">Charichdeb Sports Solution</Offcanvas.Title>
+                            </Offcanvas.Header>
 
-
-                        <div className="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                            <div className="offcanvas-header">
-                                <h5 className="offcanvas-title text-secondary" id="offcanvasNavbarLabel">Charichdeb Sports Solution</h5>
-                                <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                            </div>
-                            <div className="offcanvas-body ">
+                            <Offcanvas.Body className=" ">
                                 <div className="navbar-nav justify-content-center flex-grow-1 pe-3" id="navbarNav">
                                     <ul className="navbar-nav">
-                                        <li className="nav-item me-3">
+                                        <li className="nav-item me-3" onClick={handleOffcanvasClose}>
                                             <NavLink to="/dashboard" end className='nav-link' aria-current="page">Dashboard</NavLink>
                                         </li>
 
-                                        <li className="nav-item me-3">
+                                        <li className="nav-item me-3" onClick={handleOffcanvasClose}>
                                             <NavLink to="/dashboard/edit-profile" className='nav-link' aria-current="page">Edit Profile</NavLink>
                                         </li>
                                     </ul>
@@ -74,8 +72,9 @@ function DashboardSideBar({ logout, isAuthenticated }) {
                                 <span className="d-lg-none .d-xl-block">
                                     <Link className='btn btn-outline-secondary text-decoration-none me-1' to="#" onClick={logout_user}>Logout</Link>
                                 </span>
-                            </div>
-                        </div>
+                            </Offcanvas.Body>
+                        </Offcanvas>
+
                         <div className="btn-group" >
                             <section className="dropdown-toggle" id="dropdownMenuButton2" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
                                 <span className="text-white me-1">Welcome {CurrentUserInfo.last_name}!</span>
