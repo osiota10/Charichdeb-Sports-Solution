@@ -25,6 +25,7 @@ import DashboardHome from './components/dashboard';
 import EditProfile from './components/dashboard/editProfile';
 import Activate from './components/auth/activate';
 import Testimonials from './components/pages/testimonials';
+import TestimonialDashboard from './components/dashboard/testimonials';
 // import { load_user } from './actions/auth';
 // import { connect } from 'react-redux';
 import { withAuth } from './components/cards/routeAuthCheck';
@@ -165,6 +166,7 @@ function App() {
                           <Route path="/dashboard" element={<DashboardLayoutWithAuth />}>
                             <Route index element={<DashboardHome />} />
                             <Route path="/dashboard/edit-profile" element={<EditProfile />} />
+                            <Route path="/dashboard/testimonials" element={<TestimonialDashboard />} />
                           </Route>
 
                         </Routes>

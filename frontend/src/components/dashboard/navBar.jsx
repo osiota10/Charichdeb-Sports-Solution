@@ -85,6 +85,10 @@ function DashboardSideBar({ logout, isAuthenticated }) {
                                         </li>
 
                                         <li className="nav-item me-3" onClick={handleOffcanvasClose}>
+                                            <NavLink to="/dashboard/testimonials" className='nav-link' aria-current="page"><i className="fa-solid fa-pen-to-square fs-6"></i> Testimonials</NavLink>
+                                        </li>
+
+                                        <li className="nav-item me-3" onClick={handleOffcanvasClose}>
                                             <NavLink to="/dashboard/edit-profile" className='nav-link' aria-current="page"><i className="fa-solid fa-pen-to-square fs-6"></i> Edit Profile</NavLink>
                                         </li>
                                     </ul>
