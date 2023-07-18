@@ -461,10 +461,13 @@ select {
       .ms-lg-n6{
         margin-top: -3.5rem;
       }
-
-      // .ratio-3x4{
-      //   --bs-aspect-ratio: calc(9 / 16 * 100%);
-      //   }
+    }
+    .active:not(.breadcrumb-item, a.no-border.nav-link ) {
+      border-bottom: 0px !important;
+      border-left: 4px solid #fff !important;
+    }
+    a.nav-link.active{
+      padding: 8px;
     }
   }
   @include media-breakpoint-down(md) { 

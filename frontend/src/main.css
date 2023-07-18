@@ -226,6 +226,13 @@ select {
   .service-template .ms-lg-n6 {
     margin-top: -3.5rem;
   }
+  .active:not(.breadcrumb-item, a.no-border.nav-link) {
+    border-bottom: 0px !important;
+    border-left: 4px solid #fff !important;
+  }
+  a.nav-link.active {
+    padding: 8px;
+  }
 }
 @media (max-width: 767.98px) {
   .card.hero .ratio-21x9 {
