@@ -3,6 +3,7 @@ import { UserInfoContext } from "../../App";
 import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import parse from 'html-react-parser';
 
 const TestimonialDashboard = () => {
     const CurrentUserInfo = useContext(UserInfoContext)
@@ -132,19 +133,19 @@ const TestimonialDashboard = () => {
                                                         </section>
                                                         <section class="text-center">
                                                             <h4 class="card-title">{CurrentUserInfo.last_name} {CurrentUserInfo.first_name}</h4>
-                                                            <small class="card-title badge rounded-pill text-bg-primary ">{CurrentUserInfo.sport}</small>
+                                                            <small class="card-title badge rounded-pill text-bg-primary ">{item.designation}</small>
                                                         </section>
                                                     </div>
                                                     <div class="col-lg-8">
                                                         <div>
                                                             <i class="fa-solid fa-quote-left text-primary fs-4"></i>
-                                                            <p class="card-text">{item.body}</p>
+                                                            <p class="card-text">{parse(`${item.body}`)}</p>
                                                             <i class="fa-solid fa-quote-right text-primary d-flex justify-content-end fs-4"></i>
                                                         </div>
                                                         <button className="justify-content-end btn btn-primary" onClick={() => handleEdit(item)}>
                                                             Edit <i className="fa-solid fa-pen-to-square ms-1"></i>
                                                         </button>
-                                                        <section class="card-title badge rounded-pill text-bg-primary text-center ms-2">Approved</section>
+                                                        <section class="card-title badge rounded-pill text-bg-warning ms-2">Approved</section>
                                                     </div>
                                                 </div>
                                             </div>
