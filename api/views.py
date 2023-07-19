@@ -8,6 +8,7 @@ from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from djoser.views import UserViewSet
 from rest_framework.views import APIView
+from rest_framework import status
 
 
 # Create your views here.
@@ -153,3 +154,19 @@ class TestimonialDashboardView(APIView):
             return Response(serializer.data, status=200)
 
         return Response(serializer.errors, status=400)
+
+    def post(self, request, *args, **kwargs):
+        designation = request.data.get('designation')
+        body = request.data.get('body')
+
+        if not designation or not body:
+            return Response({'error': 'Designation and Body are required fields.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            testimonial = Testimonial.objects.create(
+                user=request.user, designation=designation, body=body)
+
+            serializer = TestimonialSerialer(testimonial)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
