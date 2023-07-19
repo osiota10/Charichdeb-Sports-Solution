@@ -105,6 +105,50 @@ const TestimonialDashboard = () => {
         setIsEditModal(false)
     }
 
+    const [formAddData, setFormAddData] = useState({
+        designation: '',
+        body: '',
+    });
+    const { designation, body } = formAddData;
+    const onAddChange = e => setFormAddData({ ...formAddData, [e.target.name]: e.target.value });
+
+    const onAddSubmit = e => {
+        e.preventDefault();
+        setLoading(true)
+
+        const submitData = async () => {
+            if (localStorage.getItem('access')) {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `JWT ${localStorage.getItem('access')}`,
+                        'Accept': 'application/json'
+                    }
+                };
+
+                const body = JSON.stringify(formAddData);
+
+                try {
+                    const res = await axios.post(`${process.env.REACT_APP_API_URL}/dashboard-testimonials`, body, config);
+                    setLoading(false)
+
+                    if (res.status === 200) {
+                        handleShowModalClose()
+                        const updatedTestimonials = await fetchTestimonialData();
+                        setTestimonial(updatedTestimonials);
+                    }
+                } catch (err) {
+                    console.log(err);
+                    setLoading(false)
+                }
+            } else {
+                console.error("User not authenticated");
+            }
+        }
+        submitData()
+    };
+
+
     return (
         <section className="container">
             <h2 class="text-center mb-4">Testimonials</h2>
@@ -225,7 +269,49 @@ const TestimonialDashboard = () => {
                             </section>
                         </form>
                         :
-                        'Add'
+                        <form onSubmit={e => onAddSubmit(e)}>
+                            <section className="row g-3">
+                                <div class="col-12">
+                                    <label for="designation" class="form-label">Designation</label>
+                                    <input
+                                        type="text"
+                                        class="form-control inputfield bg-light"
+                                        id="designation"
+                                        name="designation"
+                                        placeholder="E.g Men's 100m"
+                                        value={designation}
+                                        onChange={onAddChange}
+                                        required />
+                                </div>
+                                <div class="col-12">
+                                    <label for="body" class="form-label">Body</label>
+                                    <textarea
+                                        class="form-control inputfield bg-light"
+                                        id="body"
+                                        rows="4"
+                                        onChange={onAddChange}
+                                        placeholder="Write testimony here"
+                                        name="body"
+                                        value={body}
+                                        required
+                                    ></textarea>
+                                </div>
+                                <section className="d-grid">
+                                    <button
+                                        type="submit"
+                                        className={loading ? 'btn btn-primary disabled' : 'btn btn-primary'}
+                                    >
+                                        {loading
+                                            ?
+                                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                            :
+                                            null
+                                        }
+                                        Submit
+                                    </button>
+                                </section>
+                            </section>
+                        </form>
                     }
                 </Modal.Body>
 
