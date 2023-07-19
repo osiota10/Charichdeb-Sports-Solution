@@ -139,4 +139,17 @@ class TestimonialDashboardView(APIView):
         return Response(serializer.data)
 
     def put(self, request, *args, **kwargs):
-        pass
+        testimonial_id = request.data.get('id')
+
+        try:
+            testimonial = Testimonial.objects.get(
+                id=testimonial_id, user=self.request.user)
+        except Testimonial.DoesNotExist:
+            return Response({'error': 'Testimonial not found.'}, status=404)
+
+        serializer = TestimonialSerialer(testimonial, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+
+        return Response(serializer.errors, status=400)

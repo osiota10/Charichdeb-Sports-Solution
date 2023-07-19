@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { UserInfoContext } from "../../App";
 import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
@@ -10,35 +10,32 @@ const TestimonialDashboard = () => {
     const isTestimonial = Object.keys(testimonials).length === 0
     const [loading, setLoading] = useState(false);
 
-    console.log(testimonials)
+    const fetchTestimonialData = useCallback(async () => {
+        if (localStorage.getItem('access')) {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `JWT ${localStorage.getItem('access')}`,
+                    'Accept': 'application/json'
+                }
+            };
+
+            try {
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}/dashboard-testimonials`, config);
+                return res.data;
+            } catch (err) {
+                console.error("User not authenticated");
+                return [];
+            }
+        } else {
+            console.error("User not authenticated");
+            return [];
+        }
+    }, []); // The empty dependency array ensures the function is memoized
 
     useEffect(() => {
-        // Testimonial info
-        const fetchTestimonialData = async () => {
-            if (localStorage.getItem('access')) {
-                const config = {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `JWT ${localStorage.getItem('access')}`,
-                        'Accept': 'application/json'
-                    }
-                };
-
-                try {
-                    axios.get(`${process.env.REACT_APP_API_URL}/dashboard-testimonials`, config)
-                        .then(res => {
-                            setTestimonial(res.data)
-                        })
-                } catch (err) {
-                    console.error("User not authenticated");
-                }
-            } else {
-                console.error("User not authenticated");
-            }
-        }
-
-        fetchTestimonialData()
-    }, [])
+        fetchTestimonialData().then((data) => setTestimonial(data));
+    }, [fetchTestimonialData]) // Re-fetch testimonial data whenever onEditSubmit is called
 
     // Show Modal
     const [showModal, setShowModal] = useState(false);
@@ -48,7 +45,7 @@ const TestimonialDashboard = () => {
     // Check Modal type
     const [isEditModal, setIsEditModal] = useState(false);
 
-    // Edit
+    // Edit Functionality
     const [formEditData, setFormEditData] = useState({
         designation: '',
         body: '',
@@ -87,7 +84,8 @@ const TestimonialDashboard = () => {
 
                     if (res.status === 200) {
                         handleShowModalClose()
-                        // handleButtonClick()
+                        const updatedTestimonials = await fetchTestimonialData();
+                        setTestimonial(updatedTestimonials);
                     }
                 } catch (err) {
                     console.log(err);
@@ -97,11 +95,10 @@ const TestimonialDashboard = () => {
                 console.error("User not authenticated");
             }
         }
-
         submitData()
     };
 
-    // Add
+    // Add Functionality
     const handleAdd = () => {
         handleShowModalShow()
         setIsEditModal(false)
