@@ -145,7 +145,18 @@ const TestimonialDashboard = () => {
                                                         <button className="justify-content-end btn btn-primary" onClick={() => handleEdit(item)}>
                                                             Edit <i className="fa-solid fa-pen-to-square ms-1"></i>
                                                         </button>
-                                                        <section class="card-title badge rounded-pill text-bg-warning ms-2">Approved</section>
+                                                        <section
+                                                            className={`card-title badge rounded-pill ms-2 
+                                                            ${item.is_featured === false ? "text-bg-warning" : "text-bg-primary"}`}
+                                                        >
+                                                            {
+                                                                item.is_featured === false
+                                                                    ?
+                                                                    'Pending Approval'
+                                                                    :
+                                                                    'Approved'
+                                                            }
+                                                        </section>
                                                     </div>
                                                 </div>
                                             </div>
