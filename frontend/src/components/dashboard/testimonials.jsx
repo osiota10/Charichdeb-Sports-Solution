@@ -4,6 +4,7 @@ import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import parse from 'html-react-parser';
+import Alert from 'react-bootstrap/Alert';
 
 const TestimonialDashboard = () => {
     const CurrentUserInfo = useContext(UserInfoContext)
@@ -132,7 +133,7 @@ const TestimonialDashboard = () => {
                     const res = await axios.post(`${process.env.REACT_APP_API_URL}/dashboard-testimonials`, body, config);
                     setLoading(false)
 
-                    if (res.status === 200) {
+                    if (res.status === 201) {
                         handleShowModalClose()
                         const updatedTestimonials = await fetchTestimonialData();
                         setTestimonial(updatedTestimonials);
@@ -152,8 +153,17 @@ const TestimonialDashboard = () => {
     return (
         <section className="container">
             <h2 class="text-center mb-4">Testimonials</h2>
+            {
+                isTestimonial
+                    ?
+                    null
+                    :
+                    <Alert variant="info" className="fw-bold">
+                        You can only add one Testimonial. Click on edit to make necessary changes
+                    </Alert>
+            }
 
-            <section className={isTestimonial ? "d-block btn btn-primary py-6" : "d-block btn btn-primary py-6 "} onClick={() => handleAdd()}>
+            <section className={`d-block btn btn-primary py-6 ${isTestimonial ? null : 'disabled'}`} onClick={() => handleAdd()}>
                 Add Testimonials <i className="fa-solid fa-plus ms-1"></i>
             </section>
 
