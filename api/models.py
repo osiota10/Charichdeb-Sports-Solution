@@ -76,7 +76,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     ordering = ('email',)
 
     def get_full_name(self):
-        return self.first_name
+        return f"{self.first_name} {self.last_name}"
 
     def get_short_name(self):
         return self.first_name
@@ -170,8 +170,8 @@ class Testimonial(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE, blank=True, null=True)
     date_added = models.DateField(auto_now_add=True)
-    image = CloudinaryField('image')
-    name = models.CharField(max_length=32)
+    image = CloudinaryField('image', null=True, blank=True)
+    name = models.CharField(max_length=32, null=True, blank=True)
     designation = models.CharField(max_length=32)
     body = RichTextField()
 
@@ -180,6 +180,13 @@ class Testimonial(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+    def save(self, *args, **kwargs):
+        if self.user:
+            # Set the image and name from the associated user instance
+            self.image = self.user.image
+            self.name = self.user.get_full_name()
+        super().save(*args, **kwargs)
 
 
 class CoreValue(models.Model):
