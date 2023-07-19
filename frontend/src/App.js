@@ -54,7 +54,6 @@ function App() {
   const [companyInfo, setCompanyInfo] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
 
-  const dashLink = window.location.href === '/dashboard'
 
   // declare the data fetching function
   const fetchData = async () => {
@@ -81,14 +80,8 @@ function App() {
 
   useEffect(() => {
 
-    // Load user
-    // load_user()
-
     //User Info
     fetchData()
-
-      // make sure to catch any error
-      .catch(console.error);
 
     //Service
     axios.get(`${process.env.REACT_APP_API_URL}/services`)
@@ -125,7 +118,7 @@ function App() {
       .then(res => {
         setCompanyInfo(res.data)
       })
-  }, [dashLink]);
+  }, []);
 
   // console.log(isAuthenticated)
   return (
@@ -165,7 +158,7 @@ function App() {
 
                           <Route path="/dashboard" element={<DashboardLayoutWithAuth />}>
                             <Route index element={<DashboardHome />} />
-                            <Route path="/dashboard/edit-profile" element={<EditProfile />} />
+                            <Route path="/dashboard/edit-profile" element={<EditProfile onProfileUpdate={fetchData} />} />
                             <Route path="/dashboard/testimonials" element={<TestimonialDashboard />} />
                           </Route>
 

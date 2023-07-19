@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
 
-function EditProfile() {
+function EditProfile({ onProfileUpdate }) {
     const CurrentUserInfo = useContext(UserInfoContext)
 
     const [loading, setLoading] = useState(false);
@@ -84,6 +84,7 @@ function EditProfile() {
                     if (res.status === 200) {
                         handleShow()
                         setLoading(false)
+                        onProfileUpdate()
                     }
                 } catch (err) {
                     console.error("User not authenticated");
