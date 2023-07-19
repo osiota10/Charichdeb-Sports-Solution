@@ -84,6 +84,7 @@ function EditProfile({ onProfileUpdate }) {
                     if (res.status === 200) {
                         handleShow()
                         setLoading(false)
+                        // Refresh User Info
                         onProfileUpdate()
                     }
                 } catch (err) {
