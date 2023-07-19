@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { UserInfoContext } from "../../App";
 import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
@@ -116,6 +116,8 @@ function DashboardHome() {
                         handleAddClose()
                         handleAddSuccessShow()
                         setLoading(false)
+                        const updatedStats = await fetchStatData();
+                        setSportStat(updatedStats);
                     }
 
                 } catch (err) {
@@ -142,7 +144,7 @@ function DashboardHome() {
     });
 
     //List Sport Stat
-    const fetchData = async () => {
+    const fetchStatData = useCallback(async () => {
         if (localStorage.getItem('access')) {
             const config = {
                 headers: {
@@ -153,21 +155,20 @@ function DashboardHome() {
             };
 
             try {
-                axios.get(`${process.env.REACT_APP_API_URL}/sport-stat`, config)
-                    .then(res => {
-                        setSportStat(res.data)
-                    })
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}/sport-stat`, config);
+                return res.data;
             } catch (err) {
                 console.error("User not authenticated");
+                return [];
             }
         } else {
             console.error("User not authenticated");
+            return [];
         }
-    }
-
+    }, []); // The empty dependency array ensures the function is memoized
     useEffect(() => {
-        fetchData()
-    }, []);
+        fetchStatData().then((data) => setSportStat(data));
+    }, [fetchStatData]);
 
 
     // Edit
@@ -205,6 +206,8 @@ function DashboardHome() {
                     if (res.status === 200) {
                         handleShowEditModalClose()
                         handleButtonClick()
+                        const updatedStats = await fetchStatData();
+                        setSportStat(updatedStats);
                     }
                 } catch (err) {
                     console.log(err);
