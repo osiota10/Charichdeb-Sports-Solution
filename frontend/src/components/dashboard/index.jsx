@@ -116,6 +116,10 @@ function DashboardHome() {
                         handleAddClose()
                         handleAddSuccessShow()
                         setLoading(false)
+                        setFormAddData({
+                            event: '',
+                            pb: '',
+                        })
                         const updatedStats = await fetchStatData();
                         setSportStat(updatedStats);
                     }
