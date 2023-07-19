@@ -77,7 +77,8 @@ class EventSerializer(serializers.ModelSerializer):
 class TestimonialSerialer(serializers.ModelSerializer):
     class Meta:
         model = Testimonial
-        fields = ('id', 'name', 'designation', 'body', 'get_image_url')
+        fields = ('id', 'name', 'designation', 'body',
+                  'get_image_url', 'is_featured')
 
 
 class CoreValueSerializer(serializers.ModelSerializer):
