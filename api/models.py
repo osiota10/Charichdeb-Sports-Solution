@@ -173,6 +173,7 @@ class Testimonial(models.Model):
     image = CloudinaryField('image', null=True, blank=True)
     name = models.CharField(max_length=32, null=True, blank=True)
     designation = models.CharField(max_length=32)
+    is_featured = models.BooleanField(default=False)
     body = RichTextField()
 
     def get_image_url(self):

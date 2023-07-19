@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from djoser.views import UserViewSet
+from rest_framework.views import APIView
 
 
 # Create your views here.
@@ -127,3 +128,15 @@ class SportsCoverageView(generics.ListAPIView):
     serializer_class = SportsCoverageSerializer
     queryset = SportsCoverage.objects.all()
     permission_classes = [AllowAny,]
+
+
+class TestimonialDashboardView(APIView):
+    permission_classes = [IsAuthenticated,]
+
+    def get(self, request, *args, **kwargs):
+        info = Testimonial.objects.filter(user=self.request.user)
+        serializer = TestimonialSerialer(info, many=True)
+        return Response(serializer.data)
+
+    def put(self, request, *args, **kwargs):
+        pass
