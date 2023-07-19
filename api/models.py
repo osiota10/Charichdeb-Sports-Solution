@@ -167,6 +167,8 @@ class Event(models.Model):
 
 
 class Testimonial(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,
+                                on_delete=models.CASCADE, blank=True, null=True)
     date_added = models.DateField(auto_now_add=True)
     image = CloudinaryField('image')
     name = models.CharField(max_length=32)
