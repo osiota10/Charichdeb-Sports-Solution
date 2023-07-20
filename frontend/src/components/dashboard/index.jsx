@@ -4,6 +4,7 @@ import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import ToastMessage from "../cards/toastMsg";
+import LoaderIcon from "./components/loader";
 
 
 function DashboardHome() {
@@ -407,7 +408,7 @@ function DashboardHome() {
 
                                             {loading
                                                 ?
-                                                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                                <LoaderIcon />
                                                 :
                                                 null
                                             }
@@ -454,7 +455,7 @@ function DashboardHome() {
                                         >
                                             {loading
                                                 ?
-                                                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                                <LoaderIcon />
                                                 :
                                                 null
                                             }
@@ -491,7 +492,7 @@ function DashboardHome() {
                             <Button variant={loading ? 'btn btn-danger disabled' : 'btn btn-danger'} onClick={handleDeleteClick}>
                                 {loading
                                     ?
-                                    <span className="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                    <LoaderIcon />
                                     :
                                     null
                                 }
