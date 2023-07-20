@@ -28,10 +28,10 @@ import Testimonials from './components/pages/testimonials';
 import TestimonialDashboard from './components/dashboard/testimonials';
 // import { load_user } from './actions/auth';
 // import { connect } from 'react-redux';
-import { withAuth } from './components/cards/routeAuthCheck';
+// import { withAuth } from './components/cards/routeAuthCheck';
 
-const DashboardLayoutWithAuth = withAuth(DashboardLayout);
-const EditProfileWithAuth = withAuth(EditProfile);
+// const DashboardLayoutWithAuth = withAuth(DashboardLayout);
+// const EditProfileWithAuth = withAuth(EditProfile);
 
 
 
@@ -156,7 +156,7 @@ function App() {
                             <Route path='/activate/:uid/:token' element={<Activate />} />
                           </Route>
 
-                          <Route path="/dashboard" element={<DashboardLayoutWithAuth />}>
+                          <Route path="/dashboard" element={<DashboardLayout />}>
                             <Route index element={<DashboardHome />} />
                             <Route path="/dashboard/edit-profile" element={<EditProfile onProfileUpdate={fetchData} />} />
                             <Route path="/dashboard/testimonials" element={<TestimonialDashboard />} />

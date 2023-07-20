@@ -56,9 +56,10 @@ function Login({ login, isAuthenticated, error }) {
 
 
     if (isAuthenticated) {
+        console.log(isAuthenticated)
         return <Navigate to='/dashboard' replace={true} />
     }
-    // console.log(error)
+
     return (
         <section style={myStyle}>
             <section class="container py-10 reg-forms">
