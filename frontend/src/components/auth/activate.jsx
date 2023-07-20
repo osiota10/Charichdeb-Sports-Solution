@@ -6,6 +6,7 @@ import { myStyle } from './login';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { CompanyInformationContext } from "../../App";
+import LoaderIcon from '../dashboard/components/loader';
 
 const Activate = ({ verify, error, status }) => {
     const [loading, setLoading] = useState(false);
@@ -86,7 +87,7 @@ const Activate = ({ verify, error, status }) => {
                                 >
                                     {loading
                                         ?
-                                        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                        <LoaderIcon />
                                         :
                                         null
                                     }
