@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'ckeditor',
     'rest_framework',
+    'rest_framework_simplejwt',
     'djoser',
     'frontend',
 ]
