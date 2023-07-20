@@ -32,7 +32,7 @@ function DashboardHome() {
 
     // Toast
     const [showToast, setShowToast] = useState(false);
-    const handleButtonClick = () => setShowToast(true);
+    const handleToastShow = () => setShowToast(true);
     const handleToastClose = () => setShowToast(false);
 
     // Modal
@@ -74,6 +74,7 @@ function DashboardHome() {
                     setLoading(false)
                     setDeleteSuccess(true)
                     handleModalClose()
+                    handleToastShow()
                 }
 
             } catch (err) {
@@ -85,12 +86,9 @@ function DashboardHome() {
         }
     };
 
-    // Add Sport Stat Success
-    const [showAddSuccess, setAddSuccessShow] = useState(false);
-    const handleAddSuccessClose = () => setAddSuccessShow(false);
-    const handleAddSuccessShow = () => setAddSuccessShow(true);
-
     // Add Sport Stat
+    const [showAddSuccess, setAddSuccessShow] = useState(false);
+
     const handleAddStat = () => {
         setModalstate('Add')
         handleModalShow()
@@ -100,6 +98,7 @@ function DashboardHome() {
         event: '',
         pb: '',
     });
+
     const { event, pb } = formAddData;
     const onChange = e => setFormAddData({ ...formAddData, [e.target.name]: e.target.value });
 
@@ -122,9 +121,9 @@ function DashboardHome() {
                 try {
                     const res = await axios.post(`${process.env.REACT_APP_API_URL}/sport-stat`, body, config);
                     if (res.status === 201) {
-                        handleModalClose()
-                        handleAddSuccessShow()
                         setLoading(false)
+                        setAddSuccessShow(true)
+                        handleModalClose()
                         setFormAddData({
                             event: '',
                             pb: '',
@@ -175,6 +174,8 @@ function DashboardHome() {
 
 
     // Edit Stat
+    const [showEditSuccess, setEditSuccessShow] = useState(false);
+
     const [formEditData, setFormEditData] = useState({
         id: '',
         event: '',
@@ -214,7 +215,8 @@ function DashboardHome() {
 
                     if (res.status === 200) {
                         handleModalClose()
-                        handleButtonClick()
+                        setEditSuccessShow(true)
+                        handleToastShow()
                         const updatedStats = await fetchStatData();
                         setSportStat(updatedStats);
                     }
@@ -507,45 +509,19 @@ function DashboardHome() {
                 </Modal.Footer>
             </Modal>
 
-            {/* Add Sport Stat Success Message */}
-            {showAddSuccess
-                ?
-                <ToastMessage
-                    show={showAddSuccess}
-                    onClose={handleToastClose}
-                    message="Event/Pb Successfully Added"
-                    variant="success"
-                />
-                :
-                null
-            }
-
-
             {/* Edit form success */}
             {showToast
                 ?
                 <ToastMessage
                     show={showToast}
                     onClose={handleToastClose}
-                    message="Event/Pb Successfully updated"
+                    message={`Event/Pb Successfully ${showEditSuccess ? 'updated' : ''} ${deleteSuccess ? 'Delete' : ''} ${showAddSuccess ? 'Added' : ''}`}
                     variant="success"
                 />
                 :
                 null
             }
 
-            {/* Delete Success Message */}
-            {deleteSuccess
-                ?
-                <ToastMessage
-                    show={deleteSuccess}
-                    onClose={handleToastClose}
-                    message="Event/Pb Successfully deleted"
-                    variant="success"
-                />
-                :
-                null
-            }
         </section>
     );
 }
