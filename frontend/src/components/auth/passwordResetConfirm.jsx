@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useContext } from "react";
 import { CompanyInformationContext } from "../../App";
 import { myStyle } from "./login";
+import LoaderIcon from "../dashboard/components/loader";
 
 function ResetPasswordConfirm({ match, reset_password_confirm, error, status }) {
     const companyInfo = useContext(CompanyInformationContext)
@@ -136,7 +137,7 @@ function ResetPasswordConfirm({ match, reset_password_confirm, error, status }) 
 
                                         {loading
                                             ?
-                                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                            <LoaderIcon />
                                             :
                                             null
                                         }
