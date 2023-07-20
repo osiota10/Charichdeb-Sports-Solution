@@ -237,7 +237,7 @@ function DashboardHome() {
                             <p className="badge rounded-pill text-bg-primary">{CurrentUserInfo.sport}</p>
                         </section>
 
-                        <section className="table-responsive mt-4 p-2">
+                        <section className="table-responsive p-2">
                             <table className="table ">
                                 <thead className="table-primary">
                                     <tr>
@@ -304,7 +304,7 @@ function DashboardHome() {
                 <section className="col-lg-6">
                     <section className="card sport-stat">
                         <h2 className="text-center mt-4">Sports Stat</h2>
-                        <section class="table-responsive mt-5 p-2">
+                        <section class="table-responsive mt-2 p-2">
                             <table class="table ">
                                 <thead class="table-primary">
                                     <tr>
