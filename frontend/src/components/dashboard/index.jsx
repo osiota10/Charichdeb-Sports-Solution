@@ -62,9 +62,7 @@ function DashboardHome() {
 
     // Modal
     const [showModal, setShowModal] = useState(false);
-    const handleModalClose = () => {
-        setShowModal(false);
-    }
+    const handleModalClose = () => setShowModal(false);
     const handleModalShow = () => setShowModal(true);
 
     //Delete item
@@ -249,7 +247,7 @@ function DashboardHome() {
                                 <tbody>
                                     <tr>
                                         <td>Age:</td>
-                                        <td>{calculateAge(CurrentUserInfo.date_of_birth)}yrs</td>
+                                        <td>{calculateAge(CurrentUserInfo.date_of_birth)} years</td>
                                     </tr>
                                     <tr>
                                         <td>Email:</td>
