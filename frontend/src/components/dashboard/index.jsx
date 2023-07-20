@@ -27,35 +27,31 @@ function DashboardHome() {
 
     const [sportStat, setSportStat] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [modalState, setModalstate] = useState('')
+
 
     // Toast
     const [showToast, setShowToast] = useState(false);
     const handleButtonClick = () => setShowToast(true);
     const handleToastClose = () => setShowToast(false);
 
-    // Add Sport Stat
-    const [showAdd, setAddShow] = useState(false);
-    const handleAddClose = () => setAddShow(false);
-    const handleAddShow = () => setAddShow(true);
-    const [formAddData, setFormAddData] = useState({
-        event: '',
-        pb: '',
-    });
-    const { event, pb } = formAddData;
-    const onChange = e => setFormAddData({ ...formAddData, [e.target.name]: e.target.value });
+    // Modal
+    const [showModal, setShowModal] = useState(false);
+    const handleModalClose = () => setShowModal(false);
+    const handleModalShow = () => setShowModal(true);
+
 
     //Delete item
     const [itemToDelete, setItemToDelete] = useState({
         event: '',
         pb: '',
     })
-    const [showDelete, setDeleteShow] = useState(false);
-    const handleDeleteClose = () => setDeleteShow(false);
-    const handleDeleteShow = () => setDeleteShow(true);
+
     const [deleteSuccess, setDeleteSuccess] = useState(false)
 
     const handleDeleteitem = (item) => {
-        handleDeleteShow()
+        setModalstate('Delete')
+        handleModalShow()
         setItemToDelete(item)
     }
 
@@ -76,8 +72,8 @@ function DashboardHome() {
                 setSportStat(sportStat.filter((i) => i.id !== itemToDelete.id));
                 if (res.status === 204) {
                     setLoading(false)
-                    handleDeleteClose()
                     setDeleteSuccess(true)
+                    handleModalClose()
                 }
 
             } catch (err) {
@@ -93,6 +89,19 @@ function DashboardHome() {
     const [showAddSuccess, setAddSuccessShow] = useState(false);
     const handleAddSuccessClose = () => setAddSuccessShow(false);
     const handleAddSuccessShow = () => setAddSuccessShow(true);
+
+    // Add Sport Stat
+    const handleAddStat = () => {
+        setModalstate('Add')
+        handleModalShow()
+    }
+
+    const [formAddData, setFormAddData] = useState({
+        event: '',
+        pb: '',
+    });
+    const { event, pb } = formAddData;
+    const onChange = e => setFormAddData({ ...formAddData, [e.target.name]: e.target.value });
 
     const onAddSubmit = e => {
         e.preventDefault();
@@ -113,7 +122,7 @@ function DashboardHome() {
                 try {
                     const res = await axios.post(`${process.env.REACT_APP_API_URL}/sport-stat`, body, config);
                     if (res.status === 201) {
-                        handleAddClose()
+                        handleModalClose()
                         handleAddSuccessShow()
                         setLoading(false)
                         setFormAddData({
@@ -135,17 +144,6 @@ function DashboardHome() {
 
         submitData()
     };
-
-    // Edit Form
-    const [showEditModal, setShowEditModal] = useState(false);
-    const handleShowEditModalClose = () => setShowEditModal(false);
-    const handleShowEditModalShow = () => setShowEditModal(true);
-
-    const [formEditData, setFormEditData] = useState({
-        id: '',
-        event: '',
-        pb: '',
-    });
 
     //List Sport Stat
     const fetchStatData = useCallback(async () => {
@@ -170,14 +168,22 @@ function DashboardHome() {
             return [];
         }
     }, []); // The empty dependency array ensures the function is memoized
+
     useEffect(() => {
         fetchStatData().then((data) => setSportStat(data));
     }, [fetchStatData]);
 
 
-    // Edit
+    // Edit Stat
+    const [formEditData, setFormEditData] = useState({
+        id: '',
+        event: '',
+        pb: '',
+    });
+
     const handleEdit = (item) => {
-        handleShowEditModalShow()
+        setModalstate('Edit')
+        handleModalShow()
         setFormEditData(item)
     }
 
@@ -185,7 +191,6 @@ function DashboardHome() {
         const { name, value } = event.target;
         setFormEditData({ ...formEditData, [name]: value });
     };
-
 
     const onEditSubmit = e => {
         e.preventDefault();
@@ -208,7 +213,7 @@ function DashboardHome() {
                     setLoading(false)
 
                     if (res.status === 200) {
-                        handleShowEditModalClose()
+                        handleModalClose()
                         handleButtonClick()
                         const updatedStats = await fetchStatData();
                         setSportStat(updatedStats);
@@ -327,7 +332,7 @@ function DashboardHome() {
                             <section className="d-grid gap-2 col-6 mx-auto mb-4">
                                 <button
                                     className="d-grid btn btn-primary"
-                                    onClick={handleAddShow}>
+                                    onClick={() => handleAddStat()}>
                                     Add Event
                                 </button>
                             </section>
@@ -337,62 +342,168 @@ function DashboardHome() {
             </section>
 
 
-            {/* Add Sport Stat */}
             <Modal
-                show={showAdd}
-                onHide={handleAddClose}
+                show={showModal}
+                onHide={handleModalClose}
                 backdrop="static"
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Add Event and PB</Modal.Title>
+                    <Modal.Title>
+                        {
+                            modalState === "Add"
+                                ?
+                                'Add Event and PB'
+                                :
+                                null
+                        }
+
+                        {
+                            modalState === "Edit"
+                                ?
+                                'Edit Event/Pb'
+                                :
+                                null
+                        }
+
+                        {
+                            modalState === "Delete"
+                                ?
+                                'Delete Event/Pb'
+                                :
+                                null
+                        }
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <form onSubmit={e => onAddSubmit(e)}>
-                        <section className="row g-3">
-                            <div class="col-12">
-                                <label for="event" class="form-label">Event</label>
-                                <input
-                                    type="text"
-                                    class="form-control inputfield bg-light"
-                                    id="event"
-                                    name="event"
-                                    value={event}
-                                    onChange={e => onChange(e)}
-                                    required />
-                            </div>
-                            <div class="col-12">
-                                <label for="pb" class="form-label">PB</label>
-                                <input
-                                    type="text"
-                                    class="form-control inputfield bg-light"
-                                    id="pb"
-                                    name="pb"
-                                    value={pb}
-                                    onChange={e => onChange(e)}
-                                    required />
-                            </div>
-                            <div className="d-grid mt-3">
-                                <button
-                                    type="submit"
-                                    className={loading ? 'btn btn-primary disabled' : 'btn btn-primary'}>
+                    {
+                        modalState === "Add"
+                            ?
+                            <form onSubmit={e => onAddSubmit(e)}>
+                                <section className="row g-3">
+                                    <div class="col-12">
+                                        <label for="event" class="form-label">Event</label>
+                                        <input
+                                            type="text"
+                                            class="form-control inputfield bg-light"
+                                            id="event"
+                                            name="event"
+                                            value={event}
+                                            onChange={e => onChange(e)}
+                                            required />
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="pb" class="form-label">PB</label>
+                                        <input
+                                            type="text"
+                                            class="form-control inputfield bg-light"
+                                            id="pb"
+                                            name="pb"
+                                            value={pb}
+                                            onChange={e => onChange(e)}
+                                            required />
+                                    </div>
+                                    <div className="d-grid mt-3">
+                                        <button
+                                            type="submit"
+                                            className={loading ? 'btn btn-primary disabled' : 'btn btn-primary'}>
 
-                                    {loading
-                                        ?
-                                        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                                        :
-                                        null
-                                    }
-                                    Add
-                                </button>
-                            </div>
-                        </section>
-                    </form>
+                                            {loading
+                                                ?
+                                                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                                :
+                                                null
+                                            }
+                                            Add
+                                        </button>
+                                    </div>
+                                </section>
+                            </form>
+                            :
+                            null
+                    }
+
+                    {
+                        modalState === "Edit"
+                            ?
+                            <form onSubmit={e => onEditSubmit(e)}>
+                                <section className="row g-3">
+                                    <div class="col-12">
+                                        <label for="event" class="form-label">Event</label>
+                                        <input
+                                            type="text"
+                                            class="form-control inputfield bg-light"
+                                            id="event"
+                                            name="event"
+                                            value={formEditData.event}
+                                            onChange={handleEditFormInputChange}
+                                            required />
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="pb" class="form-label">PB</label>
+                                        <input
+                                            type="text"
+                                            class="form-control inputfield bg-light"
+                                            id="pb"
+                                            name="pb"
+                                            value={formEditData.pb}
+                                            onChange={handleEditFormInputChange}
+                                            required />
+                                    </div>
+                                    <section className="d-grid">
+                                        <button
+                                            type="submit"
+                                            className={loading ? 'btn btn-primary disabled' : 'btn btn-primary'}
+                                        >
+                                            {loading
+                                                ?
+                                                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                                :
+                                                null
+                                            }
+                                            Submit
+                                        </button>
+                                    </section>
+                                </section>
+                            </form>
+                            :
+                            null
+                    }
+
+                    {
+                        modalState === "Delete"
+                            ?
+                            <section>
+                                Are you sure you want to delete
+                                <span className="text-primary"> {itemToDelete.event} </span>
+                                with a Pb of <span className="text-primary">{itemToDelete.pb}</span>?
+                                Action cannot be undone.
+                            </section>
+                            :
+                            null
+                    }
                 </Modal.Body>
+
                 <Modal.Footer>
-                    <Button variant="btn btn-outline-primary" onClick={handleAddClose}>
+                    <Button variant="btn btn-outline-primary" onClick={handleModalClose}>
                         Close
                     </Button>
+                    {
+                        modalState === "Delete"
+                            ?
+                            <Button variant={loading ? 'btn btn-danger disabled' : 'btn btn-danger'} onClick={handleDeleteClick}>
+                                {loading
+                                    ?
+                                    <span className="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                    :
+                                    null
+                                }
+
+                                Delete
+                            </Button>
+                            :
+                            null
+                    }
                 </Modal.Footer>
             </Modal>
 
@@ -410,69 +521,6 @@ function DashboardHome() {
             }
 
 
-            {/* Edit form */}
-            <Modal
-                show={showEditModal}
-                onHide={handleShowEditModalClose}
-                backdrop="static"
-                keyboard={false}
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title>
-                        Edit Event/Pb
-                    </Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body>
-                    <form onSubmit={e => onEditSubmit(e)}>
-                        <section className="row g-3">
-                            <div class="col-12">
-                                <label for="event" class="form-label">Event</label>
-                                <input
-                                    type="text"
-                                    class="form-control inputfield bg-light"
-                                    id="event"
-                                    name="event"
-                                    value={formEditData.event}
-                                    onChange={handleEditFormInputChange}
-                                    required />
-                            </div>
-                            <div class="col-12">
-                                <label for="pb" class="form-label">PB</label>
-                                <input
-                                    type="text"
-                                    class="form-control inputfield bg-light"
-                                    id="pb"
-                                    name="pb"
-                                    value={formEditData.pb}
-                                    onChange={handleEditFormInputChange}
-                                    required />
-                            </div>
-                            <section className="d-grid">
-                                <button
-                                    type="submit"
-                                    className={loading ? 'btn btn-primary disabled' : 'btn btn-primary'}
-                                >
-                                    {loading
-                                        ?
-                                        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                                        :
-                                        null
-                                    }
-                                    Submit
-                                </button>
-                            </section>
-                        </section>
-                    </form>
-                </Modal.Body>
-
-                <Modal.Footer className='d-flex justify-content-center'>
-                    <Button variant="btn btn-danger" onClick={handleShowEditModalClose} >
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
             {/* Edit form success */}
             {showToast
                 ?
@@ -485,39 +533,6 @@ function DashboardHome() {
                 :
                 null
             }
-
-            {/* Delete Sport Stat */}
-            <Modal
-                show={showDelete}
-                onHide={handleDeleteClose}
-                backdrop="static"
-                keyboard={false}
-            >
-                <Modal.Header closeButton>
-
-                </Modal.Header>
-                <Modal.Body>
-                    Are you sure you want to delete
-                    <span className="text-primary"> {itemToDelete.event} </span>
-                    with a Pb of <span className="text-primary">{itemToDelete.pb}</span>?
-                    Action cannot be undone.
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="btn btn-primary" onClick={handleDeleteClose}>
-                        Close
-                    </Button>
-                    <Button variant={loading ? 'btn btn-danger disabled' : 'btn btn-danger'} onClick={handleDeleteClick}>
-                        {loading
-                            ?
-                            <span className="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                            :
-                            null
-                        }
-
-                        Delete
-                    </Button>
-                </Modal.Footer>
-            </Modal>
 
             {/* Delete Success Message */}
             {deleteSuccess
