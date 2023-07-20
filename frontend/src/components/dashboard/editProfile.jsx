@@ -4,6 +4,7 @@ import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
+import LoaderIcon from "./components/loader";
 
 function EditProfile({ onProfileUpdate }) {
     const CurrentUserInfo = useContext(UserInfoContext)
@@ -273,7 +274,7 @@ function EditProfile({ onProfileUpdate }) {
 
                                 {loading
                                     ?
-                                    <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                    <LoaderIcon />
                                     :
                                     null
                                 }
