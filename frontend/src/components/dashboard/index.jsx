@@ -9,6 +9,30 @@ import ToastMessage from "../cards/toastMsg";
 function DashboardHome() {
     const CurrentUserInfo = useContext(UserInfoContext)
 
+    //List Sport Stat
+    const fetchStatData = useCallback(async () => {
+        if (localStorage.getItem('access')) {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `JWT ${localStorage.getItem('access')}`,
+                    'Accept': 'application/json'
+                }
+            };
+
+            try {
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}/sport-stat`, config);
+                return res.data;
+            } catch (err) {
+                console.error("User not authenticated");
+                return [];
+            }
+        } else {
+            console.error("User not authenticated");
+            return [];
+        }
+    }, []); // The empty dependency array ensures the function is memoized
+
     //Age Calculator
     const calculateAge = (dateOfBirth) => {
         const dob = new Date(dateOfBirth);
@@ -29,7 +53,6 @@ function DashboardHome() {
     const [loading, setLoading] = useState(false);
     const [modalState, setModalstate] = useState('')
 
-
     // Toast
     const [showToast, setShowToast] = useState(false);
     const handleToastShow = () => setShowToast(true);
@@ -39,7 +62,6 @@ function DashboardHome() {
     const [showModal, setShowModal] = useState(false);
     const handleModalClose = () => setShowModal(false);
     const handleModalShow = () => setShowModal(true);
-
 
     //Delete item
     const [itemToDelete, setItemToDelete] = useState({
@@ -144,34 +166,9 @@ function DashboardHome() {
         submitData()
     };
 
-    //List Sport Stat
-    const fetchStatData = useCallback(async () => {
-        if (localStorage.getItem('access')) {
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `JWT ${localStorage.getItem('access')}`,
-                    'Accept': 'application/json'
-                }
-            };
-
-            try {
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/sport-stat`, config);
-                return res.data;
-            } catch (err) {
-                console.error("User not authenticated");
-                return [];
-            }
-        } else {
-            console.error("User not authenticated");
-            return [];
-        }
-    }, []); // The empty dependency array ensures the function is memoized
-
     useEffect(() => {
         fetchStatData().then((data) => setSportStat(data));
     }, [fetchStatData]);
-
 
     // Edit Stat
     const [showEditSuccess, setEditSuccessShow] = useState(false);
@@ -307,7 +304,6 @@ function DashboardHome() {
                     </section>
                 </section>
 
-
                 <section className="col-lg-6">
                     <section className="card sport-stat">
                         <h2 className="text-center mt-4">Sports Stat</h2>
@@ -342,7 +338,6 @@ function DashboardHome() {
                     </section>
                 </section>
             </section>
-
 
             <Modal
                 show={showModal}
@@ -509,7 +504,7 @@ function DashboardHome() {
                 </Modal.Footer>
             </Modal>
 
-            {/* Edit form success */}
+            {/* Toast Message */}
             {showToast
                 ?
                 <ToastMessage
@@ -521,7 +516,6 @@ function DashboardHome() {
                 :
                 null
             }
-
         </section>
     );
 }
