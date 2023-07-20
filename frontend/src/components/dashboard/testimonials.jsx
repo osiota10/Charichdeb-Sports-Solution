@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import parse from 'html-react-parser';
 import Alert from 'react-bootstrap/Alert';
+import LoaderIcon from "./components/loader";
 
 const TestimonialDashboard = () => {
     const CurrentUserInfo = useContext(UserInfoContext)
@@ -269,7 +270,7 @@ const TestimonialDashboard = () => {
                                     >
                                         {loading
                                             ?
-                                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                            <LoaderIcon />
                                             :
                                             null
                                         }
@@ -313,7 +314,7 @@ const TestimonialDashboard = () => {
                                     >
                                         {loading
                                             ?
-                                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                            <LoaderIcon />
                                             :
                                             null
                                         }
