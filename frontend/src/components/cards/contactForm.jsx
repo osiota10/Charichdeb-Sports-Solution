@@ -3,6 +3,7 @@ import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { CompanyInformationContext } from "../../App";
+import LoaderIcon from "../dashboard/components/loader";
 
 function ContactForm() {
     const [loading, setLoading] = useState(false);
@@ -144,7 +145,7 @@ function ContactForm() {
 
                                     {loading
                                         ?
-                                        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                        <LoaderIcon />
                                         :
                                         null
                                     }
