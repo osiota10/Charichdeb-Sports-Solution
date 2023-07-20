@@ -53,6 +53,7 @@ function DashboardHome() {
     const [sportStat, setSportStat] = useState([]);
     const [loading, setLoading] = useState(false);
     const [modalState, setModalstate] = useState('')
+    const [formSuccessState, setFormSuccessState] = useState('')
 
     // Toast
     const [showToast, setShowToast] = useState(false);
@@ -61,7 +62,9 @@ function DashboardHome() {
 
     // Modal
     const [showModal, setShowModal] = useState(false);
-    const handleModalClose = () => setShowModal(false);
+    const handleModalClose = () => {
+        setShowModal(false);
+    }
     const handleModalShow = () => setShowModal(true);
 
     //Delete item
@@ -69,8 +72,6 @@ function DashboardHome() {
         event: '',
         pb: '',
     })
-
-    const [deleteSuccess, setDeleteSuccess] = useState(false)
 
     const handleDeleteitem = (item) => {
         setModalstate('Delete')
@@ -95,7 +96,7 @@ function DashboardHome() {
                 setSportStat(sportStat.filter((i) => i.id !== itemToDelete.id));
                 if (res.status === 204) {
                     setLoading(false)
-                    setDeleteSuccess(true)
+                    setFormSuccessState('deleted')
                     handleModalClose()
                     handleToastShow()
                 }
@@ -110,8 +111,6 @@ function DashboardHome() {
     };
 
     // Add Sport Stat
-    const [showAddSuccess, setAddSuccessShow] = useState(false);
-
     const handleAddStat = () => {
         setModalstate('Add')
         handleModalShow()
@@ -145,8 +144,9 @@ function DashboardHome() {
                     const res = await axios.post(`${process.env.REACT_APP_API_URL}/sport-stat`, body, config);
                     if (res.status === 201) {
                         setLoading(false)
-                        setAddSuccessShow(true)
+                        setFormSuccessState('added')
                         handleModalClose()
+                        handleToastShow()
                         setFormAddData({
                             event: '',
                             pb: '',
@@ -172,8 +172,6 @@ function DashboardHome() {
     }, [fetchStatData]);
 
     // Edit Stat
-    const [showEditSuccess, setEditSuccessShow] = useState(false);
-
     const [formEditData, setFormEditData] = useState({
         id: '',
         event: '',
@@ -213,7 +211,7 @@ function DashboardHome() {
 
                     if (res.status === 200) {
                         handleModalClose()
-                        setEditSuccessShow(true)
+                        setFormSuccessState('edited')
                         handleToastShow()
                         const updatedStats = await fetchStatData();
                         setSportStat(updatedStats);
@@ -511,7 +509,7 @@ function DashboardHome() {
                 <ToastMessage
                     show={showToast}
                     onClose={handleToastClose}
-                    message={`Event/Pb Successfully ${showEditSuccess ? 'updated' : ''} ${deleteSuccess ? 'Delete' : ''} ${showAddSuccess ? 'Added' : ''}`}
+                    message={`Event/Pb Successfully ${formSuccessState === 'edited' ? 'updated' : ''} ${formSuccessState === 'deleted' ? 'Delete' : ''} ${formSuccessState === 'added' ? 'Added' : ''}`}
                     variant="success"
                 />
                 :
