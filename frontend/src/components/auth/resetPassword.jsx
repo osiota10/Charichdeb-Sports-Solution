@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useContext } from "react";
 import { CompanyInformationContext } from "../../App";
 import { myStyle } from "./login";
+import LoaderIcon from "../dashboard/components/loader";
 
 
 function ResetPassword({ reset_password, error, status }) {
@@ -95,7 +96,7 @@ function ResetPassword({ reset_password, error, status }) {
 
                                         {loading
                                             ?
-                                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                            <LoaderIcon />
                                             :
                                             null
                                         }
