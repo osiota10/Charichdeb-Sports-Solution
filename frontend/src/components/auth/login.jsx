@@ -4,6 +4,7 @@ import { login } from "../../actions/auth";
 import { connect } from 'react-redux';
 import { useContext } from "react";
 import { CompanyInformationContext } from "../../App";
+import LoaderIcon from "../dashboard/components/loader";
 
 const pic = {
     url: 'http://www.highreshdwallpapers.com/wp-content/uploads/2014/01/Athletic-Running-HD-Image.jpg'
@@ -110,7 +111,7 @@ function Login({ login, isAuthenticated, error }) {
 
                                         {loading
                                             ?
-                                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                            <LoaderIcon />
                                             :
                                             null
                                         }
