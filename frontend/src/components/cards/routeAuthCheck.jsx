@@ -1,23 +1,38 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { checkAuthenticated } from '../../actions/auth';
-import { Navigate } from 'react-router-dom';
+import React from 'react';
+import { Route, Navigate } from 'react-router-dom';
+import useAuth from '../dashboard/components/authCheck';
 
-export const withAuth = (WrappedComponent) => {
-    const HOC = (props) => {
-        const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-        const dispatch = useDispatch();
+const PrivateRoute = ({ component: Component, ...rest }) => {
+    const authenticated = useAuth();
 
-        useEffect(() => {
-            checkAuthenticated();
-        }, []);
-
-        if (!isAuthenticated) {
-            return <Navigate to="/login" />;
-        }
-
-        return <WrappedComponent {...props} />;
-    };
-
-    return HOC;
+    return (
+        <Route
+            {...rest}
+            render={(props) =>
+                authenticated ? <Component {...props} /> : <Navigate to="/login" />
+            }
+        />
+    );
 };
+
+export default PrivateRoute;
+
+
+
+// import React from 'react';
+// import { Navigate } from 'react-router-dom';
+// import useAuth from '../dashboard/components/authCheck';
+
+// const withAuth = (Component) => {
+//     return (props) => {
+//         const isAuthenticated = useAuth(); // Replace useAuth() with your custom hook for authentication
+
+//         if (isAuthenticated === false) {
+//             return <Navigate to="/login" />;
+//         }
+
+//         return <Component {...props} />;
+//     };
+// };
+
+// export default withAuth;

@@ -56,7 +56,6 @@ function Login({ login, isAuthenticated, error }) {
 
 
     if (isAuthenticated) {
-        console.log(isAuthenticated)
         return <Navigate to='/dashboard' replace={true} />
     }
 

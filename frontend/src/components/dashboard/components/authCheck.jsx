@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 const useAuth = () => {
     const [authenticated, setAuthenticated] = useState(false);
 
-    const checkAuthenticated = () => {
+    const checkAuthenticated = useCallback(() => {
         const token = localStorage.getItem('access');
         if (token) {
             const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decoding the token payload
@@ -11,14 +11,14 @@ const useAuth = () => {
             if (Date.now() > tokenExpirationTime) {
                 // Token has expired, remove it from local storage
                 localStorage.removeItem('access');
-                setAuthenticated(false)
+                setAuthenticated(false);
             } else {
-                setAuthenticated(true); // Token is valid and not expired
+                setAuthenticated(true);
             }
         } else {
-            setAuthenticated(false); // No token found in local storage
+            setAuthenticated(false);
         }
-    };
+    }, []);
 
     useEffect(() => {
         checkAuthenticated();

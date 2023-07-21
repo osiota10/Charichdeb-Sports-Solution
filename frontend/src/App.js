@@ -1,5 +1,5 @@
-import { useState, useEffect, createContext } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import React, { useState, useEffect, createContext } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import './main.css'
 import HomePage from './components/pages/Home';
@@ -26,14 +26,6 @@ import EditProfile from './components/dashboard/editProfile';
 import Activate from './components/auth/activate';
 import Testimonials from './components/pages/testimonials';
 import TestimonialDashboard from './components/dashboard/testimonials';
-// import { load_user } from './actions/auth';
-// import { connect } from 'react-redux';
-// import { withAuth } from './components/cards/routeAuthCheck';
-
-// const DashboardLayoutWithAuth = withAuth(DashboardLayout);
-// const EditProfileWithAuth = withAuth(EditProfile);
-
-
 
 export const ServiceContext = createContext(null)
 export const EventContext = createContext(null)
@@ -44,7 +36,6 @@ export const CompanyInformationContext = createContext(null)
 export const UserInfoContext = createContext(null)
 
 
-
 function App() {
   const [service, setService] = useState([]);
   const [event, setEvent] = useState([]);
@@ -53,7 +44,6 @@ function App() {
   const [workprocess, setWorkProcess] = useState([]);
   const [companyInfo, setCompanyInfo] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
-
 
   // declare the data fetching function
   const fetchData = async () => {
@@ -79,7 +69,6 @@ function App() {
   }
 
   useEffect(() => {
-
     //User Info
     fetchData()
 
@@ -118,9 +107,9 @@ function App() {
       .then(res => {
         setCompanyInfo(res.data)
       })
+
   }, []);
 
-  // console.log(isAuthenticated)
   return (
     <div>
       <Provider store={store}>
@@ -161,7 +150,6 @@ function App() {
                             <Route path="/dashboard/edit-profile" element={<EditProfile onProfileUpdate={fetchData} />} />
                             <Route path="/dashboard/testimonials" element={<TestimonialDashboard />} />
                           </Route>
-
                         </Routes>
                       </BrowserRouter>
                     </UserInfoContext.Provider>
@@ -177,3 +165,5 @@ function App() {
 }
 
 export default App;
+
+
