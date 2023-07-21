@@ -317,8 +317,8 @@ function DashboardHome({ onProfileRefresh }) {
                                             <td>{item.event}:</td>
                                             <td>{item.pb}</td>
                                             <td>
-                                                <span className="btn btn-primary btn-sm me-2" onClick={() => handleEdit(item)}>Edit</span>
-                                                <span className="btn btn-danger btn-sm" onClick={() => handleDeleteitem(item)}>Delete</span>
+                                                <span className="btn btn-primary btn-sm me-2" onClick={() => handleEdit(item)}><i className="fa-solid fa-pen-to-square me-1"></i>Edit</span>
+                                                <span className="btn btn-danger btn-sm" onClick={() => handleDeleteitem(item)}><i className="fa-solid fa-trash me-1"></i> Delete</span>
                                             </td>
                                         </tr>
                                     )}
@@ -328,7 +328,7 @@ function DashboardHome({ onProfileRefresh }) {
                                 <button
                                     className="d-grid btn btn-primary"
                                     onClick={() => handleAddStat()}>
-                                    Add Event
+                                    <span><i className="fa-solid fa-plus "></i> Add Event</span>
                                 </button>
                             </section>
                         </section>
