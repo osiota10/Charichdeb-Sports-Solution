@@ -7,7 +7,7 @@ import ToastMessage from "../cards/toastMsg";
 import LoaderIcon from "./components/loader";
 
 
-function DashboardHome() {
+function DashboardHome({ onProfileRefresh }) {
     const CurrentUserInfo = useContext(UserInfoContext)
 
     //List Sport Stat
@@ -167,7 +167,7 @@ function DashboardHome() {
 
     useEffect(() => {
         fetchStatData().then((data) => setSportStat(data));
-    }, [fetchStatData]);
+    }, [fetchStatData, onProfileRefresh]);
 
     // Edit Stat
     const [formEditData, setFormEditData] = useState({
