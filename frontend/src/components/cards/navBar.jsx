@@ -67,29 +67,29 @@ function NavBar() {
                         <Offcanvas.Body >
                             <div className="navbar-nav justify-content-center flex-grow-1 pe-3" id="navbarNav">
                                 <ul className="navbar-nav">
-                                    <li className="nav-item me-3">
+                                    <li className="nav-item me-3" onClick={handleOffcanvasClose}>
                                         <NavLink to="/" className='nav-link' aria-current="page">Home</NavLink>
                                     </li>
 
-                                    <li className="nav-item me-3">
+                                    <li className="nav-item me-3" onClick={handleOffcanvasClose}>
                                         <NavLink to="/about" className='nav-link' aria-current="page">About</NavLink>
                                     </li>
-                                    <li className="nav-item me-3">
+                                    <li className="nav-item me-3" onClick={handleOffcanvasClose}>
                                         <NavLink to="/services" className='nav-link'>Services</NavLink>
                                     </li>
-                                    <li className="nav-item me-3">
+                                    <li className="nav-item me-3" onClick={handleOffcanvasClose}>
                                         <NavLink to="/athletes" className='nav-link'>Athletes</NavLink>
                                     </li>
-                                    <li className="nav-item me-3">
+                                    <li className="nav-item me-3" onClick={handleOffcanvasClose}>
                                         <NavLink to="/testimonials" className='nav-link'>Testimonials</NavLink>
                                     </li>
-                                    <li className="nav-item me-3">
+                                    <li className="nav-item me-3" onClick={handleOffcanvasClose}>
                                         <NavLink to="/contact" className='nav-link'>Contact</NavLink>
                                     </li>
                                 </ul>
                                 <span className="vstack d-lg-none .d-xl-block mt-3">
-                                    <Link className='btn btn-outline-secondary text-decoration-none mb-3' to="/login">Log In</Link>
-                                    <Link className='btn btn-secondary text-decoration-none' to="/signup">Sign Up</Link>
+                                    <Link className='btn btn-outline-secondary text-decoration-none mb-3' to="/login" onClick={handleOffcanvasClose}>Log In</Link>
+                                    <Link className='btn btn-secondary text-decoration-none' to="/signup" onClick={handleOffcanvasClose}>Sign Up</Link>
                                 </span>
                             </div>
                             <span className="d-none d-lg-block">
