@@ -4,7 +4,7 @@
 function ServiceCard({ key, title, image }) {
     return (
         // <section className="col">
-        <section className="card" style={{ maxWidth: '379px' }} key={key}>
+        <section className="card mx-auto" style={{ maxWidth: '379px' }} key={key}>
             <div className="card text-bg-dark">
                 <section className="ratio ratio-3x4">
                     <img src={image} className="card-img img-fluid" alt="..." />
