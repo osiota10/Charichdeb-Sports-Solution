@@ -64,13 +64,13 @@ function ContactForm() {
     return (
         <section className="bg-light py-10">
             <section className="container">
-                <section className="row">
+                <section className="row mx-auto">
                     <section className="col-lg-10 mx-auto">
                         <header className="text-center mb-8">
                             <h2>Contact Form</h2>
                         </header>
 
-                        <form class="row g-3" onSubmit={e => onSubmit(e)}>
+                        <form class="row g-3 justify-content-center" onSubmit={e => onSubmit(e)}>
                             <div class="col-md-6">
                                 <label for="full_name" class="form-label">Full Name</label>
                                 <input
