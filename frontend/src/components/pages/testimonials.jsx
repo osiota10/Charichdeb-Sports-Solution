@@ -13,11 +13,14 @@ function Items({ currentItems }) {
                         <div className="mb-6">
                             <div className="card">
                                 <div className="row no-gutters">
-                                    <div className="col-md-3 d-flex align-items-center justify-content-center p-3">
-                                        {/* <img src={item.get_image_url} className="card-img" alt="Testimonial Image" /> */}
-                                        <img src={item.get_image_url} className="img-fluid rounded-circle" alt="..." style={{ width: '133px', height: '133px' }} />
+                                    <div className="col-lg-3 align-self-center justify-self-center pt-3">
+                                        <section className="ratio ratio-1x1 mx-auto" style={{ maxWidth: 133 }}>
+                                            <img src={item.get_image_url} className="img-fluid rounded-circle" alt={item.name} />
+                                        </section>
+
                                     </div>
-                                    <div className="col-md-9">
+
+                                    <div className="col-lg-9 ">
                                         <div className="card-body">
                                             <h4 className="card-title">{item.name}</h4>
                                             <p className="card-text"><small className="text-primary fw-bold">{item.designation}</small></p>
