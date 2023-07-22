@@ -19,32 +19,6 @@ function Footer() {
     return (
         <section className="pt-7 bg-primary text-white footer-contact-info">
             <section className="container pb-4">
-                <section className="row mb-4">
-                    <ul className="nav justify-content-center">
-                        <li className="nav-item">
-                            <NavLink to="/" className='nav-link text-white' aria-current="page">Home</NavLink>
-                            {/* <a className="nav-link active" aria-current="page" href="#">About</a> */}
-                        </li>
-
-                        <li className="nav-item">
-                            <NavLink to="/about" className='nav-link text-white' aria-current="page">About</NavLink>
-                            {/* <a className="nav-link active" aria-current="page" href="#">About</a> */}
-                        </li>
-                        <li className="nav-item">
-                            <NavLink to="/services" className='nav-link text-white'>Services</NavLink>
-                        </li>
-                        <li className="nav-item me-3">
-                            <NavLink to="/athletes" className='nav-link'>Athletes</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink to="/events" className='nav-link text-white'>Events</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink to="/contact" className='nav-link text-white'>Contact</NavLink>
-                        </li>
-                    </ul>
-                </section>
-
                 <section className="row g-3">
                     <section className="col-lg-4">
                         <section className="text-decoration-none text-white hstack justify-content-start align-items-center justify-content-lg-center" to='#'>
