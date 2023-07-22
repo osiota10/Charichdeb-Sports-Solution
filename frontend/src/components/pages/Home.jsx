@@ -133,7 +133,7 @@ function HomePage() {
                         <header className="text-center">
                             <h2 className="mb-8">Our Sports Coverage</h2>
                         </header>
-                        <section className="row row-cols-1 row-cols-md-4 g-4 justify-content-center text-center">
+                        <section className="row row-cols-1 row-cols-lg-4 g-4 justify-content-center text-center">
                             {sportsCoverage.map((item) =>
                                 <section className="col" key={item.id}>
                                     <section className="card">
