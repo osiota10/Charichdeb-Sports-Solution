@@ -26,6 +26,7 @@ import EditProfile from './components/dashboard/editProfile';
 import Activate from './components/auth/activate';
 import Testimonials from './components/pages/testimonials';
 import TestimonialDashboard from './components/dashboard/testimonials';
+import ScrollToTop from './components/dashboard/components/scrollUp';
 
 export const ServiceContext = createContext(null)
 export const EventContext = createContext(null)
@@ -121,6 +122,7 @@ function App() {
                   <CompanyInformationContext.Provider value={companyInfo}>
                     <UserInfoContext.Provider value={userInfo}>
                       <BrowserRouter>
+                        <ScrollToTop />
                         <Routes>
                           <Route path="/" element={<Layout />}>
                             <Route index element={<HomePage />} />
