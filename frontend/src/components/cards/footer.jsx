@@ -83,7 +83,7 @@ function Footer() {
             <section className="codehub">
                 <section className="container">
                     <section className="row p-1">
-                        <small className="text-center">Designed and Developed by <a href="https://wa.me/message/SMDJVELK7COKN1" className="text-white text-decoration-none fw-bolder"> Codehub Technologies</a></small>
+                        <small className="text-center">Designed and Developed by <a href="https://wa.me/message/SMDJVELK7COKN1" target="_blank" className="text-white text-decoration-none fw-bolder"> Codehub Technologies</a></small>
                     </section>
                 </section>
             </section>
