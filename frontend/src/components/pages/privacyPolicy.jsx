@@ -15,13 +15,11 @@ function PrivacyPolicy() {
 
             {companyInfo.about_company
                 ?
-                <section className="bg-light">
-                    <section className="container py-10">
-                        <section className="row">
-                            <section className="col-lg-8 mx-auto">
-                                <h2 className="text-center">About Us</h2>
-                                <p>{parse(`${companyInfo.privacy_policy}`)}</p>
-                            </section>
+                <section className="container py-10">
+                    <section className="row">
+                        <section className="col-lg-8 mx-auto">
+                            <h2 className="text-center">About Us</h2>
+                            <p>{parse(`${companyInfo.privacy_policy}`)}</p>
                         </section>
                     </section>
                 </section>
