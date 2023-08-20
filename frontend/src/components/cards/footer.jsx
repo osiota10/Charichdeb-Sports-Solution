@@ -1,5 +1,5 @@
-import { Link, NavLink } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { useState, useContext, useLayoutEffect } from "react";
 import { CompanyInformationContext } from "../../App";
 import axios from "axios";
 
@@ -9,7 +9,7 @@ function Footer() {
     const companyInfo = useContext(CompanyInformationContext)
     const year = new Date()
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         // Socials
         axios.get(`${process.env.REACT_APP_API_URL}/socials`)
             .then(res => {
