@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useCallback } from "react";
+import { useContext, useLayoutEffect, useState, useCallback } from "react";
 import { UserInfoContext } from "../../App";
 import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
@@ -36,7 +36,7 @@ const TestimonialDashboard = () => {
         }
     }, []); // The empty dependency array ensures the function is memoized
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         fetchTestimonialData().then((data) => setTestimonial(data));
     }, [fetchTestimonialData]) // Re-fetch testimonial data whenever onEditSubmit is called
 
