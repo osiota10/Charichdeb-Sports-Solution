@@ -1,6 +1,6 @@
 import WorkProcess from "../cardGroups/workProcessGroup";
 import CoreValues from "../cardGroups/coreValues";
-import { useEffect, useState, useContext } from "react";
+import { useLayoutEffect, useState, useContext } from "react";
 import axios from "axios";
 import PageTitle from "../cards/pageTitle";
 import ServicesListTemplate from "../cards/servicesTemplate";
@@ -14,7 +14,7 @@ function AboutPage() {
     const [stories, setStories] = useState([]);
     const companyInfo = useContext(CompanyInformationContext)
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         //Partners
         axios.get(`${process.env.REACT_APP_API_URL}/partners`)
             .then(res => {
