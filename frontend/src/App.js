@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, createContext, useLayoutEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import './main.css'
@@ -69,7 +69,7 @@ function App() {
     }
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     //User Info
     fetchData()
 
