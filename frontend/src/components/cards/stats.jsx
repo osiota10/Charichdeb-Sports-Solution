@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import axios from "axios";
 import CountUp from 'react-countup';
 
@@ -6,7 +6,7 @@ import CountUp from 'react-countup';
 function StatCard() {
     const [stat, setStat] = useState([]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         //Stat
         axios.get(`${process.env.REACT_APP_API_URL}/stat`)
             .then(res => {
