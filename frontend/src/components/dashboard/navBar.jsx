@@ -1,5 +1,5 @@
 import { Outlet, NavLink, Link, Navigate, useNavigate } from "react-router-dom";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useLayoutEffect } from "react";
 import { CompanyInformationContext, UserInfoContext } from "../../App";
 import { logout } from "../../actions/auth";
 import { connect } from "react-redux";
@@ -16,7 +16,7 @@ function DashboardSideBar({ logout, isAuthenticated }) {
 
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const handleResize = () => {
             setScreenWidth(window.innerWidth);
         };
