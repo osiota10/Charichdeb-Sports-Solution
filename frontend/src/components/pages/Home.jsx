@@ -3,7 +3,7 @@ import WorkProcess from "../cardGroups/workProcessGroup";
 import TestimonialGroup from "../cardGroups/testimonialGroup";
 import StatCard from "../cards/stats";
 import AthleteGroup from "../cardGroups/athleteGroup";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import { CompanyInformationContext } from "../../App";
 import Slider from "react-slick";
 import TextTruncate from 'react-text-truncate';
@@ -62,7 +62,7 @@ function HomePage() {
     const services = useContext(ServiceContext)
 
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         //Sports Coverage
         axios.get(`${process.env.REACT_APP_API_URL}/sportcoverage`)
             .then(res => {
