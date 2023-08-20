@@ -1,11 +1,11 @@
 import CoreValueCard from "../cards/CoreValueCard";
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import axios from "axios";
 
 function CoreValues() {
     const [coreValue, setCoreValue] = useState([]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         //Service
         axios.get(`${process.env.REACT_APP_API_URL}/core-values`)
             .then(res => {
