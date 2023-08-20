@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useCallback } from "react";
+import { useContext, useState, useCallback, useLayoutEffect } from "react";
 import { UserInfoContext } from "../../App";
 import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
@@ -165,7 +165,7 @@ function DashboardHome({ onProfileRefresh }) {
         submitData()
     };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         fetchStatData().then((data) => setSportStat(data));
     }, [fetchStatData, onProfileRefresh]);
 
