@@ -1,11 +1,13 @@
 import { Outlet, Link, NavLink } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
-import { CompanyInformationContext } from "../../App";
+import { CompanyInformationContext, TestimoninailContext } from "../../App";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 
 function NavBar() {
     const companyInfo = useContext(CompanyInformationContext)
+    const TestimonialList = useContext(TestimoninailContext)
+
     const [fix, seFix] = useState(false)
 
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -80,9 +82,17 @@ function NavBar() {
                                     <li className="nav-item me-3" onClick={handleOffcanvasClose}>
                                         <NavLink to="/athletes" className='nav-link'>Athletes</NavLink>
                                     </li>
-                                    <li className="nav-item me-3" onClick={handleOffcanvasClose}>
-                                        <NavLink to="/testimonials" className='nav-link'>Testimonials</NavLink>
-                                    </li>
+
+                                    {
+                                        Object.keys(TestimonialList).length === 0
+                                            ?
+                                            null
+                                            :
+                                            <li className="nav-item me-3" onClick={handleOffcanvasClose}>
+                                                <NavLink to="/testimonials" className='nav-link'>Testimonials</NavLink>
+                                            </li>
+                                    }
+
                                     <li className="nav-item me-3" onClick={handleOffcanvasClose}>
                                         <NavLink to="/contact" className='nav-link'>Contact</NavLink>
                                     </li>
