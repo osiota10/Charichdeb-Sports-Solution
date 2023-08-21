@@ -1,12 +1,13 @@
 import { Outlet, Link, NavLink } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
-import { CompanyInformationContext, TestimoninailContext } from "../../App";
+import { CompanyInformationContext, TestimoninailContext, AthleteContext } from "../../App";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 
 function NavBar() {
     const companyInfo = useContext(CompanyInformationContext)
     const TestimonialList = useContext(TestimoninailContext)
+    const AthleteList = useContext(AthleteContext)
 
     const [fix, seFix] = useState(false)
 
@@ -79,9 +80,16 @@ function NavBar() {
                                     <li className="nav-item me-3" onClick={handleOffcanvasClose}>
                                         <NavLink to="/services" className='nav-link'>Services</NavLink>
                                     </li>
-                                    <li className="nav-item me-3" onClick={handleOffcanvasClose}>
-                                        <NavLink to="/athletes" className='nav-link'>Athletes</NavLink>
-                                    </li>
+
+                                    {
+                                        Object.keys(AthleteList).length === 0
+                                            ?
+                                            null
+                                            :
+                                            <li className="nav-item me-3" onClick={handleOffcanvasClose}>
+                                                <NavLink to="/athletes" className='nav-link'>Athletes</NavLink>
+                                            </li>
+                                    }
 
                                     {
                                         Object.keys(TestimonialList).length === 0
