@@ -131,7 +131,7 @@ class FeatureAthleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAccount
         fields = ('id', 'first_name', 'last_name', 'get_photo_url',
-                  'sport', 'state_of_origin', 'nationality', 'weight', 'height', 'sportstats')
+                  'sport', 'date_of_birth', 'state_of_origin', 'nationality', 'weight', 'height', 'sportstats')
 
 
 class SportStatSerializer(serializers.ModelSerializer):

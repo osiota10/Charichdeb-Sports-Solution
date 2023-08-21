@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import ToastMessage from "../cards/toastMsg";
 import LoaderIcon from "./components/loader";
+import { calculateAge } from "./components/ageCalculator";
 
 
 function DashboardHome({ onProfileRefresh }) {
@@ -34,21 +35,6 @@ function DashboardHome({ onProfileRefresh }) {
         }
     }, []); // The empty dependency array ensures the function is memoized
 
-    //Age Calculator
-    const calculateAge = (dateOfBirth) => {
-        const dob = new Date(dateOfBirth);
-        const today = new Date();
-
-        let age = today.getFullYear() - dob.getFullYear();
-
-        // Check if the user's birthday hasn't occurred yet this year
-        if (today.getMonth() < dob.getMonth() ||
-            (today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())) {
-            age--;
-        }
-
-        return age;
-    };
 
     const [sportStat, setSportStat] = useState([]);
     const [loading, setLoading] = useState(false);
