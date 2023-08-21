@@ -62,6 +62,7 @@ function AthleteGroup() {
                                         <AthleteCard key={item.id}
                                             firstName={item.first_name}
                                             lastName={item.last_name}
+                                            date_of_birth={item.date_of_birth}
                                             pic={item.get_photo_url}
                                             sport={item.sport}
                                             state_of_origin={item.state_of_origin}

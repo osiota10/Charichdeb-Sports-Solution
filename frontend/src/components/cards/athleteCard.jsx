@@ -1,6 +1,5 @@
 
 
-
 function AthleteCard({ key, firstName, lastName, pic, sport, state_of_origin, nationality, weight, height, sportstats }) {
     return (
         <section className='col' key={key}>
