@@ -1,6 +1,6 @@
+import { calculateAge } from "../dashboard/components/ageCalculator";
 
-
-function AthleteCard({ key, firstName, lastName, pic, sport, state_of_origin, nationality, weight, height, sportstats }) {
+function AthleteCard({ key, firstName, lastName, date_of_birth, pic, sport, state_of_origin, nationality, weight, height, sportstats }) {
     return (
         <section className='col' key={key}>
             <section className="card mx-auto" style={{ maxWidth: '379px' }} >
@@ -14,13 +14,13 @@ function AthleteCard({ key, firstName, lastName, pic, sport, state_of_origin, na
                         <img src={pic} className="mb-4 rounded-circle athlete-pix" width="170" height="170" alt="..." />
                     </section>
                     <p>Name: {lastName} {firstName}</p>
-                    <p>Age:  yrs</p>
-                    <p>State: {state_of_origin}</p>
-                    <p>Sports: {sport}</p>
-                    <p>Nationality: {nationality}</p>
-                    <p>Event/P.B: {sportstats}</p>
-                    <p>Height: {height}m</p>
-                    <p>Weight: {weight}kg</p>
+                    <p>Age: {date_of_birth ? `${calculateAge(date_of_birth)}` : 'Nill'} yrs</p>
+                    <p>State: {state_of_origin ? `${state_of_origin}` : 'Nill'}</p>
+                    <p>Sports: {sport ? `${sport}` : 'Nill'}</p>
+                    <p>Nationality: {nationality ? `${nationality}` : 'Nill'}</p>
+                    <p>Event/P.B: {sportstats ? `${sportstats}` : 'Nill'}</p>
+                    <p>Height: {height ? `${height} m` : 'Nill'}</p>
+                    <p>Weight: {weight ? `${weight} kg` : 'Nill'}</p>
                 </section>
             </section>
         </section>
