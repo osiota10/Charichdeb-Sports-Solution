@@ -1,4 +1,4 @@
-import { Outlet, NavLink, Link, Navigate, useNavigate } from "react-router-dom";
+import { Outlet, NavLink, Link, Navigate} from "react-router-dom";
 import { useState, useContext, useLayoutEffect } from "react";
 import { CompanyInformationContext, UserInfoContext } from "../../App";
 import { logout } from "../../actions/auth";
@@ -27,14 +27,6 @@ function DashboardSideBar({ logout, isAuthenticated }) {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
-
-    const navigate = useNavigate();
-    // setTimeout(() => {
-    //     if (!isAuthenticated) {
-    //         logout_user()
-    //         return navigate('/login')
-    //     }
-    // }, 600000)
 
     const CurrentUserInfo = useContext(UserInfoContext)
     const companyInfo = useContext(CompanyInformationContext)
