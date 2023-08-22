@@ -59,9 +59,8 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(null=True, blank=True)
     is_featured = models.BooleanField(default=False)
     image = CloudinaryField('image', null=True, blank=True)
-    height = models.IntegerField(null=True, blank=True)
+    height = models.FloatField(null=True, blank=True)
     weight = models.IntegerField(null=True, blank=True)
-    phone_number = models.IntegerField()
     gender = models.CharField(
         max_length=255, null=True, blank=True, choices=GENDER)
     sport = models.CharField(max_length=255, null=True, blank=True)
