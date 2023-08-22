@@ -8,38 +8,40 @@ import axios from "axios";
 
 export const UserInfoContext = createContext(null);
 
+// declare the data fetching function
+export const fetchData = async () => {
+    if (localStorage.getItem("access")) {
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `JWT ${localStorage.getItem("access")}`,
+                Accept: "application/json",
+            },
+        };
+
+        try {
+            const res = await axios.get(
+                `${process.env.REACT_APP_API_URL}/auth/users/me/`,
+                config
+            );
+            return res.data;
+        } catch (err) {
+            console.error("User not authenticated");
+            return [];
+        }
+    } else {
+        console.error("User not authenticated");
+        return [];
+    }
+};
+
 const DashboardLayout = () => {
     const [userInfo, setUserInfo] = useState([]);
     const authenticated = useAuth();
 
-    // declare the data fetching function
-    const fetchData = async () => {
-        if (localStorage.getItem("access")) {
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                    Accept: "application/json",
-                },
-            };
-
-            try {
-                const res = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/auth/users/me/`,
-                    config
-                );
-                setUserInfo(res.data);
-            } catch (err) {
-                console.error("User not authenticated");
-            }
-        } else {
-            console.error("User not authenticated");
-        }
-    };
-
     useLayoutEffect(() => {
         //User Info
-        fetchData();
+        fetchData().then((data) => setUserInfo(data));
     }, []);
 
     return (
