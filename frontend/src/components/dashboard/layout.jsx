@@ -4,6 +4,7 @@ import useAuth from "./components/authCheck";
 import { useState, useLayoutEffect, createContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export const UserInfoContext = createContext(null);
 

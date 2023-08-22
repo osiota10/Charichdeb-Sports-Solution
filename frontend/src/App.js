@@ -120,8 +120,8 @@ function App() {
                         </Route>
 
                         <Route path="/dashboard" element={<DashboardLayout />}>
-                          <Route index element={<DashboardHome onProfileRefresh={fetchData} />} />
-                          <Route path="/dashboard/edit-profile" element={<EditProfile onProfileUpdate={fetchData} />} />
+                          <Route index element={<DashboardHome />} />
+                          <Route path="/dashboard/edit-profile" element={<EditProfile />} />
                           <Route path="/dashboard/testimonials" element={<TestimonialDashboard />} />
                         </Route>
                       </Routes>

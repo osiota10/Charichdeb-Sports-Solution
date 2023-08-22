@@ -1,29 +1,31 @@
 import { useContext, useState, useCallback, useLayoutEffect } from "react";
-import { UserInfoContext } from "../../App";
+import { UserInfoContext } from "./layout";
 import axios from "axios";
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import ToastMessage from "../cards/toastMsg";
 import LoaderIcon from "./components/loader";
 import { calculateAge } from "./components/ageCalculator";
 
-
-function DashboardHome({ onProfileRefresh }) {
-    const CurrentUserInfo = useContext(UserInfoContext)
+function DashboardHome() {
+    const CurrentUserInfo = useContext(UserInfoContext);
 
     //List Sport Stat
     const fetchStatData = useCallback(async () => {
-        if (localStorage.getItem('access')) {
+        if (localStorage.getItem("access")) {
             const config = {
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `JWT ${localStorage.getItem('access')}`,
-                    'Accept': 'application/json'
-                }
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                    Accept: "application/json",
+                },
             };
 
             try {
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/sport-stat`, config);
+                const res = await axios.get(
+                    `${process.env.REACT_APP_API_URL}/sport-stat`,
+                    config
+                );
                 return res.data;
             } catch (err) {
                 console.error("User not authenticated");
@@ -35,11 +37,10 @@ function DashboardHome({ onProfileRefresh }) {
         }
     }, []); // The empty dependency array ensures the function is memoized
 
-
     const [sportStat, setSportStat] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [modalState, setModalstate] = useState('')
-    const [formSuccessState, setFormSuccessState] = useState('')
+    const [modalState, setModalstate] = useState("");
+    const [formSuccessState, setFormSuccessState] = useState("");
 
     // Toast
     const [showToast, setShowToast] = useState(false);
@@ -53,41 +54,43 @@ function DashboardHome({ onProfileRefresh }) {
 
     //Delete item
     const [itemToDelete, setItemToDelete] = useState({
-        event: '',
-        pb: '',
-    })
+        event: "",
+        pb: "",
+    });
 
     const handleDeleteitem = (item) => {
-        setModalstate('Delete')
-        handleModalShow()
-        setItemToDelete(item)
-    }
+        setModalstate("Delete");
+        handleModalShow();
+        setItemToDelete(item);
+    };
 
     // Handle delete button click
     const handleDeleteClick = async () => {
-        setLoading(true)
-        if (localStorage.getItem('access')) {
+        setLoading(true);
+        if (localStorage.getItem("access")) {
             const config = {
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `JWT ${localStorage.getItem('access')}`,
-                    'Accept': 'application/json'
-                }
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                    Accept: "application/json",
+                },
             };
 
             try {
-                const res = await axios.delete(`${process.env.REACT_APP_API_URL}/sport-stat/${itemToDelete.id}`, config);
+                const res = await axios.delete(
+                    `${process.env.REACT_APP_API_URL}/sport-stat/${itemToDelete.id}`,
+                    config
+                );
                 setSportStat(sportStat.filter((i) => i.id !== itemToDelete.id));
                 if (res.status === 204) {
-                    setLoading(false)
-                    setFormSuccessState('deleted')
-                    handleModalClose()
-                    handleToastShow()
+                    setLoading(false);
+                    setFormSuccessState("deleted");
+                    handleModalClose();
+                    handleToastShow();
                 }
-
             } catch (err) {
                 console.log(err);
-                setLoading(false)
+                setLoading(false);
             }
         } else {
             console.error("User not authenticated");
@@ -96,120 +99,128 @@ function DashboardHome({ onProfileRefresh }) {
 
     // Add Sport Stat
     const handleAddStat = () => {
-        setModalstate('Add')
-        handleModalShow()
-    }
+        setModalstate("Add");
+        handleModalShow();
+    };
 
     const [formAddData, setFormAddData] = useState({
-        event: '',
-        pb: '',
+        event: "",
+        pb: "",
     });
 
     const { event, pb } = formAddData;
-    const onChange = e => setFormAddData({ ...formAddData, [e.target.name]: e.target.value });
+    const onChange = (e) =>
+        setFormAddData({ ...formAddData, [e.target.name]: e.target.value });
 
-    const onAddSubmit = e => {
+    const onAddSubmit = (e) => {
         e.preventDefault();
-        setLoading(true)
+        setLoading(true);
 
         const submitData = async () => {
-            if (localStorage.getItem('access')) {
+            if (localStorage.getItem("access")) {
                 const config = {
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `JWT ${localStorage.getItem('access')}`,
-                        'Accept': 'application/json'
-                    }
+                        "Content-Type": "application/json",
+                        Authorization: `JWT ${localStorage.getItem("access")}`,
+                        Accept: "application/json",
+                    },
                 };
 
                 const body = JSON.stringify({ event, pb });
 
                 try {
-                    const res = await axios.post(`${process.env.REACT_APP_API_URL}/sport-stat`, body, config);
+                    const res = await axios.post(
+                        `${process.env.REACT_APP_API_URL}/sport-stat`,
+                        body,
+                        config
+                    );
                     if (res.status === 201) {
-                        setLoading(false)
-                        setFormSuccessState('added')
-                        handleModalClose()
-                        handleToastShow()
+                        setLoading(false);
+                        setFormSuccessState("added");
+                        handleModalClose();
+                        handleToastShow();
                         setFormAddData({
-                            event: '',
-                            pb: '',
-                        })
+                            event: "",
+                            pb: "",
+                        });
                         const updatedStats = await fetchStatData();
                         setSportStat(updatedStats);
                     }
-
                 } catch (err) {
                     console.error("User not authenticated");
-                    setLoading(false)
+                    setLoading(false);
                 }
             } else {
                 console.error("User not authenticated");
             }
-        }
+        };
 
-        submitData()
+        submitData();
     };
 
     useLayoutEffect(() => {
         fetchStatData().then((data) => setSportStat(data));
-    }, [fetchStatData, onProfileRefresh]);
+    }, [fetchStatData]);
 
     // Edit Stat
     const [formEditData, setFormEditData] = useState({
-        id: '',
-        event: '',
-        pb: '',
+        id: "",
+        event: "",
+        pb: "",
     });
 
     const handleEdit = (item) => {
-        setModalstate('Edit')
-        handleModalShow()
-        setFormEditData(item)
-    }
+        setModalstate("Edit");
+        handleModalShow();
+        setFormEditData(item);
+    };
 
     const handleEditFormInputChange = (event) => {
         const { name, value } = event.target;
         setFormEditData({ ...formEditData, [name]: value });
     };
 
-    const onEditSubmit = e => {
+    const onEditSubmit = (e) => {
         e.preventDefault();
-        setLoading(true)
+        setLoading(true);
 
         const submitData = async () => {
-            if (localStorage.getItem('access')) {
+            if (localStorage.getItem("access")) {
                 const config = {
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `JWT ${localStorage.getItem('access')}`,
-                        'Accept': 'application/json'
-                    }
+                        "Content-Type": "application/json",
+                        Authorization: `JWT ${localStorage.getItem("access")}`,
+                        Accept: "application/json",
+                    },
                 };
 
                 const body = JSON.stringify(formEditData);
 
                 try {
-                    const res = await axios.put(`${process.env.REACT_APP_API_URL}/sport-stat/${formEditData.id}`, body, config);
-                    setLoading(false)
+                    const res = await axios.put(
+                        `${process.env.REACT_APP_API_URL}/sport-stat/${formEditData.id}`,
+                        body,
+                        config
+                    );
+                    setLoading(false);
 
                     if (res.status === 200) {
-                        handleModalClose()
-                        setFormSuccessState('edited')
-                        handleToastShow()
+                        handleModalClose();
+                        setFormSuccessState("edited");
+                        handleToastShow();
                         const updatedStats = await fetchStatData();
                         setSportStat(updatedStats);
                     }
                 } catch (err) {
                     console.log(err);
-                    setLoading(false)
+                    setLoading(false);
                 }
             } else {
                 console.error("User not authenticated");
             }
-        }
+        };
 
-        submitData()
+        submitData();
     };
 
     return (
@@ -218,22 +229,44 @@ function DashboardHome({ onProfileRefresh }) {
                 <section className="col-lg-6">
                     <section className="card">
                         <section className="text-center mt-4">
-                            <img src={CurrentUserInfo.get_photo_url} class="d-flex justify-content-center align-items-center rounded-circle mx-auto mb-2" width="150" height="150" alt="..." />
-                            <h4>{CurrentUserInfo.last_name} {CurrentUserInfo.first_name}</h4>
-                            <p className="badge rounded-pill text-bg-primary">{CurrentUserInfo.sport}</p>
+                            <img
+                                src={CurrentUserInfo.get_photo_url}
+                                class="d-flex justify-content-center align-items-center rounded-circle mx-auto mb-2"
+                                width="150"
+                                height="150"
+                                alt="..."
+                            />
+                            <h4>
+                                {CurrentUserInfo.last_name}{" "}
+                                {CurrentUserInfo.first_name}
+                            </h4>
+                            <p className="badge rounded-pill text-bg-primary">
+                                {CurrentUserInfo.sport}
+                            </p>
                         </section>
 
                         <section className="table-responsive p-2">
                             <table className="table ">
                                 <thead className="table-primary">
                                     <tr>
-                                        <th scope="col" colspan="2" className="text-center">Bio-Data</th>
+                                        <th
+                                            scope="col"
+                                            colspan="2"
+                                            className="text-center"
+                                        >
+                                            Bio-Data
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>Age:</td>
-                                        <td>{calculateAge(CurrentUserInfo.date_of_birth)} years</td>
+                                        <td>
+                                            {calculateAge(
+                                                CurrentUserInfo.date_of_birth
+                                            )}{" "}
+                                            years
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Email:</td>
@@ -261,7 +294,13 @@ function DashboardHome({ onProfileRefresh }) {
                             <table className="table mt-4">
                                 <thead className="table-primary">
                                     <tr>
-                                        <th scope="col" colspan="2" className="text-center">Contact Address</th>
+                                        <th
+                                            scope="col"
+                                            colspan="2"
+                                            className="text-center"
+                                        >
+                                            Contact Address
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -275,7 +314,9 @@ function DashboardHome({ onProfileRefresh }) {
                                     </tr>
                                     <tr>
                                         <td>State of Origin:</td>
-                                        <td>{CurrentUserInfo.state_of_origin}</td>
+                                        <td>
+                                            {CurrentUserInfo.state_of_origin}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Nationality:</td>
@@ -294,27 +335,53 @@ function DashboardHome({ onProfileRefresh }) {
                             <table class="table ">
                                 <thead class="table-primary">
                                     <tr>
-                                        <th scope="col" colspan="3" class="text-center">Events and PBs</th>
+                                        <th
+                                            scope="col"
+                                            colspan="3"
+                                            class="text-center"
+                                        >
+                                            Events and PBs
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {sportStat.map(item =>
+                                    {sportStat.map((item) => (
                                         <tr>
                                             <td>{item.event}:</td>
                                             <td>{item.pb}</td>
                                             <td>
-                                                <span className="btn btn-primary btn-sm me-2" onClick={() => handleEdit(item)}><i className="fa-solid fa-pen-to-square me-1"></i>Edit</span>
-                                                <span className="btn btn-danger btn-sm" onClick={() => handleDeleteitem(item)}><i className="fa-solid fa-trash me-1"></i> Delete</span>
+                                                <span
+                                                    className="btn btn-primary btn-sm me-2"
+                                                    onClick={() =>
+                                                        handleEdit(item)
+                                                    }
+                                                >
+                                                    <i className="fa-solid fa-pen-to-square me-1"></i>
+                                                    Edit
+                                                </span>
+                                                <span
+                                                    className="btn btn-danger btn-sm"
+                                                    onClick={() =>
+                                                        handleDeleteitem(item)
+                                                    }
+                                                >
+                                                    <i className="fa-solid fa-trash me-1"></i>{" "}
+                                                    Delete
+                                                </span>
                                             </td>
                                         </tr>
-                                    )}
+                                    ))}
                                 </tbody>
                             </table>
                             <section className="d-grid gap-2 col-6 mx-auto mb-4">
                                 <button
                                     className="d-grid btn btn-primary"
-                                    onClick={() => handleAddStat()}>
-                                    <span><i className="fa-solid fa-plus "></i> Add Event</span>
+                                    onClick={() => handleAddStat()}
+                                >
+                                    <span>
+                                        <i className="fa-solid fa-plus "></i>{" "}
+                                        Add Event
+                                    </span>
                                 </button>
                             </section>
                         </section>
@@ -330,175 +397,162 @@ function DashboardHome({ onProfileRefresh }) {
             >
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        {
-                            modalState === "Add"
-                                ?
-                                'Add Event and PB'
-                                :
-                                null
-                        }
+                        {modalState === "Add" ? "Add Event and PB" : null}
 
-                        {
-                            modalState === "Edit"
-                                ?
-                                'Edit Event/Pb'
-                                :
-                                null
-                        }
+                        {modalState === "Edit" ? "Edit Event/Pb" : null}
 
-                        {
-                            modalState === "Delete"
-                                ?
-                                'Delete Event/Pb'
-                                :
-                                null
-                        }
+                        {modalState === "Delete" ? "Delete Event/Pb" : null}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {
-                        modalState === "Add"
-                            ?
-                            <form onSubmit={e => onAddSubmit(e)}>
-                                <section className="row g-3">
-                                    <div class="col-12">
-                                        <label for="event" class="form-label">Event</label>
-                                        <input
-                                            type="text"
-                                            class="form-control inputfield bg-light"
-                                            id="event"
-                                            name="event"
-                                            value={event}
-                                            onChange={e => onChange(e)}
-                                            required />
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="pb" class="form-label">PB</label>
-                                        <input
-                                            type="text"
-                                            class="form-control inputfield bg-light"
-                                            id="pb"
-                                            name="pb"
-                                            value={pb}
-                                            onChange={e => onChange(e)}
-                                            required />
-                                    </div>
-                                    <div className="d-grid mt-3">
-                                        <button
-                                            type="submit"
-                                            className={loading ? 'btn btn-primary disabled' : 'btn btn-primary'}>
-
-                                            {loading
-                                                ?
-                                                <LoaderIcon />
-                                                :
-                                                null
-                                            }
-                                            Add
-                                        </button>
-                                    </div>
-                                </section>
-                            </form>
-                            :
-                            null
-                    }
-
-                    {
-                        modalState === "Edit"
-                            ?
-                            <form onSubmit={e => onEditSubmit(e)}>
-                                <section className="row g-3">
-                                    <div class="col-12">
-                                        <label for="event" class="form-label">Event</label>
-                                        <input
-                                            type="text"
-                                            class="form-control inputfield bg-light"
-                                            id="event"
-                                            name="event"
-                                            value={formEditData.event}
-                                            onChange={handleEditFormInputChange}
-                                            required />
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="pb" class="form-label">PB</label>
-                                        <input
-                                            type="text"
-                                            class="form-control inputfield bg-light"
-                                            id="pb"
-                                            name="pb"
-                                            value={formEditData.pb}
-                                            onChange={handleEditFormInputChange}
-                                            required />
-                                    </div>
-                                    <section className="d-grid">
-                                        <button
-                                            type="submit"
-                                            className={loading ? 'btn btn-primary disabled' : 'btn btn-primary'}
-                                        >
-                                            {loading
-                                                ?
-                                                <LoaderIcon />
-                                                :
-                                                null
-                                            }
-                                            Submit
-                                        </button>
-                                    </section>
-                                </section>
-                            </form>
-                            :
-                            null
-                    }
-
-                    {
-                        modalState === "Delete"
-                            ?
-                            <section>
-                                Are you sure you want to delete
-                                <span className="text-primary"> {itemToDelete.event} </span>
-                                with a Pb of <span className="text-primary">{itemToDelete.pb}</span>?
-                                Action cannot be undone.
+                    {modalState === "Add" ? (
+                        <form onSubmit={(e) => onAddSubmit(e)}>
+                            <section className="row g-3">
+                                <div class="col-12">
+                                    <label for="event" class="form-label">
+                                        Event
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control inputfield bg-light"
+                                        id="event"
+                                        name="event"
+                                        value={event}
+                                        onChange={(e) => onChange(e)}
+                                        required
+                                    />
+                                </div>
+                                <div class="col-12">
+                                    <label for="pb" class="form-label">
+                                        PB
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control inputfield bg-light"
+                                        id="pb"
+                                        name="pb"
+                                        value={pb}
+                                        onChange={(e) => onChange(e)}
+                                        required
+                                    />
+                                </div>
+                                <div className="d-grid mt-3">
+                                    <button
+                                        type="submit"
+                                        className={
+                                            loading
+                                                ? "btn btn-primary disabled"
+                                                : "btn btn-primary"
+                                        }
+                                    >
+                                        {loading ? <LoaderIcon /> : null}
+                                        Add
+                                    </button>
+                                </div>
                             </section>
-                            :
-                            null
-                    }
+                        </form>
+                    ) : null}
+
+                    {modalState === "Edit" ? (
+                        <form onSubmit={(e) => onEditSubmit(e)}>
+                            <section className="row g-3">
+                                <div class="col-12">
+                                    <label for="event" class="form-label">
+                                        Event
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control inputfield bg-light"
+                                        id="event"
+                                        name="event"
+                                        value={formEditData.event}
+                                        onChange={handleEditFormInputChange}
+                                        required
+                                    />
+                                </div>
+                                <div class="col-12">
+                                    <label for="pb" class="form-label">
+                                        PB
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control inputfield bg-light"
+                                        id="pb"
+                                        name="pb"
+                                        value={formEditData.pb}
+                                        onChange={handleEditFormInputChange}
+                                        required
+                                    />
+                                </div>
+                                <section className="d-grid">
+                                    <button
+                                        type="submit"
+                                        className={
+                                            loading
+                                                ? "btn btn-primary disabled"
+                                                : "btn btn-primary"
+                                        }
+                                    >
+                                        {loading ? <LoaderIcon /> : null}
+                                        Submit
+                                    </button>
+                                </section>
+                            </section>
+                        </form>
+                    ) : null}
+
+                    {modalState === "Delete" ? (
+                        <section>
+                            Are you sure you want to delete
+                            <span className="text-primary">
+                                {" "}
+                                {itemToDelete.event}{" "}
+                            </span>
+                            with a Pb of{" "}
+                            <span className="text-primary">
+                                {itemToDelete.pb}
+                            </span>
+                            ? Action cannot be undone.
+                        </section>
+                    ) : null}
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button variant="btn btn-outline-primary" onClick={handleModalClose}>
+                    <Button
+                        variant="btn btn-outline-primary"
+                        onClick={handleModalClose}
+                    >
                         Close
                     </Button>
-                    {
-                        modalState === "Delete"
-                            ?
-                            <Button variant={loading ? 'btn btn-danger disabled' : 'btn btn-danger'} onClick={handleDeleteClick}>
-                                {loading
-                                    ?
-                                    <LoaderIcon />
-                                    :
-                                    null
-                                }
-
-                                Delete
-                            </Button>
-                            :
-                            null
-                    }
+                    {modalState === "Delete" ? (
+                        <Button
+                            variant={
+                                loading
+                                    ? "btn btn-danger disabled"
+                                    : "btn btn-danger"
+                            }
+                            onClick={handleDeleteClick}
+                        >
+                            {loading ? <LoaderIcon /> : null}
+                            Delete
+                        </Button>
+                    ) : null}
                 </Modal.Footer>
             </Modal>
 
             {/* Toast Message */}
-            {showToast
-                ?
+            {showToast ? (
                 <ToastMessage
                     show={showToast}
                     onClose={handleToastClose}
-                    message={`Event/Pb Successfully ${formSuccessState === 'edited' ? 'updated' : ''} ${formSuccessState === 'deleted' ? 'Delete' : ''} ${formSuccessState === 'added' ? 'Added' : ''}`}
+                    message={`Event/Pb Successfully ${
+                        formSuccessState === "edited" ? "updated" : ""
+                    } ${formSuccessState === "deleted" ? "Delete" : ""} ${
+                        formSuccessState === "added" ? "Added" : ""
+                    }`}
                     variant="success"
                 />
-                :
-                null
-            }
+            ) : null}
         </section>
     );
 }

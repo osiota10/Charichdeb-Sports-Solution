@@ -1,6 +1,7 @@
 import { Outlet, NavLink, Link, Navigate } from "react-router-dom";
 import { useState, useContext, useLayoutEffect } from "react";
-import { CompanyInformationContext, UserInfoContext } from "../../App";
+import { CompanyInformationContext } from "../../App";
+import { UserInfoContext } from "./layout";
 import { logout } from "../../actions/auth";
 import { connect } from "react-redux";
 import Offcanvas from "react-bootstrap/Offcanvas";
