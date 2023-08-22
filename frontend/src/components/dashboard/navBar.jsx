@@ -1,10 +1,9 @@
-import { Outlet, NavLink, Link, Navigate} from "react-router-dom";
+import { Outlet, NavLink, Link, Navigate } from "react-router-dom";
 import { useState, useContext, useLayoutEffect } from "react";
 import { CompanyInformationContext, UserInfoContext } from "../../App";
 import { logout } from "../../actions/auth";
 import { connect } from "react-redux";
-import Offcanvas from 'react-bootstrap/Offcanvas';
-
+import Offcanvas from "react-bootstrap/Offcanvas";
 
 function DashboardSideBar({ logout, isAuthenticated }) {
     const [redirect, setRedirect] = useState(false);
@@ -21,26 +20,26 @@ function DashboardSideBar({ logout, isAuthenticated }) {
             setScreenWidth(window.innerWidth);
         };
 
-        window.addEventListener('resize', handleResize);
+        window.addEventListener("resize", handleResize);
 
         return () => {
-            window.removeEventListener('resize', handleResize);
+            window.removeEventListener("resize", handleResize);
         };
     }, []);
 
-    const CurrentUserInfo = useContext(UserInfoContext)
-    const companyInfo = useContext(CompanyInformationContext)
-    const [fix, seFix] = useState(false)
+    const CurrentUserInfo = useContext(UserInfoContext);
+    const companyInfo = useContext(CompanyInformationContext);
+    const [fix, seFix] = useState(false);
 
     function handleFixNavBar() {
         if (window.scrollY >= 10) {
-            seFix(true)
+            seFix(true);
         } else {
-            seFix(false)
+            seFix(false);
         }
     }
 
-    window.addEventListener('scroll', handleFixNavBar)
+    window.addEventListener("scroll", handleFixNavBar);
 
     // Offcanvas
     const [showOffcanvas, setOffcanvasShow] = useState(false);
@@ -49,10 +48,15 @@ function DashboardSideBar({ logout, isAuthenticated }) {
     return (
         <section>
             <>
-                <nav className={'navbar fixed-top navbar-expand-lg bg-primary'} >
+                <nav className={"navbar fixed-top navbar-expand-lg bg-primary"}>
                     <div class="container-fluid">
                         <section className="hstack">
-                            <button className="navbar-toggler" type="button" aria-controls="offcanvasNavbar" onClick={handleOffcanvasShow}>
+                            <button
+                                className="navbar-toggler"
+                                type="button"
+                                aria-controls="offcanvasNavbar"
+                                onClick={handleOffcanvasShow}
+                            >
                                 <i className="fa-solid fa-bars text-white fs-3"></i>
                             </button>
                         </section>
@@ -64,59 +68,137 @@ function DashboardSideBar({ logout, isAuthenticated }) {
                             backdrop="static"
                             responsive="lg"
                             tabIndex="-1"
-                            className={screenWidth < 991 ? "text-bg-dark" : null}>
+                            className={
+                                screenWidth < 991 ? "text-bg-dark" : null
+                            }
+                        >
                             <Offcanvas.Header closeButton>
-                                <Offcanvas.Title className="text-secondary">{companyInfo.company_name}</Offcanvas.Title>
+                                <Offcanvas.Title className="text-secondary">
+                                    {companyInfo.company_name}
+                                </Offcanvas.Title>
                             </Offcanvas.Header>
 
                             <Offcanvas.Body className="d-flex flex-column align-items-around">
-                                <div className="navbar-nav flex-grow-1 pe-3" id="navbarNav">
+                                <div
+                                    className="navbar-nav flex-grow-1 pe-3"
+                                    id="navbarNav"
+                                >
                                     <ul className="navbar-nav">
-                                        <li className="nav-item me-3" onClick={handleOffcanvasClose}>
-                                            <NavLink to="/dashboard" end className='nav-link' aria-current="page"><i class="fa-solid fa-house"></i> Dashboard</NavLink>
+                                        <li
+                                            className="nav-item me-3"
+                                            onClick={handleOffcanvasClose}
+                                        >
+                                            <NavLink
+                                                to="/dashboard"
+                                                end
+                                                className="nav-link"
+                                                aria-current="page"
+                                            >
+                                                <i class="fa-solid fa-house"></i>{" "}
+                                                Dashboard
+                                            </NavLink>
                                         </li>
 
-                                        <li className="nav-item me-3" onClick={handleOffcanvasClose}>
-                                            <NavLink to="/dashboard/testimonials" className='nav-link' aria-current="page"><i className="fa-solid fa-user-pen fs-6"></i> Testimonials</NavLink>
+                                        <li
+                                            className="nav-item me-3"
+                                            onClick={handleOffcanvasClose}
+                                        >
+                                            <NavLink
+                                                to="/dashboard/testimonials"
+                                                className="nav-link"
+                                                aria-current="page"
+                                            >
+                                                <i className="fa-solid fa-user-pen fs-6"></i>{" "}
+                                                Testimonials
+                                            </NavLink>
                                         </li>
 
-                                        <li className="nav-item me-3" onClick={handleOffcanvasClose}>
-                                            <NavLink to="/dashboard/edit-profile" className='nav-link' aria-current="page"><i className="fa-solid fa-pen-to-square fs-6"></i> Edit Profile</NavLink>
+                                        <li
+                                            className="nav-item me-3"
+                                            onClick={handleOffcanvasClose}
+                                        >
+                                            <NavLink
+                                                to="/dashboard/edit-profile"
+                                                className="nav-link"
+                                                aria-current="page"
+                                            >
+                                                <i className="fa-solid fa-pen-to-square fs-6"></i>{" "}
+                                                Edit Profile
+                                            </NavLink>
                                         </li>
                                     </ul>
                                 </div>
 
                                 <section className="d-lg-none .d-xl-block">
-                                    <Link className='btn btn-outline-secondary text-decoration-none me-1' to="#" onClick={logout_user}>Logout</Link>
+                                    <Link
+                                        className="btn btn-outline-secondary text-decoration-none me-1"
+                                        to="#"
+                                        onClick={logout_user}
+                                    >
+                                        Logout
+                                    </Link>
                                 </section>
                             </Offcanvas.Body>
                         </Offcanvas>
 
-                        <div className="btn-group" >
-                            <section className="dropdown-toggle" id="dropdownMenuButton2" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
-                                <span className="text-white me-1">Welcome {CurrentUserInfo.last_name}!</span>
-                                <a   ><img src={CurrentUserInfo.get_photo_url} className="rounded-circle mx-auto" width="50" height="50" alt="..." /></a>
+                        <div className="btn-group">
+                            <section
+                                className="dropdown-toggle"
+                                id="dropdownMenuButton2"
+                                data-bs-toggle="dropdown"
+                                data-bs-auto-close="true"
+                                aria-expanded="false"
+                            >
+                                <span className="text-white me-1">
+                                    Welcome {CurrentUserInfo.last_name}!
+                                </span>
+                                <a>
+                                    <img
+                                        src={CurrentUserInfo.get_photo_url}
+                                        className="rounded-circle mx-auto"
+                                        width="50"
+                                        height="50"
+                                        alt="..."
+                                    />
+                                </a>
                             </section>
 
-                            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-start" aria-labelledby="dropdownMenuButton2">
-                                <li><Link class="dropdown-item" to="/dashboard/edit-profile">Edit Profile</Link></li>
-                                <li><a class="dropdown-item" href="#" onClick={logout_user}>Sign Out</a></li>
+                            <ul
+                                className="dropdown-menu dropdown-menu-end dropdown-menu-start"
+                                aria-labelledby="dropdownMenuButton2"
+                            >
+                                <li>
+                                    <Link
+                                        class="dropdown-item"
+                                        to="/dashboard/edit-profile"
+                                    >
+                                        Edit Profile
+                                    </Link>
+                                </li>
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="#"
+                                        onClick={logout_user}
+                                    >
+                                        Sign Out
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </nav>
             </>
-            <section className="pt-12 bg-light min-vh-100" >
+            <section className="pt-12 bg-light min-vh-100">
                 <Outlet />
             </section>
-            {redirect ? <Navigate to='/login' /> : null}
+            {redirect ? <Navigate to="/login" /> : null}
         </section>
-
     );
 }
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { logout })(DashboardSideBar);
