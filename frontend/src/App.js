@@ -34,7 +34,6 @@ export const AthleteContext = createContext(null)
 export const TestimoninailContext = createContext(null)
 export const WorkProcessContext = createContext(null)
 export const CompanyInformationContext = createContext(null)
-export const UserInfoContext = createContext(null)
 
 
 function App() {
@@ -44,35 +43,9 @@ function App() {
   const [testimonial, setTestimonial] = useState([]);
   const [workprocess, setWorkProcess] = useState([]);
   const [companyInfo, setCompanyInfo] = useState([]);
-  const [userInfo, setUserInfo] = useState([]);
 
-  // declare the data fetching function
-  const fetchData = async () => {
-    if (localStorage.getItem('access')) {
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `JWT ${localStorage.getItem('access')}`,
-          'Accept': 'application/json'
-        }
-      };
-
-      try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users/me/`, config);
-        setUserInfo(res.data)
-
-      } catch (err) {
-        console.error("User not authenticated");
-      }
-    } else {
-      console.error("User not authenticated");
-    }
-  }
 
   useLayoutEffect(() => {
-    //User Info
-    fetchData()
-
     //Service
     axios.get(`${process.env.REACT_APP_API_URL}/services`)
       .then(res => {
@@ -120,41 +93,39 @@ function App() {
               <TestimoninailContext.Provider value={testimonial}>
                 <WorkProcessContext.Provider value={workprocess}>
                   <CompanyInformationContext.Provider value={companyInfo}>
-                    <UserInfoContext.Provider value={userInfo}>
-                      <BrowserRouter>
-                        <ScrollToTop />
-                        <Routes>
-                          <Route path="/" element={<Layout />}>
-                            <Route index element={<HomePage />} />
-                            <Route path="about" element={<AboutPage />} />
-                            <Route path="services" element={<ServicesPage />} />
-                            <Route path="testimonials" element={<Testimonials />} />
-                            {/* <Route path="events" element={<EventPage />} /> */}
-                            {/* <Route path="events/:slug" element={<EventDetail />} /> */}
-                            <Route path="athletes" element={<AthletesPage />} />
-                            <Route path="athletes/:id" element={<AthleteDetailModal />} />
-                            <Route path="contact" element={<ContactPage />} />
-                            <Route path="privacy-policy" element={<PrivacyPolicy />} />
-                            <Route path="terms-and-conditions" element={<TermsAndConditions />} />
-                            <Route path="*" element={<NoPage />} />
-                          </Route>
+                    <BrowserRouter>
+                      <ScrollToTop />
+                      <Routes>
+                        <Route path="/" element={<Layout />}>
+                          <Route index element={<HomePage />} />
+                          <Route path="about" element={<AboutPage />} />
+                          <Route path="services" element={<ServicesPage />} />
+                          <Route path="testimonials" element={<Testimonials />} />
+                          {/* <Route path="events" element={<EventPage />} /> */}
+                          {/* <Route path="events/:slug" element={<EventDetail />} /> */}
+                          <Route path="athletes" element={<AthletesPage />} />
+                          <Route path="athletes/:id" element={<AthleteDetailModal />} />
+                          <Route path="contact" element={<ContactPage />} />
+                          <Route path="privacy-policy" element={<PrivacyPolicy />} />
+                          <Route path="terms-and-conditions" element={<TermsAndConditions />} />
+                          <Route path="*" element={<NoPage />} />
+                        </Route>
 
-                          <Route>
-                            <Route path='/login' element={<Login />} />
-                            <Route path='/signup' element={<SignUp />} />
-                            <Route path='/reset-password' element={<ResetPassword />} />
-                            <Route path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm />} />
-                            <Route path='/activate/:uid/:token' element={<Activate />} />
-                          </Route>
+                        <Route>
+                          <Route path='/login' element={<Login />} />
+                          <Route path='/signup' element={<SignUp />} />
+                          <Route path='/reset-password' element={<ResetPassword />} />
+                          <Route path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm />} />
+                          <Route path='/activate/:uid/:token' element={<Activate />} />
+                        </Route>
 
-                          <Route path="/dashboard" element={<DashboardLayout />}>
-                            <Route index element={<DashboardHome onProfileRefresh={fetchData} />} />
-                            <Route path="/dashboard/edit-profile" element={<EditProfile onProfileUpdate={fetchData} />} />
-                            <Route path="/dashboard/testimonials" element={<TestimonialDashboard />} />
-                          </Route>
-                        </Routes>
-                      </BrowserRouter>
-                    </UserInfoContext.Provider>
+                        <Route path="/dashboard" element={<DashboardLayout />}>
+                          <Route index element={<DashboardHome onProfileRefresh={fetchData} />} />
+                          <Route path="/dashboard/edit-profile" element={<EditProfile onProfileUpdate={fetchData} />} />
+                          <Route path="/dashboard/testimonials" element={<TestimonialDashboard />} />
+                        </Route>
+                      </Routes>
+                    </BrowserRouter>
                   </CompanyInformationContext.Provider>
                 </WorkProcessContext.Provider>
               </TestimoninailContext.Provider>
