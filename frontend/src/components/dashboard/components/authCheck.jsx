@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useLayoutEffect, useCallback } from 'react';
 
 const useAuth = () => {
     const [authenticated, setAuthenticated] = useState(false);
@@ -23,7 +23,7 @@ const useAuth = () => {
         }
     }, []);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         checkAuthenticated();
 
         // Get the token expiration time
