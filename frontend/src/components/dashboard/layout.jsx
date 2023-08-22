@@ -9,7 +9,7 @@ import axios from "axios";
 export const UserInfoContext = createContext(null);
 
 // declare the data fetching function
-export const fetchData = async () => {
+export const fetchUserData = async () => {
     if (localStorage.getItem("access")) {
         const config = {
             headers: {
@@ -41,7 +41,7 @@ const DashboardLayout = () => {
 
     useLayoutEffect(() => {
         //User Info
-        fetchData().then((data) => setUserInfo(data));
+        fetchUserData().then((data) => setUserInfo(data));
     }, []);
 
     return (
