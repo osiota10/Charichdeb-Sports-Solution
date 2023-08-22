@@ -101,7 +101,7 @@ class ContactUsView(generics.CreateAPIView):
 
 
 class FeatureAthleteView(generics.ListAPIView):
-    queryset = UserAccount.objects.filter(is_featured=True)
+    queryset = UserAccount.objects.filter(is_featured=True, is_superuser=False)
     serializer_class = FeatureAthleteSerializer
     permission_classes = [AllowAny,]
 
