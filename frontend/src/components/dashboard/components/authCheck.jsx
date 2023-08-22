@@ -9,7 +9,6 @@ const useAuth = () => {
             const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decoding the token payload
             const tokenExpirationTime = decodedToken.exp * 1000; // Convert expiration time to milliseconds
             const currentTime = Date.now();
-            const remainingTime = tokenExpirationTime - currentTime;
 
             if (currentTime > tokenExpirationTime) {
                 // Token has expired, remove it from local storage
@@ -31,8 +30,6 @@ const useAuth = () => {
         if (token) {
             const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decoding the token payload
             const tokenExpirationTime = decodedToken.exp * 1000; // Convert expiration time to milliseconds
-
-            // Calculate the remaining time until the token expiration
             const currentTime = Date.now();
             const remainingTime = tokenExpirationTime - currentTime;
 
