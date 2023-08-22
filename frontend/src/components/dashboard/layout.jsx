@@ -9,21 +9,6 @@ import { Link } from "react-router-dom";
 const DashboardLayout = () => {
     const authenticated = useAuth()
 
-    // Show Modal
-    const [showModal, setShowModal] = useState(false);
-    const handleShowModalClose = () => setShowModal(false);
-    const handleShowModalShow = () => setShowModal(true);
-
-    useEffect(() => {
-        // If the user is authenticated, show the modal
-        if (authenticated) {
-            handleShowModalClose();
-        } else {
-            // If the user is not authenticated, close the modal
-            handleShowModalShow();
-        }
-    }, [authenticated]);
-
     return (
         <section>
             <DashboardSideBar />
@@ -31,15 +16,14 @@ const DashboardLayout = () => {
             <DashboardFooter />
 
             <Modal
-                show={showModal}
-                onHide={handleShowModalClose}
+                show={!authenticated}
                 backdrop="static"
                 keyboard={false}
             >
                 <Modal.Body className="text-center fs-5">
                     Login session has expired
                     <section className='d-flex justify-content-center mt-2'>
-                        <Link className="btn btn-primary" to="/login" onClick={handleShowModalClose}>Login</Link>
+                        <Link className="btn btn-primary" to="/login">Login</Link>
                     </section>
                 </Modal.Body>
             </Modal>
