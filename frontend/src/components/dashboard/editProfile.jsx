@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import LoaderIcon from "./components/loader";
+import { fetchUserData } from "./layout";
 
 function EditProfile() {
     const CurrentUserInfo = useContext(UserInfoContext);
@@ -103,7 +104,7 @@ function EditProfile() {
                         handleShow();
                         setLoading(false);
                         // Refresh User Info
-                        // onProfileUpdate();
+                        fetchUserData();
                     }
                 } catch (err) {
                     console.error("User not authenticated");
