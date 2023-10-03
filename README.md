@@ -13,7 +13,7 @@ Developed a dynamic and visually appealing company website using React for the f
 - **Backend API Integration:** Utilized Django Rest Framework APIs to fetch and display dynamic content from the backend, ensuring real-time availability of information
 
 ### Technologies Used
-- React, Django Rest Framework, HTML/CSS, SACC, Bootstrap and PostgreSQL
+- React, Django Rest Framework, HTML/CSS, SCSS, Bootstrap and PostgreSQL
 
 ### Project Link
 https://charichdebsportssolution.com/
